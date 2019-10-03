@@ -14,7 +14,12 @@ import com.lesstif.jira.services.IssueService
 
 import com.ullink.slack.simpleslackapi.listeners.SlackMessagePostedListener
 
+import org.slf4j.LoggerFactory
+import org.slf4j.Logger
+
 class JiraListener implements SlackMessagePostedListener  {
+
+  private final static Logger logger = LoggerFactory.getLogger(JiraListener.class)
 
     // Jira issue service, needed to query Jira
     def issueService
@@ -74,6 +79,7 @@ class JiraListener implements SlackMessagePostedListener  {
             new SlackPreparedMessage.Builder().withMessage(jiraIssueMessage).build()
           )
         } catch (Exception e) {
+          logger.error("Error occured", e)
           session.sendMessage(channelOnWhichMessageWasPosted,
             new SlackPreparedMessage.Builder().withMessage(usage).build()
           )

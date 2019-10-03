@@ -11,8 +11,13 @@ import com.ullink.slack.simpleslackapi.listeners.SlackMessagePostedListener
 import com.offbytwo.jenkins.JenkinsServer
 import com.offbytwo.jenkins.model.FolderJob
 
+import org.slf4j.LoggerFactory
+import org.slf4j.Logger
 
 class JenkinsListener implements SlackMessagePostedListener  {
+
+  private final static Logger logger = LoggerFactory.getLogger(JenkinsListener.class)
+
 
   static final def USAGE = """Usage: !jenkins <cmd> <args>
   Examples:
@@ -75,8 +80,7 @@ class JenkinsListener implements SlackMessagePostedListener  {
             new SlackPreparedMessage.Builder().withMessage(jenkinsMessage).build()
           )
         } catch (Exception e) {
-          println e
-          e.printStackTrace()
+          logger.error("Error occured", e)
           session.sendMessage(channelOnWhichMessageWasPosted,
             new SlackPreparedMessage.Builder().withMessage(USAGE).build()
           )

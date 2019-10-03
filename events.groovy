@@ -1,6 +1,6 @@
 @Grapes([
     @Grab(group='com.ullink.slack', module='simpleslackapi', version='1.2.0'),
-    @Grab(group='com.lesstif', module='jira-rest-api', version='0.8.2'),
+    @Grab(group='com.lesstif', module='jira-rest-api', version='0.8.3'),
     @Grab(group='com.sun.jersey', module='jersey-core', version='1.19.4'),
     @Grab(group='com.offbytwo.jenkins', module='jenkins-client', version='0.3.8'),
 ])
@@ -20,7 +20,7 @@ import ch.qos.logback.core.Appender
 
 import fr.spironet.slackbot.*
 
-LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
+LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory()
 for (ch.qos.logback.classic.Logger log : lc.getLoggerList()) {
       log.setLevel(Level.INFO)
 }
