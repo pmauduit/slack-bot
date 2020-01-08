@@ -96,27 +96,27 @@ class OdooListener implements SlackMessagePostedListener  {
        Date today = calendar.getTime()
        calendar.add(Calendar.DAY_OF_YEAR, 1)
        Date tomorrow = calendar.getTime()
-       
+
        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd")
        SimpleDateFormat fromOdooDateFmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-       
+
        Object[] domain = [
            [ "check_in", ">=", format.format(today) + "T00:00:00.0Z"],
            [ "check_in", "<=", format.format(tomorrow) + "T00:00:00.0Z"]
          ]
-       
+
        Map<String, Object>[] ret = oeExecutor.searchRead(OeModel.HR_ATTENDANCE.getName(),
            Arrays.asList(domain), (Integer) null, "check_in","check_out")
-       
+
        SimpleDateFormat outputOdooFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
        outputOdooFormat.setTimeZone(TimeZone.getTimeZone("GMT"))
-       
+
        long minutes = 0
-       
+
        for (int i = 0 ; i < ret.length ; i ++) {
          Map current = (Map) ret[i]
            Object o = current.get("check_out")
-       
+
            Date cIn  = outputOdooFormat.parse(current.get("check_in").toString().replaceAll("\"", ""))
            Date cOut
            if (! current.get("check_out").equals("false")) {
@@ -124,11 +124,13 @@ class OdooListener implements SlackMessagePostedListener  {
            } else {
              cOut = new Date()
            }
-       
+
          minutes += ChronoUnit.MINUTES.between(cIn.toInstant(), cOut.toInstant())
        }
-      return String.format("""```
-        done %02d:%02d over 07:42
-        ```""", minutes / 60 as Integer, minutes % 60 as Integer)
+      def progress = 100 * minutes / 462 as float
+      progress /= 5 as int
+      if (progress > 20) progress = 20
+
+      return String.format("done %02d:%02d over 07:42\n```\n[${"▓".multiply(progress)}${" ".multiply(20 - progress)}] ```\n", minutes / 60 as Integer, minutes % 60 as Integer)
    }
 }
