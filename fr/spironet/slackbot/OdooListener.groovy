@@ -82,6 +82,12 @@ class OdooListener implements SlackMessagePostedListener  {
             )
             return
           }
+          else if (arg == "week") {
+            session.sendMessage(channelOnWhichMessageWasPosted,
+                    totalTimeWeek()
+            )
+            return
+          }
         } catch (Exception e) {
           logger.error("Error occured", e)
           session.sendMessage(channelOnWhichMessageWasPosted,
@@ -90,6 +96,51 @@ class OdooListener implements SlackMessagePostedListener  {
         }
       }
     }
+   private def totalTimeWeek() {
+       Calendar calendar = Calendar.getInstance()
+       calendar.add(Calendar.DAY_OF_YEAR, 1)
+       Date tomorrow = calendar.getTime()
+
+       def cal = Calendar.instance
+       while (cal.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
+           cal.add(Calendar.DAY_OF_WEEK, -1)
+       }
+       Date lastMonday = cal.time
+
+       SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd")
+       SimpleDateFormat fromOdooDateFmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+
+       Object[] domain = [
+           [ "check_in", ">=", format.format(lastMonday) + "T00:00:00.0Z"],
+           [ "check_in", "<=", format.format(tomorrow)   + "T00:00:00.0Z"]
+         ]
+
+       Map<String, Object>[] ret = oeExecutor.searchRead(OeModel.HR_ATTENDANCE.getName(),
+           Arrays.asList(domain), (Integer) null, "check_in","check_out")
+
+       SimpleDateFormat outputOdooFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+       outputOdooFormat.setTimeZone(TimeZone.getTimeZone("GMT"))
+
+       long minutes = 0
+
+       for (int i = 0 ; i < ret.length ; i ++) {
+         Map current = (Map) ret[i]
+           Object o = current.get("check_out")
+           Date cIn  = outputOdooFormat.parse(current.get("check_in").toString().replaceAll("\"", ""))
+           Date cOut
+           if (! current.get("check_out").equals("false")) {
+             cOut = outputOdooFormat.parse(current.get("check_out").toString().replaceAll("\"", ""))
+           } else {
+             cOut = new Date()
+           }
+         minutes += ChronoUnit.MINUTES.between(cIn.toInstant(), cOut.toInstant())
+       }
+      def progress = 100 * minutes / 2310 as float
+      progress /= 5 as int
+      if (progress > 20) progress = 20
+      return String.format("done %02d:%02d over 38:30\n```\n[${"▓".multiply(progress)}${" ".multiply(20 - progress)}] ```\n", minutes / 60 as Integer, minutes % 60 as Integer)
+   }
+
 
    private def totalTimeToday() {
        Calendar calendar = Calendar.getInstance()
