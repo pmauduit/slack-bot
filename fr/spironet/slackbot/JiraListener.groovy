@@ -25,9 +25,10 @@ class JiraListener implements SlackMessagePostedListener  {
     def issueService
 
     def usage = """
-    Usage: !jira (<jira-id>|mine|monitoring)
+    Usage: !jira (<jira-id>|mine|monitoring|worklog <jira-id>)
       mine returns your opened issues ordered by priority
       monitoring returns the issues currently reported on the monitoring screen
+      worklog <jira-id> returns the worklog summarized by users of the provided JIRA issue
       <jira-id> returns the title and the description of the given JIRA issue
 
     Example: !jira GEO-2246
@@ -60,6 +61,25 @@ class JiraListener implements SlackMessagePostedListener  {
       return new SlackPreparedMessage.Builder().withMessage(ret).build()
     }
 
+    private SlackPreparedMessage issueWorklog(def jiraIssue) {
+        def issue = issueService.getIssue(jiraIssue)
+        def workLog = issue.getFields().getWorklog()
+        def timeByUsers = [:]
+        for (def wle : workLog.getWorklogs()) {
+          def author = wle.getUpdateauthor().getDisplayname()
+          def timeSpent = wle.getTimeSpentSeconds()
+          if (timeByUsers[author] == null)
+              timeByUsers[author] = 0
+          timeByUsers[author] += timeSpent
+        }
+        def ret = "Worklog for ${jiraIssue}:\n"
+        timeByUsers.each { i,t ->
+          // Morph seconds to hh:mm:ss
+          def timeSpent =  new GregorianCalendar( 0, 0, 0, 0, 0, t, 0 ).time.format( 'HH:mm:ss' )
+          ret += "${i}: ${timeSpent}\n"
+        }
+        return new SlackPreparedMessage.Builder().withMessage(ret).build()
+    }
 
     @Override
     public void onEvent(SlackMessagePosted event, SlackSession session) {
@@ -85,6 +105,14 @@ class JiraListener implements SlackMessagePostedListener  {
           if (issueKey == "monitoring") {
             session.sendMessage(channelOnWhichMessageWasPosted,
               issuesMonitoring()
+            )
+            return
+          }
+          if (issueKey == "worklog") {
+            def issueKey2 = messageContent =~ /\!jira \S+ (\S+)/
+            issueKey2 = issueKey2[0][1]
+            session.sendMessage(channelOnWhichMessageWasPosted,
+              issueWorklog(issueKey2)
             )
             return
           }
