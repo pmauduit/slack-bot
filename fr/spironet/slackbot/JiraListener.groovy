@@ -25,8 +25,9 @@ class JiraListener implements SlackMessagePostedListener  {
     def issueService
 
     def usage = """
-    Usage: !jira (<jira-id>|mine)
+    Usage: !jira (<jira-id>|mine|monitoring)
       mine returns your opened issues ordered by priority
+      monitoring returns the issues currently reported on the monitoring screen
       <jira-id> returns the title and the description of the given JIRA issue
 
     Example: !jira GEO-2246
@@ -48,6 +49,18 @@ class JiraListener implements SlackMessagePostedListener  {
       return new SlackPreparedMessage.Builder().withMessage(ret).build()
     }
 
+    private SlackPreparedMessage issuesMonitoring() {
+      // Same as filter here: https://jira.camptocamp.com/issues/?filter=12612
+      def jql = "project = GEO AND priority = Highest AND created >= -24h AND NOT status = Resolved"
+      def issues = issueService.getIssuesFromQuery(jql)
+      def ret = "Issues currently reported on the monitoring screen (${issues.issues.size()}):\n"
+      issues.issues.each {
+        ret += "${it.key} - ${it.fields.summary} - https://jira.camptocamp.com/browse/${it.key}\n"
+      }
+      return new SlackPreparedMessage.Builder().withMessage(ret).build()
+    }
+
+
     @Override
     public void onEvent(SlackMessagePosted event, SlackSession session) {
       SlackChannel channelOnWhichMessageWasPosted = event.getChannel()
@@ -66,6 +79,12 @@ class JiraListener implements SlackMessagePostedListener  {
           if (issueKey == "mine") {
             session.sendMessage(channelOnWhichMessageWasPosted,
               myIssues(messageSender)
+            )
+            return
+          }
+          if (issueKey == "monitoring") {
+            session.sendMessage(channelOnWhichMessageWasPosted,
+              issuesMonitoring()
             )
             return
           }
