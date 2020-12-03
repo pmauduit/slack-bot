@@ -40,12 +40,26 @@ class JiraListener implements SlackMessagePostedListener  {
       System.setProperty("jira.client.property",System.getenv("JIRA_CLIENT_PROPERTY_FILE"))
       issueService = new IssueService()
     }
+
+    private def getRelatedOrg(def issue) {
+      try {
+        issue.getFields().getCustomfield()["customfield_10900"]["name"][0]
+      } catch (def _) {
+        return null
+      }
+    }
+
     private SlackPreparedMessage myIssues(def slackUser) {
       def jql = "resolution = Unresolved AND assignee = '${slackUser.getUserMail()}' ORDER BY priority DESC, updated DESC"
       def issues = issueService.getIssuesFromQuery(jql)
       def ret = "Unresolved issues (${issues.issues.size()}):\n"
       issues.issues.each {
-        ret += "${it.key} - ${it.fields.summary} - https://jira.camptocamp.com/browse/${it.key}\n"
+        def currentOrg = getRelatedOrg(it)
+        ret += "${it.key}"
+        if (currentOrg != null) {
+          ret += " - ${currentOrg}"
+        }
+        ret += " - ${it.fields.summary} - https://jira.camptocamp.com/browse/${it.key}\n"
       }
       return new SlackPreparedMessage.Builder().withMessage(ret).build()
     }
@@ -72,12 +86,13 @@ class JiraListener implements SlackMessagePostedListener  {
               timeByUsers[author] = 0
           timeByUsers[author] += timeSpent
         }
-        def ret = "Worklog for ${jiraIssue}:\n"
+        def ret = "Worklog for ${jiraIssue}:\n```\n"
         timeByUsers.each { i,t ->
           // Morph seconds to hh:mm:ss
           def timeSpent =  new GregorianCalendar( 0, 0, 0, 0, 0, t, 0 ).time.format( 'HH:mm:ss' )
           ret += "${i}: ${timeSpent}\n"
         }
+        ret += "```\n"
         return new SlackPreparedMessage.Builder().withMessage(ret).build()
     }
 
