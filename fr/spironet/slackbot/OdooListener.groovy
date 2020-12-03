@@ -43,22 +43,27 @@ class OdooListener implements SlackMessagePostedListener  {
 
 
     def usage = """
-    Usage: !odoo <today>
-    Returns time passed on the current day.
+    Usage: !odoo <today|week>
+    Returns time passed on the current day / week.
     """
 
     def oeExecutor
-
+    def scheme
+    def host
+    def port
+    def username
+    def password
+    def db
 
     public OdooListener() {
-      def scheme   = System.getenv("ODOO_SCHEME")
-      def host     = System.getenv("ODOO_HOST")
-      def port     = System.getenv("ODOO_PORT") as int
-      def username = System.getenv("ODOO_USERNAME")
-      def password = System.getenv("ODOO_PASSWORD")
-      def db       = System.getenv("ODOO_DB")
+        scheme   = System.getenv("ODOO_SCHEME")
+        host     = System.getenv("ODOO_HOST")
+        port     = System.getenv("ODOO_PORT") as int
+        username = System.getenv("ODOO_USERNAME")
+        password = System.getenv("ODOO_PASSWORD")
+        db       = System.getenv("ODOO_DB")
 
-      this.oeExecutor  = OeExecutor.getInstance(scheme, host, port, db, username, password)
+        this.oeExecutor  = OeExecutor.getInstance(scheme, host, port, db, username, password)
     }
 
     @Override
@@ -90,6 +95,13 @@ class OdooListener implements SlackMessagePostedListener  {
           }
         } catch (Exception e) {
           logger.error("Error occured", e)
+          if (e.getMessage().contains("Odoo Session Expired")) {
+             this.oeExecutor.logout()
+             this.oeExecutor = OeExecutor.getInstance(scheme, host, port, db, username, password)
+             // retry
+             onEvent(event, session)
+             return
+          }
           session.sendMessage(channelOnWhichMessageWasPosted,
             new SlackPreparedMessage.Builder().withMessage(usage).build()
           )
