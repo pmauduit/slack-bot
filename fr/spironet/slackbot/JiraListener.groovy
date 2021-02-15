@@ -25,7 +25,7 @@ class JiraListener implements SlackMessagePostedListener  {
     def issueService
 
     def usage = """
-    Usage: !jira (<jira-id>|mine|monitoring|worklog <jira-id>)
+    Usage: !jira (<jira-id>|mine|user <username>|monitoring|worklog <jira-id>)
       mine returns your opened issues ordered by priority
       monitoring returns the issues currently reported on the monitoring screen
       worklog <jira-id> returns the worklog summarized by users of the provided JIRA issue
@@ -49,9 +49,12 @@ class JiraListener implements SlackMessagePostedListener  {
       }
     }
 
-    private SlackPreparedMessage myIssues(def slackUser) {
-      def jql = "resolution = Unresolved AND assignee = '${slackUser.getUserMail()}' ORDER BY priority DESC, updated DESC"
+    private SlackPreparedMessage myIssues(def slackUserMail) {
+      def jql = "resolution = Unresolved AND assignee = '${slackUserMail}' ORDER BY priority DESC, updated DESC"
       def issues = issueService.getIssuesFromQuery(jql)
+      if (issues.issues.size() == 0) {
+          return new SlackPreparedMessage.Builder().withMessage("No issues for this user").build()
+      }
       def ret = "Unresolved issues (${issues.issues.size()}):\n"
       issues.issues.each {
         def currentOrg = getRelatedOrg(it)
@@ -113,8 +116,14 @@ class JiraListener implements SlackMessagePostedListener  {
           // Listing my issues
           if (issueKey == "mine") {
             session.sendMessage(channelOnWhichMessageWasPosted,
-              myIssues(messageSender)
+              myIssues(messageSender.getUserMail())
             )
+            return
+          }
+          if (issueKey == "user") {
+             def userName = messageContent =~ /\!jira \S+ (\S+)/
+             userName = userName[0][1]
+             session.sendMessage(channelOnWhichMessageWasPosted, myIssues(userName))
             return
           }
           if (issueKey == "monitoring") {
