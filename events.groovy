@@ -4,8 +4,8 @@
     @Grab(group='com.sun.jersey', module='jersey-core', version='1.19.4'),
     @Grab(group='com.offbytwo.jenkins', module='jenkins-client', version='0.3.8'),
     @Grab('org.qfast.odoo-rpc:odoo-jsonrpc:1.0'),
-    @Grab(group='org.kohsuke', module='github-api', version='1.90')
-
+    @Grab(group='org.kohsuke', module='github-api', version='1.90'),
+    @Grab(group='com.squareup.okhttp3', module='okhttp', version='4.9.1')
 ])
 
 import com.ullink.slack.simpleslackapi.SlackChannel
@@ -37,3 +37,4 @@ session.addMessagePostedListener(new JiraListener())
 session.addMessagePostedListener(new JenkinsListener())
 session.addMessagePostedListener(new OdooListener())
 session.addMessagePostedListener(new GithubListener())
+session.addMessagePostedListener(new TempoListener())
