@@ -43,8 +43,9 @@ class OdooListener implements SlackMessagePostedListener  {
 
 
     def usage = """
-    Usage: !odoo <today|week>
-    Returns time passed on the current day / week.
+    Usage: !odoo <today|week|ts>
+    today|week: Returns time passed on the current day / week.
+    ts: Displays a summary of the attendances suitable to fill in my timesheet.
     """
 
     def oeExecutor
@@ -93,6 +94,13 @@ class OdooListener implements SlackMessagePostedListener  {
             )
             return
           }
+          else if (arg == "ts") {
+            session.sendMessage(channelOnWhichMessageWasPosted,
+                    timeSheet()
+            )
+            return
+          }
+
         } catch (Exception e) {
           logger.error("Error occured", e)
           if (e.getMessage().contains("Odoo Session Expired")) {
@@ -108,6 +116,61 @@ class OdooListener implements SlackMessagePostedListener  {
         }
       }
     }
+   private def timeSheet() {
+       Calendar cal = Calendar.getInstance()
+       Date now = cal.getTime()
+       cal.add(Calendar.DAY_OF_YEAR, -10)
+       Date lastWeek = cal.getTime()
+
+       SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd")
+       SimpleDateFormat fromOdooDateFmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+
+       Object[] domain = [
+           [ "check_in", ">=", format.format(lastWeek) + "T00:00:00.0Z"],
+           [ "check_in", "<=", format.format(now)   + "T00:00:00.0Z"]
+         ]
+
+       Map<String, Object>[] ret = oeExecutor.searchRead(OeModel.HR_ATTENDANCE.getName(),
+           Arrays.asList(domain), (Integer) null, "check_in","check_out")
+
+       SimpleDateFormat outputOdooFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+       outputOdooFormat.setTimeZone(TimeZone.getTimeZone("GMT"))
+
+       long minutes = 0
+       def  perDay = [:]
+       def currentDay = null
+       for (int i = 0 ; i < ret.length ; i ++) {
+         Map current = (Map) ret[i]
+           Object o = current.get("check_out")
+           Date cIn  = outputOdooFormat.parse(current.get("check_in").toString().replaceAll("\"", ""))
+           def nd = format.format(cIn)
+           if (currentDay == null) {
+             currentDay = nd
+           }
+           if (nd != currentDay) {
+             perDay[currentDay] = minutes
+             currentDay = nd
+             minutes = 0
+           }
+           Date cOut
+           if (! current.get("check_out").equals("false")) {
+             cOut = outputOdooFormat.parse(current.get("check_out").toString().replaceAll("\"", ""))
+           } else {
+             cOut = new Date()
+           }
+         minutes += ChronoUnit.MINUTES.between(cIn.toInstant(), cOut.toInstant())
+       }
+      def retstr = ""
+      perDay.reverseEach { k,v ->
+        def h = v / 60 as Integer
+        def m = v % 60 as Integer
+        def timeSpent = String.format("%02d:%02d", h, m)
+        retstr += "${k}: ${timeSpent}\n"
+      }
+      return "Attendances on Odoo for the last 8 days:\n```${retstr}```"
+   }
+
+
    private def totalTimeWeek() {
        Calendar calendar = Calendar.getInstance()
        calendar.add(Calendar.DAY_OF_YEAR, 1)
