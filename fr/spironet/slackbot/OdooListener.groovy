@@ -131,7 +131,7 @@ class OdooListener implements SlackMessagePostedListener  {
          ]
 
        Map<String, Object>[] ret = oeExecutor.searchRead(OeModel.HR_ATTENDANCE.getName(),
-           Arrays.asList(domain), (Integer) null, "check_in","check_out")
+           Arrays.asList(domain), (Integer) 0, (Integer) 0, null, "check_in","check_out")
 
        SimpleDateFormat outputOdooFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
        outputOdooFormat.setTimeZone(TimeZone.getTimeZone("GMT"))
@@ -191,7 +191,7 @@ class OdooListener implements SlackMessagePostedListener  {
          ]
 
        Map<String, Object>[] ret = oeExecutor.searchRead(OeModel.HR_ATTENDANCE.getName(),
-           Arrays.asList(domain), (Integer) null, "check_in","check_out")
+           Arrays.asList(domain), (Integer) 0, (Integer) 0, null, "check_in","check_out")
 
        SimpleDateFormat outputOdooFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
        outputOdooFormat.setTimeZone(TimeZone.getTimeZone("GMT"))
@@ -232,7 +232,7 @@ class OdooListener implements SlackMessagePostedListener  {
          ]
 
        Map<String, Object>[] ret = oeExecutor.searchRead(OeModel.HR_ATTENDANCE.getName(),
-           Arrays.asList(domain), (Integer) null, "check_in","check_out")
+           Arrays.asList(domain), (Integer) 0, (Integer) 0, null, "check_in","check_out")
 
        SimpleDateFormat outputOdooFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
        outputOdooFormat.setTimeZone(TimeZone.getTimeZone("GMT"))
