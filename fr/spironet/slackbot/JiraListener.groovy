@@ -25,8 +25,9 @@ class JiraListener implements SlackMessagePostedListener  {
     def issueService
 
     def usage = """
-    Usage: !jira (<jira-id>|mine|user <username>|monitoring|worklog <jira-id>)
+    Usage: !jira (<jira-id>|mine|user <username>|monitoring|support|worklog <jira-id>)
       mine returns your opened issues ordered by priority
+      support returns the opened issues for the support since the begining of the current week
       monitoring returns the issues currently reported on the monitoring screen
       worklog <jira-id> returns the worklog summarized by users of the provided JIRA issue
       <jira-id> returns the title and the description of the given JIRA issue
@@ -73,7 +74,30 @@ class JiraListener implements SlackMessagePostedListener  {
       def issues = issueService.getIssuesFromQuery(jql)
       def ret = "Issues currently reported on the monitoring screen (${issues.issues.size()}):\n"
       issues.issues.each {
-        ret += "${it.key} - ${it.fields.summary} - https://jira.camptocamp.com/browse/${it.key}\n"
+        def currentOrg = getRelatedOrg(it)
+        ret += "${it.key}"
+        if (currentOrg != null) {
+          ret += " - ${currentOrg}"
+        }
+        ret += " - ${it.fields.summary} - https://jira.camptocamp.com/browse/${it.key}\n"
+      }
+      return new SlackPreparedMessage.Builder().withMessage(ret).build()
+    }
+
+    private SlackPreparedMessage issuesSupport() {
+      def jql = "project = GEO and created <= now() and created  >= startOfWeek()"
+      def issues = issueService.getIssuesFromQuery(jql)
+      def ret = "Issues currently opened in GEO support (${issues.issues.size()}):\n"
+      issues.issues.each {
+        def currentOrg = getRelatedOrg(it)
+        ret += "${it.key}"
+        if (currentOrg != null) {
+          ret += " - ${currentOrg}"
+        }
+        ret += " - ${it.fields.summary} - https://jira.camptocamp.com/browse/${it.key}\n"
+      }
+      if (issues.issues.size() <= 0) {
+        ret += "*none.*\n"
       }
       return new SlackPreparedMessage.Builder().withMessage(ret).build()
     }
@@ -129,6 +153,12 @@ class JiraListener implements SlackMessagePostedListener  {
           if (issueKey == "monitoring") {
             session.sendMessage(channelOnWhichMessageWasPosted,
               issuesMonitoring()
+            )
+            return
+          }
+          if (issueKey == "support") {
+            session.sendMessage(channelOnWhichMessageWasPosted,
+              issuesSupport()
             )
             return
           }
