@@ -18,8 +18,7 @@ class GithubListener implements SlackMessagePostedListener  {
 
   private final static Logger logger = LoggerFactory.getLogger(JiraListener.class)
 
-    def gh_login
-    def gh_password
+    def gh_token
 
     def usage = """
     Usage: !github <command> <args...>
@@ -47,8 +46,7 @@ class GithubListener implements SlackMessagePostedListener  {
     ]
 
     public GithubListener() {
-       gh_login = System.getenv("GITHUB_USERNAME")
-       gh_password = System.getenv("GITHUB_PASSWORD")
+       gh_token = System.getenv("GITHUB_TOKEN")
     }
 
     private def getOpenedPrsFromGithub(def gh, def repo) {
@@ -59,7 +57,7 @@ class GithubListener implements SlackMessagePostedListener  {
 
     private SlackPreparedMessage openedGeorchestraPrs() {
       def issues = [:]
-      def gh = GitHub.connect(gh_login, gh_password)
+      def gh = GitHub.connectUsingOAuth(gh_token)
 
       geor_repos.each {
         issues[it] = getOpenedPrsFromGithub(gh, it)
@@ -86,7 +84,7 @@ class GithubListener implements SlackMessagePostedListener  {
     private SlackPreparedMessage openedPrs(def repo) {
       def ret = "List of opened PR on repository ${repo}:\n"
 
-      def gh = GitHub.connect(gh_login, gh_password)
+      def gh = GitHub.connectUsingOAuth(gh_token)
       def prs = getOpenedPrsFromGithub(gh, repo)
       if (prs.size() == 0) {
         ret += "*none*\n"
