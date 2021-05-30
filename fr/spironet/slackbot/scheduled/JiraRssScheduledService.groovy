@@ -29,9 +29,7 @@ class JiraRssScheduledService extends AbstractScheduledService {
     protected void startUp() {}
 
     @Override
-    protected void shutDown() {
-        this.lastScrapeDate = LocalDateTime.now()
-    }
+    protected void shutDown() {}
 
     private SlackPreparedMessage prepareNotification(def issue, def issueChanges) {
         def message ="Issue *<${jiraRss.jiraRssUrl}/browse/${issue}|${issue}>*:\n"
@@ -69,6 +67,8 @@ class JiraRssScheduledService extends AbstractScheduledService {
             }
         } catch (Exception e) {
             logger.error("Error occured while running", e)
+        } finally {
+            this.lastScrapeDate = LocalDateTime.now()
         }
     }
 
