@@ -1,5 +1,6 @@
 package fr.spironet.slackbot.jira
 
+import com.google.common.cache.CacheBuilder
 import groovyx.net.http.HTTPBuilder
 import org.jsoup.Jsoup
 import org.jsoup.safety.Whitelist
@@ -8,6 +9,7 @@ import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import java.util.concurrent.TimeUnit
 
 class JiraRss {
     def jiraRssUrl
@@ -15,6 +17,11 @@ class JiraRss {
     def jiraPassword
 
     def http
+
+    def notificationMap = CacheBuilder.newBuilder()
+            .maximumSize(1000)
+            .expireAfterWrite(2, TimeUnit.HOURS)
+            .build()
 
     def JiraRss() {
         def props = new Properties()
@@ -77,10 +84,21 @@ class JiraRss {
             def cleanedTitle = Jsoup.clean(it.title.text(), Whitelist.none())
             def content = Jsoup.clean(it.content.text(), Whitelist.none())
             // removing from stuff from the title
-            cleanedTitle = cleanedTitle.substring(0, cleanedTitle.indexOf(issueId) + issueId.size())
+            if (cleanedTitle.indexOf(issueId) > 0) {
+                cleanedTitle = cleanedTitle.substring(0, cleanedTitle.indexOf(issueId) + issueId.size())
+            }
             def updatedAt = this.parseRssIsoInstantMsec(it.updated.text())
-            if (updatedAt > lastScrapeDate) {
+            def itemId = it.id.text()
+            // if id is empty, try something else
+            if (itemId?.isEmpty()) {
+                itemId = it.object.id.text()
+            }
+            // notifies only if the event has not been sent already
+            // limit to results newer than 2 hours before last scrape
+            if ((! itemId?.isEmpty() && ! this.notificationMap.getIfPresent(itemId))
+                    && (updatedAt > lastScrapeDate.minusHours(2))) {
                 ret.put(updatedAt, [ title: cleanedTitle, content: content ])
+                this.notificationMap.put(itemId, itemId)
             }
         }
         return ret
