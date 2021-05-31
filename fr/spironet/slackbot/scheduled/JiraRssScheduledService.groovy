@@ -54,15 +54,16 @@ class JiraRssScheduledService extends AbstractScheduledService {
                 return
             }
             def lmIssues = jiraRss.rssLatestModifiedIssues()
-            lmIssues.each { k,v ->
-                if (this.lastScrapeDate < v) {
-                    logger.info("${k} has been modified since last scrape ... need to get the details ...")
-                    def issueId = jiraRss.extractIssueIdFromUrl(k)
-                    def changes = jiraRss.rssGetModificationDetails(issueId, this.lastScrapeDate)
-                    if (! changes.isEmpty()) {
-                        def msg = this.prepareNotification(issueId, changes)
-                        slackSession.sendMessageToUser(botOwner, msg)
-                    }
+            // we do have the update date as value in the returned map
+            // but the expired events will be filtered afterwards anyway.
+            lmIssues.each { k,_ ->
+                def issueId = jiraRss.extractIssueIdFromUrl(k)
+                def changes = jiraRss.rssGetModificationDetails(issueId, this.lastScrapeDate).findAll {
+                    it.value.author != this.botOwnerEmail
+                }
+                if (! changes.isEmpty()) {
+                    def msg = this.prepareNotification(issueId, changes)
+                    slackSession.sendMessageToUser(botOwner, msg)
                 }
             }
         } catch (Exception e) {

@@ -93,11 +93,13 @@ class JiraRss {
             if (itemId?.isEmpty()) {
                 itemId = it.object.id.text()
             }
+            def author = it.author.email?.text()
+
             // notifies only if the event has not been sent already
             // limit to results newer than 2 hours before last scrape
             if ((! itemId?.isEmpty() && ! this.notificationMap.getIfPresent(itemId))
                     && (updatedAt > lastScrapeDate.minusHours(2))) {
-                ret.put(updatedAt, [ title: cleanedTitle, content: content ])
+                ret.put(updatedAt, [ title: cleanedTitle, content: content, author: author ])
                 this.notificationMap.put(itemId, itemId)
             }
         }
