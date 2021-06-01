@@ -20,7 +20,7 @@ class JiraRss {
 
     def notificationMap = CacheBuilder.newBuilder()
             .maximumSize(1000)
-            .expireAfterWrite(2, TimeUnit.HOURS)
+            .expireAfterWrite(4, TimeUnit.HOURS)
             .build()
 
     def JiraRss() {
