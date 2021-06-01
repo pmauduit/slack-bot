@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
 
 class JiraRssScheduledService extends AbstractScheduledService {
 
-    private final static Logger logger = LoggerFactory.getLogger(JiraScheduledService.class)
+    private final static Logger logger = LoggerFactory.getLogger(JiraRssScheduledService.class)
 
     def jiraRss = new JiraRss()
     def botOwnerEmail = System.getenv("BOT_OWNER_EMAIL")
