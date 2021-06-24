@@ -56,14 +56,14 @@ class JiraListener implements SlackMessagePostedListener  {
       if (issues.issues.size() == 0) {
           return new SlackPreparedMessage.Builder().withMessage("No issues for this user").build()
       }
-      def ret = ":warning: Unresolved issues (${issues.issues.size()}):\n"
+      def ret = ":warning: Unresolved issues *(${issues.issues.size()})*:\n"
       issues.issues.each {
         def currentOrg = getRelatedOrg(it)
-        ret += "${it.key}"
+        ret += "• *<https://jira.camptocamp.com/browse/${it.key}|${it.key}>*"
         if (currentOrg != null) {
-          ret += " - ${currentOrg}"
+          ret += " - :office: ${currentOrg}"
         }
-        ret += " - ${it.fields.summary} - https://jira.camptocamp.com/browse/${it.key}\n"
+        ret += " - ${it.fields.summary}\n"
       }
       return new SlackPreparedMessage.Builder().withMessage(ret).build()
     }
@@ -72,14 +72,14 @@ class JiraListener implements SlackMessagePostedListener  {
       // Same as filter here: https://jira.camptocamp.com/issues/?filter=12612
       def jql = "project = GEO AND priority = Highest AND created >= -24h AND NOT status = Resolved"
       def issues = issueService.getIssuesFromQuery(jql)
-      def ret = ":warning: Issues currently reported on the monitoring screen (${issues.issues.size()}):\n"
+      def ret = ":warning: Issues currently reported on the monitoring screen *(${issues.issues.size()})*:\n"
       issues.issues.each {
         def currentOrg = getRelatedOrg(it)
-        ret += "${it.key}"
+        ret += "• *<https://jira.camptocamp.com/browse/${it.key}|${it.key}>*"
         if (currentOrg != null) {
-          ret += " - ${currentOrg}"
+          ret += " - :office: ${currentOrg}"
         }
-        ret += " - ${it.fields.summary} - https://jira.camptocamp.com/browse/${it.key}\n"
+        ret += " - ${it.fields.summary}\n"
       }
       return new SlackPreparedMessage.Builder().withMessage(ret).build()
     }
@@ -87,14 +87,14 @@ class JiraListener implements SlackMessagePostedListener  {
     private SlackPreparedMessage issuesSupport() {
       def jql = "project = GEO and created <= now() and created  >= startOfWeek()"
       def issues = issueService.getIssuesFromQuery(jql)
-      def ret = ":warning: Issues currently opened in GEO support (${issues.issues.size()}):\n"
+      def ret = ":warning: Issues currently opened in GEO support *(${issues.issues.size()})*:\n"
       issues.issues.each {
         def currentOrg = getRelatedOrg(it)
-        ret += "${it.key}"
+        ret += "• *<https://jira.camptocamp.com/browse/${it.key}|${it.key}>*"
         if (currentOrg != null) {
-          ret += " - ${currentOrg}"
+          ret += " - :office: ${currentOrg}"
         }
-        ret += " - ${it.fields.summary} - https://jira.camptocamp.com/browse/${it.key}\n"
+        ret += " - ${it.fields.summary}\n"
       }
       if (issues.issues.size() <= 0) {
         ret += "*none.*\n"
@@ -113,13 +113,12 @@ class JiraListener implements SlackMessagePostedListener  {
               timeByUsers[author] = 0
           timeByUsers[author] += timeSpent
         }
-        def ret = ":spiral_note_pad: Worklog for ${jiraIssue}:\n```\n"
+        def ret = ":spiral_note_pad: Worklog for *<https://jira.camptocamp.com/browse/${jiraIssue}|${jiraIssue}>*:\n"
         timeByUsers.each { i,t ->
           // Morph seconds to hh:mm:ss
           def timeSpent =  new GregorianCalendar( 0, 0, 0, 0, 0, t, 0 ).time.format( 'HH:mm:ss' )
-          ret += "${i}: ${timeSpent}\n"
+          ret += "• ${i}: ${timeSpent}\n"
         }
-        ret += "```\n"
         return new SlackPreparedMessage.Builder().withMessage(ret).build()
     }
 
