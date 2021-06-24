@@ -167,7 +167,7 @@ class OdooListener implements SlackMessagePostedListener  {
         def timeSpent = String.format("%02d:%02d", h, m)
         retstr += "${k}: ${timeSpent}\n"
       }
-      return "Attendances on Odoo for the last 8 days:\n```${retstr}```"
+      return ":spiral_calendar_pad: Attendances on Odoo for the last 8 days:\n```${retstr}```"
    }
 
 
@@ -213,7 +213,7 @@ class OdooListener implements SlackMessagePostedListener  {
       def progress = 100 * minutes / 2310 as float
       progress /= 5 as int
       if (progress > 20) progress = 20
-      return String.format("done %02d:%02d over 38:30\n```\n[${"▓".multiply(progress)}${" ".multiply(20 - progress)}] ```\n", minutes / 60 as Integer, minutes % 60 as Integer)
+      return String.format(":clock4: Done *%02d:%02d* over *38:30* `[${"▓".multiply(progress)}${" ".multiply(20 - progress)}]`", minutes / 60 as Integer, minutes % 60 as Integer)
    }
 
 
@@ -257,6 +257,6 @@ class OdooListener implements SlackMessagePostedListener  {
       progress /= 5 as int
       if (progress > 20) progress = 20
 
-      return String.format("done %02d:%02d over 07:42\n```\n[${"▓".multiply(progress)}${" ".multiply(20 - progress)}] ```\n", minutes / 60 as Integer, minutes % 60 as Integer)
+      return String.format(":clock4: Done *%02d:%02d* over *07:42* `[${"▓".multiply(progress)}${" ".multiply(20 - progress)}]`", minutes / 60 as Integer, minutes % 60 as Integer)
    }
 }
