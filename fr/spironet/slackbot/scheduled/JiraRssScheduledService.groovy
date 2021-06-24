@@ -32,7 +32,7 @@ class JiraRssScheduledService extends AbstractScheduledService {
     protected void shutDown() {}
 
     private SlackPreparedMessage prepareNotification(def issue, def issueChanges) {
-        def message ="Issue *<${jiraRss.jiraRssUrl}/browse/${issue}|${issue}>*:\n"
+        def message =":spiral_note_pad: Issue *<${jiraRss.jiraRssUrl}/browse/${issue}|${issue}>*:\n"
 
         issueChanges.each {updateDate, infos ->
             message += "• ${infos.title} at ${updateDate.format(this.onlyTimeFormatter)}"
