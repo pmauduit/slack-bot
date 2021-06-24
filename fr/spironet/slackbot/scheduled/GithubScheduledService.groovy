@@ -14,11 +14,11 @@
 
     class GithubScheduledService extends AbstractScheduledService {
 
-        private def githubToken
         private def slackSession
         private def zid = ZoneId.systemDefault()
-        private def botOwner
         private def githubWatchedUser = System.getenv("GITHUB_WATCHED_USER")
+        private def botOwnerEmail = System.getenv("BOT_OWNER_EMAIL")
+        private def githubToken = System.getenv("GITHUB_TOKEN")
 
         private final static Logger logger = LoggerFactory.getLogger(GithubScheduledService.class)
 
@@ -29,23 +29,20 @@
 
         public GithubScheduledService(def slackSession) {
             this.slackSession = slackSession
-            this.githubToken = System.getenv("GITHUB_TOKEN")
-            def botOwnerEmail = System.getenv("BOT_OWNER_EMAIL")
-            this.botOwner = slackSession.findUserByEmail(botOwnerEmail)
-            if (this.botOwner == null) {
-                logger.error("bot owner not found: ${botOwnerEmail}")
-            }
         }
 
         @Override
         protected void runOneIteration() throws Exception {
-            if (this.botOwner == null) {
+            def botOwner = slackSession.findUserByEmail(this.botOwnerEmail)
+
+            if (botOwner == null) {
+                logger.info("botOwner not found, skipping iteration")
                 return
             }
             try {
                 this.callGithubReceivedEventApiForUser(this.githubWatchedUser)
             } catch (Exception e) {
-                logger.error("error occured", e)
+                logger.error("error occured while getting the notifications from Github", e)
             }
         }
 
