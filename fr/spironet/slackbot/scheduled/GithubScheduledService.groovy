@@ -40,7 +40,7 @@
                 return
             }
             try {
-                this.callGithubReceivedEventApiForUser(this.githubWatchedUser)
+                this.callGithubReceivedEventApiForUser(this.githubWatchedUser, botOwner)
             } catch (Exception e) {
                 logger.error("error occured while getting the notifications from Github", e)
             }
@@ -51,7 +51,7 @@
             return Scheduler.newFixedRateSchedule(0, 2, TimeUnit.MINUTES)
         }
 
-        private def notifyEvent(def event) {
+        private def notifyEvent(def event, def botOwner) {
             def phrase = ""
             if (event.type == "PushEvent") {
                 phrase = "${event.actor.login} pushed ${event.payload.size} commits onto ${event.repo.name} in ${event.payload.ref}:\n"
@@ -72,10 +72,11 @@
                 phrase = "I don't know how to handle github events of type '${event.type}' yet"
             }
             def msg = new SlackPreparedMessage.Builder().withMessage(phrase).build()
-            this.slackSession.sendMessageToUser(this.botOwner, msg)
+
+            this.slackSession.sendMessageToUser(botOwner, msg)
         }
 
-        def callGithubReceivedEventApiForUser(def user) {
+        def callGithubReceivedEventApiForUser(def user, def botOwner) {
             def actualPath = String.format("/users/%s/received_events", user)
             def http = new RESTClient("https://api.github.com")
             def response = http.get(path: actualPath,
@@ -90,12 +91,13 @@
                 // date of the event is it.created_at
                 def calendar = Instant.parse(it.created_at).toCalendar()
                 def eventLocalDt = LocalDateTime.ofInstant(calendar.toInstant(), zid)
-                def expired = LocalDateTime.now().minusMinutes(5) > eventLocalDt
+                def nowMinus2Hours = LocalDateTime.now().minusHours(2)
+                def expired =  (eventLocalDt < nowMinus2Hours)
                 if (expired) {
                     return
                 }
                 // else send the notification to the bot owner
-                this.notifyEvent(it)
+                this.notifyEvent(it, botOwner)
                 this.notificationMap.put(it.id, it.id)
             }
         }
