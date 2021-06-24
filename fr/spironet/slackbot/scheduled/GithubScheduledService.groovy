@@ -54,22 +54,22 @@
         private def notifyEvent(def event, def botOwner) {
             def phrase = ""
             if (event.type == "PushEvent") {
-                phrase = ":arrow_up: ${event.actor.login} pushed ${event.payload.size} commits onto ${event.repo.name} in ${event.payload.ref}:\n"
-                event.payload.commits.each { commit ->
-                    phrase += "\t${commit.message}\n"
-                }
+                phrase = ":arrow_up: ${event.actor.login} pushed ${event.payload.size} commits onto <https://github.com/${event.repo.name}|${event.repo.name}> in ${event.payload.ref}\n"
             } else if (event.type == "PullRequestEvent") {
                 // url of the PR will be in event.payload.pull_request.url
-                phrase = ":git-pull-request: ${event.actor.login} ${event.payload.action} PR #${event.payload.number} onto ${event.repo.name}"
+                phrase = ":git-pull-request: ${event.actor.login} ${event.payload.action} <${event.payload.pull_request.url}|PR #${event.payload.number}> onto <https://github.com/${event.repo.name}|${event.repo.name}>"
             } else if (event.type == "CreateEvent") {
-                phrase = ":git-compare: ${event.actor.login} created ${event.payload.ref_type} ${event.payload.ref} onto ${event.repo.name}"
+                if (event.payload.ref_type == "repository")
+                    phrase = ":factory: ${event.actor.login} created ${event.payload.ref_type} <https://github.com/${event.repo.name}|${event.repo.name}>"
+                else
+                    phrase = ":git-compare: ${event.actor.login} created ${event.payload.ref_type} ${event.payload.ref} onto <https://github.com/${event.repo.name}|${event.repo.name}>"
             } else if(event.type == "IssuesEvent") {
                 // url of the issue into event.payload.issue.url
                 // repository url into event.payload.issue.repository_url
-                phrase = ":spiral_note_pad: ${event.actor.login} ${event.payload.action} issue ${event.payload.issue.number} onto ${event.repo.name}:\n" +
+                phrase = ":spiral_note_pad: ${event.actor.login} ${event.payload.action} issue <${event.payload.issue.url}|#${event.payload.issue.number}> onto <https://github.com/${event.repo.name}|${event.repo.name}>:\n" +
                         "\t${event.payload.issue.title}"
             } else {
-                phrase = ":interrobang: I don't know how to handle github events of type '${event.type}' yet"
+                phrase = ":interrobang: I don't know how to handle github events of type '${event.type}' yet, see <https://docs.github.com/en/developers/webhooks-and-events/events/github-event-types|github documentation>"
             }
             def msg = new SlackPreparedMessage.Builder().withMessage(phrase).build()
 
