@@ -56,7 +56,7 @@ class JiraListener implements SlackMessagePostedListener  {
       if (issues.issues.size() == 0) {
           return new SlackPreparedMessage.Builder().withMessage("No issues for this user").build()
       }
-      def ret = "Unresolved issues (${issues.issues.size()}):\n"
+      def ret = ":warning: Unresolved issues (${issues.issues.size()}):\n"
       issues.issues.each {
         def currentOrg = getRelatedOrg(it)
         ret += "${it.key}"
@@ -72,7 +72,7 @@ class JiraListener implements SlackMessagePostedListener  {
       // Same as filter here: https://jira.camptocamp.com/issues/?filter=12612
       def jql = "project = GEO AND priority = Highest AND created >= -24h AND NOT status = Resolved"
       def issues = issueService.getIssuesFromQuery(jql)
-      def ret = "Issues currently reported on the monitoring screen (${issues.issues.size()}):\n"
+      def ret = ":warning: Issues currently reported on the monitoring screen (${issues.issues.size()}):\n"
       issues.issues.each {
         def currentOrg = getRelatedOrg(it)
         ret += "${it.key}"
@@ -87,7 +87,7 @@ class JiraListener implements SlackMessagePostedListener  {
     private SlackPreparedMessage issuesSupport() {
       def jql = "project = GEO and created <= now() and created  >= startOfWeek()"
       def issues = issueService.getIssuesFromQuery(jql)
-      def ret = "Issues currently opened in GEO support (${issues.issues.size()}):\n"
+      def ret = ":warning: Issues currently opened in GEO support (${issues.issues.size()}):\n"
       issues.issues.each {
         def currentOrg = getRelatedOrg(it)
         ret += "${it.key}"
@@ -113,7 +113,7 @@ class JiraListener implements SlackMessagePostedListener  {
               timeByUsers[author] = 0
           timeByUsers[author] += timeSpent
         }
-        def ret = "Worklog for ${jiraIssue}:\n```\n"
+        def ret = ":spiral_note_pad: Worklog for ${jiraIssue}:\n```\n"
         timeByUsers.each { i,t ->
           // Morph seconds to hh:mm:ss
           def timeSpent =  new GregorianCalendar( 0, 0, 0, 0, 0, t, 0 ).time.format( 'HH:mm:ss' )
@@ -172,10 +172,9 @@ class JiraListener implements SlackMessagePostedListener  {
           }
           // Describe a specific issue
           def issue = issueService.getIssue(issueKey)
-          String jiraIssueMessage = "Issue ${issueKey}: ${issue.getFields().getSummary()}\n\n"+
+          String jiraIssueMessage = "*Issue <https://jira.camptocamp.com/browse/${issueKey}|${issueKey}>*: ${issue.getFields().getSummary()}\n\n"+
           "${issue.getFields().getDescription()}\n\n"+
-          "Reported by: ${issue.getFields().getReporter().getName()}\n"+
-          "URL: https://jira.camptocamp.com/browse/${issueKey}"
+          "Reported by: ${issue.getFields().getReporter().getName()}"
           session.sendMessage(channelOnWhichMessageWasPosted,
             new SlackPreparedMessage.Builder().withMessage(jiraIssueMessage).build()
           )
