@@ -68,6 +68,9 @@
                 // repository url into event.payload.issue.repository_url
                 phrase = ":spiral_note_pad: ${event.actor.login} ${event.payload.action} issue <${event.payload.issue.url}|#${event.payload.issue.number}> onto <https://github.com/${event.repo.name}|${event.repo.name}>:\n" +
                         "\t${event.payload.issue.title}"
+            }else if (event.type == "IssueCommentEvent") {
+                phrase = ":spiral_note_pad: ${event.actor.login} ${event.payload.action} a comment on issue <${event.payload.issue.url}|${event.repo.name}#${event.payload.issue.number}>:\n"
+                phrase+= "```${event.payload.comment.body}```\n"
             } else {
                 phrase = ":interrobang: I don't know how to handle github events of type '${event.type}' yet, see <https://docs.github.com/en/developers/webhooks-and-events/events/github-event-types|github documentation>"
             }
