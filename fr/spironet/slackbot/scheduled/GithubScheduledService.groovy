@@ -55,26 +55,38 @@
             def phrase = ""
             if (event.type == "PushEvent") {
                 phrase = ":arrow_up: ${event.actor.login} pushed ${event.payload.size} commits onto <https://github.com/${event.repo.name}|${event.repo.name}> in ${event.payload.ref}\n"
-            } else if (event.type == "PullRequestEvent") {
+            }
+            else if (event.type == "PullRequestEvent") {
                 // url of the PR will be in event.payload.pull_request.url
                 phrase = ":git-pull-request: ${event.actor.login} ${event.payload.action} <https://github.com/${event.repo.name}/pull/${event.payload.number}|PR #${event.payload.number}> onto <https://github.com/${event.repo.name}|${event.repo.name}>"
-            } else if (event.type == "CreateEvent") {
+            }
+            else if (event.type == "CreateEvent") {
                 if (event.payload.ref_type == "repository")
                     phrase = ":factory: ${event.actor.login} created ${event.payload.ref_type} <https://github.com/${event.repo.name}|${event.repo.name}>"
                 else
                     phrase = ":git-compare: ${event.actor.login} created ${event.payload.ref_type} ${event.payload.ref} onto <https://github.com/${event.repo.name}|${event.repo.name}>"
-            } else if(event.type == "IssuesEvent") {
+            }
+            else if (event.type == "DeleteEvent") {
+                if (event.payload.ref_type == "repository")
+                    phrase = ":x: ${event.actor.login} deleted ${event.payload.ref_type} <https://github.com/${event.repo.name}|${event.repo.name}>"
+                else
+                    phrase = ":x: ${event.actor.login} deleted ${event.payload.ref_type} ${event.payload.ref} onto <https://github.com/${event.repo.name}|${event.repo.name}>"
+            }
+            else if(event.type == "IssuesEvent") {
                 // url of the issue into event.payload.issue.url
                 // repository url into event.payload.issue.repository_url
                 phrase = ":spiral_note_pad: ${event.actor.login} ${event.payload.action} issue <${event.payload.issue.url}|#${event.payload.issue.number}> onto <https://github.com/${event.repo.name}|${event.repo.name}>:\n" +
                         "\t${event.payload.issue.title}"
-            } else if (event.type == "IssueCommentEvent") {
+            }
+            else if (event.type == "IssueCommentEvent") {
                 phrase = ":spiral_note_pad: ${event.actor.login} ${event.payload.action} a comment on issue <https://github.com/${event.repo.name}/issues/${event.payload.issue.number}|${event.repo.name}#${event.payload.issue.number}>:\n"
                 phrase+= "```${event.payload.comment.body}```\n"
-            } else if (event.type == "PullRequestReviewCommentEvent") {
+            }
+            else if (event.type == "PullRequestReviewCommentEvent") {
                 phrase = ":git-pull-request: ${event.actor.login} ${event.payload.action} a comment on PR <https://github.com/${event.repo.name}/pull/${event.payload.pull_request.number}|${event.repo.name}#${event.payload.pull_request.number}>:\n"
                 phrase+= "```${event.payload.comment.body}```\n"
-            } else {
+            }
+            else {
                 phrase = ":interrobang: I don't know how to handle github events of type '${event.type}' yet, see <https://docs.github.com/en/developers/webhooks-and-events/events/github-event-types|github documentation>"
             }
             def msg = new SlackPreparedMessage.Builder().withMessage(phrase).build()
