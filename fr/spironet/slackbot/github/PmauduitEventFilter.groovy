@@ -11,10 +11,17 @@ class PmauduitEventFilter implements EventFilter {
 
     private final static Logger logger = LoggerFactory.getLogger(PmauduitEventFilter.class)
 
+    private def filteredGithubAccount = [
+            "sbrunner",
+            "nbessi",
+            "Camille0907",
+            "faselm"
+    ]
+
     @Override
     boolean doFilter(def event) {
         try {
-            if (event.actor.login == "sbrunner") {
+            if (event.actor.login in this.filteredGithubAccount) {
                 return true
             }
             if (event.repo.name == "geonetwork/core-geonetwork") {
