@@ -7,7 +7,7 @@ import com.ullink.slack.simpleslackapi.SlackUser
 import com.ullink.slack.simpleslackapi.events.SlackMessagePosted
 import com.ullink.slack.simpleslackapi.SlackPreparedMessage
 import com.ullink.slack.simpleslackapi.listeners.SlackMessagePostedListener
-
+import groovyx.net.http.RESTClient
 import org.kohsuke.github.GitHub
 import org.kohsuke.github.GHIssueState
 
@@ -70,9 +70,9 @@ class GithubListener implements SlackMessagePostedListener  {
       } else {
           issues.each { k,v ->
               if (v.size() > 0) {
-                  ret += "List of opened PR on repository ${k}:\n"
+                  ret += ":git-pull-request: List of opened PR on repository *<https://github.com/camptocamp/${k}|${k}>*:\n"
                       v.each {
-                          ret += "* ${it.getTitle()} - ${it.getHtmlUrl()} (author: ${it.getUser().getLogin()})\n"
+                          ret += "• *<${it.getHtmlUrl()}|${it.getTitle()}>* - (author: ${it.getUser().getLogin()})\n"
                       }
               }
               ret += "\n"
@@ -90,7 +90,31 @@ class GithubListener implements SlackMessagePostedListener  {
         ret += "*none*\n"
       } else {
         prs.each { pr ->
-           ret += "* ${pr.getTitle()} - ${pr.getHtmlUrl()} (author: ${pr.getUser().getLogin()})\n"
+           ret += "• *<${pr.getHtmlUrl()}|${pr.getTitle()}>* - (author: ${pr.getUser().getLogin()})\n"
+        }
+      }
+      return new SlackPreparedMessage.Builder().withMessage(ret).build()
+    }
+
+    SlackPreparedMessage findRepositories(def topics) {
+      def topicsQuery = topics.collect {
+        "topic:${it}"
+      }.join('+')
+
+      def actualQuery = String.format("q=org:camptocamp+${topicsQuery}")
+      def http = new RESTClient("https://api.github.com")
+      def response = http.get(path: "/search/repositories",
+              queryString: actualQuery,
+              headers: ["Authorization": "Bearer ${this.gh_token}",
+                        "User-Agent": "groovyx.net.http.RESTClient"])
+      def ret = ""
+      if (response.data.total_count == 0) {
+        ret = ":ledger: No github repository found in Camptocamp with topic *${topics}*\n"
+      }
+      else {
+        ret = ":ledger: Here are the github repositories in the Camptocamp organization with topic ${topics} *(${response.data.total_count})*\n"
+        response.data.items.each {
+          ret += "• *<${it.html_url}|${it.full_name}>* - ${it.description ? it.description : "_No description_"}\n"
         }
       }
       return new SlackPreparedMessage.Builder().withMessage(ret).build()
@@ -117,6 +141,9 @@ class GithubListener implements SlackMessagePostedListener  {
                 } else {
                   session.sendMessage(channelOnWhichMessageWasPosted, openedPrs(repository))
                 }
+          } else if (args[0] == "find") {
+            def topics = args[1..-1]
+            session.sendMessage(channelOnWhichMessageWasPosted, findRepositories(topics))
           }
         } catch (Exception e) {
           logger.error("Error occured", e)
@@ -126,4 +153,10 @@ class GithubListener implements SlackMessagePostedListener  {
         }
       }
     }
+
+  public static void main(String[] args) {
+      def ghLstnr = new GithubListener()
+      def msg = ghLstnr.findRepositories(["rennes"])
+      assert "camptocamp/georchestra-rennes-public" in msg.toString()
+  }
 }
