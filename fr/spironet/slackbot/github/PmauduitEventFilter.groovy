@@ -12,7 +12,7 @@ class PmauduitEventFilter implements EventFilter {
     private final static Logger logger = LoggerFactory.getLogger(PmauduitEventFilter.class)
 
     @Override
-    boolean doFilter(Object event) {
+    boolean doFilter(def event) {
         try {
             if (event.actor.login == "sbrunner") {
                 return true

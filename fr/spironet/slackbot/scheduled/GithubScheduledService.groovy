@@ -105,7 +105,7 @@
                     headers: ["Authorization": "Bearer ${this.githubToken}",
                               "User-Agent": "groovyx.net.http.RESTClient"])
             response.data.each {
-                if (this.eventFilter(it)) {
+                if (this.eventFilter.doFilter(it)) {
                     return
                 }
                 // each event have an unique id (it.id)
