@@ -3,6 +3,7 @@
     import com.google.common.cache.CacheBuilder
     import com.google.common.util.concurrent.AbstractScheduledService
     import com.ullink.slack.simpleslackapi.SlackPreparedMessage
+    import fr.spironet.slackbot.github.DefaultEventFilter
     import groovyx.net.http.RESTClient
     import org.slf4j.Logger
     import org.slf4j.LoggerFactory
@@ -19,6 +20,7 @@
         private def githubWatchedUser = System.getenv("GITHUB_WATCHED_USER")
         private def botOwnerEmail = System.getenv("BOT_OWNER_EMAIL")
         private def githubToken = System.getenv("GITHUB_TOKEN")
+        private def eventFilter = new DefaultEventFilter()
 
         private final static Logger logger = LoggerFactory.getLogger(GithubScheduledService.class)
 
@@ -29,6 +31,8 @@
 
         public GithubScheduledService(def slackSession) {
             this.slackSession = slackSession
+            def filterCls = Class.forName(System.getenv("GITHUB_EVENT_FILTER_CLASS"))
+            this.eventFilter = filterCls.newInstance()
         }
 
         @Override
@@ -101,6 +105,9 @@
                     headers: ["Authorization": "Bearer ${this.githubToken}",
                               "User-Agent": "groovyx.net.http.RESTClient"])
             response.data.each {
+                if (this.eventFilter(it)) {
+                    return
+                }
                 // each event have an unique id (it.id)
                 // skip the event if already in the notificationMap
                 if (this.notificationMap.getIfPresent(it.id)) {
