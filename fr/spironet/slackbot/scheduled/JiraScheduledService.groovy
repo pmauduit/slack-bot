@@ -51,9 +51,9 @@ class JiraScheduledService extends AbstractScheduledService
         if (issuesToNotify.size() == 0) {
             return null
         }
-        def message = ":warning: New issues coming from JIRA:\n"
+        def message = ":warning: New issues coming from JIRA *(${issuesToNotify.size()})*:\n"
         issuesToNotify.each {
-            message += "• <https://jira.camptocamp.com/browse/${it.key}|${it.key}> - ${it.fields.summary}\n"
+            message += "• *<https://jira.camptocamp.com/browse/${it.key}|${it.key}>* - ${it.fields.summary}\n"
         }
         return new SlackPreparedMessage.Builder().withMessage(message).build()
     }
