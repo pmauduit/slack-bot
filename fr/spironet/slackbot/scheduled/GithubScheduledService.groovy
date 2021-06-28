@@ -94,7 +94,7 @@
                 def actorLogin = event.actor.login
                 def repoName = event.repo.name
                 event.payload.pages.each { p ->
-                    phrase += ":page_facing_up: ${actorLogin} ${p.action} Wiki page *<${p.html_url|p.page_name}>* on *${repoName}*\n"
+                    phrase += ":page_facing_up: ${actorLogin} ${p.action} Wiki page *<${p.html_url}|${p.page_name}>* on *${repoName}*\n"
                 }
             }
             else {
