@@ -90,6 +90,13 @@
                 phrase = ":git-pull-request: ${event.actor.login} ${event.payload.action} a comment on PR <https://github.com/${event.repo.name}/pull/${event.payload.pull_request.number}|${event.repo.name}#${event.payload.pull_request.number}>:\n"
                 phrase+= "```${event.payload.comment.body}```\n"
             }
+            else if (event.type == "GollumEvent") {
+                def actorLogin = event.actor.login
+                def repoName = event.repo.name
+                event.payload.pages.each { p ->
+                    phrase += ":page_facing_up: ${actorLogin} ${p.action} Wiki page *<${p.html_url|p.page_name}>* on *${repoName}*\n"
+                }
+            }
             else {
                 phrase = ":interrobang: I don't know how to handle github events of type '${event.type}' yet, see <https://docs.github.com/en/developers/webhooks-and-events/events/github-event-types|github documentation>"
             }

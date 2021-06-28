@@ -24,9 +24,11 @@ class GithubListener implements SlackMessagePostedListener  {
     Usage: !github <command> <args...>
     Where command can be:
     * prs <repository>: lists the opened PRs on the given repository
+    * find topic [topics...]: lists the repositories which relate to the given topics
     examples:
     * `!github prs georchestra-rennes-configuration` will return the opened PRs on `camptocamp/georchestra-rennes-configuration`
     * `!github prs geor` will return the opened PRs on each c2c georchstra repositories
+    * `!github find rennes terraform` will return the git repositories related to the rennes project, having also the topic 'terraform'
     """
 
     def  geor_repos = [
