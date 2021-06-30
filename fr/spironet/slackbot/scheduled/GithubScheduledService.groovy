@@ -97,6 +97,9 @@
                     phrase += ":page_facing_up: ${actorLogin} ${p.action} Wiki page *<${p.html_url}|${p.page_name}>* on *${repoName}*\n"
                 }
             }
+            else if (event.type == "WatchEvent") {
+                phrase = ":eyes: ${event.actor.login} ${event.payload.action} watching *<https://github.com/${event.repo.name}|${event.repo.name}>*\n"
+            }
             else {
                 phrase = ":interrobang: I don't know how to handle github events of type '${event.type}' yet, see <https://docs.github.com/en/developers/webhooks-and-events/events/github-event-types|github documentation>"
             }
