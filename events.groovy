@@ -33,6 +33,7 @@ def jiraListener = new JiraListener()
 
 session.addMessagePostedListener(new DefaultListener())
 session.addMessagePostedListener(jiraListener)
+session.addMessagePostedListener(new ConfluenceListener())
 session.addMessagePostedListener(new JenkinsListener())
 session.addMessagePostedListener(new OdooListener())
 session.addMessagePostedListener(new GithubListener())
