@@ -49,11 +49,14 @@ class ConfluenceListener  implements SlackMessagePostedListener {
             ret = ":ledger: No confluence documents found for topic *${topics}*\n"
         }
         else {
-            ret = ":ledger: Here are the confluence documents found for topic ${topics} *(${response.data.size})*\n"
+            ret = ":ledger: Here are the confluence documents found for topic ${topics} *(${response.data.size} / ${response.data.totalSize})*\n"
             response.data.results.each {
                 def contentType = it.content.type
                 def space = "<${this.confluenceServerUrl}/confluence${it.resultGlobalContainer.displayUrl}|${it.resultGlobalContainer.title}>"
                 ret += "• *<${this.confluenceServerUrl}/confluence${it.url}|${it.title}>* - ${contentType} in space ${space}\n"
+            }
+            if (response.data.totalSize > response.data.size) {
+                ret += "*partial results returned, use the <${this.confluenceServerUrl}|confluence search tool> to find the other ones.*"
             }
         }
         return new SlackPreparedMessage.Builder().withMessage(ret).build()
