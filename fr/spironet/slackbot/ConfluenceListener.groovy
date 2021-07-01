@@ -19,11 +19,13 @@ class ConfluenceListener  implements SlackMessagePostedListener {
 
     private def usage = """
     Usage: `!confluence (usage|blogs tag [tags...]|pages tag [tags...]|search tag [tags...])`
-      usage: shows this help message
-      blogs: search only the blogs tagged with the given tags as arguments
-      pages: search only the pages tagged with the given tags as arguments
-      search: search given the tags given as arguments
+    • usage: shows this help message
+    • blogs: search only the blogs tagged with the given tags as arguments
+    • pages: search only the pages tagged with the given tags as arguments
+    • search: search given the tags given as arguments
     Example: `!confluence search georchestra lopocs`
+    
+    _Note: Only the first 10 results are returned_.
     """
 
     SlackPreparedMessage usage() {
@@ -102,7 +104,7 @@ class ConfluenceListener  implements SlackMessagePostedListener {
         }
 
         if (messageContent.contains("!confluence")) {
-            def message = processCommand(messagecontent)
+            def message = processCommand(messageContent)
             slackSession.sendMessage(channelOnWhichMessageWasPosted, message)
         }
     }
