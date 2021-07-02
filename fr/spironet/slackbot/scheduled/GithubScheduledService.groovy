@@ -83,12 +83,14 @@
                 phrase += "```${event.payload.issue.title}```"
             }
             else if (event.type == "IssueCommentEvent") {
+                def payloadBody = event.payload.comment.body.replace("```","").take(250) +  (event.payload.comment.body.size() > 250 ? "...":"")
                 phrase = ":spiral_note_pad: ${event.actor.login} ${event.payload.action} a comment on issue <https://github.com/${event.repo.name}/issues/${event.payload.issue.number}|${event.repo.name}#${event.payload.issue.number}>:\n"
-                phrase+= "```${event.payload.comment.body}```\n"
+                phrase+= "```${payloadBody}```\n"
             }
             else if (event.type == "PullRequestReviewCommentEvent") {
+                def payloadBody = event.payload.comment.body.replace("```","").take(250) +  (event.payload.comment.body.size() > 250 ? "...":"")
                 phrase = ":git-pull-request: ${event.actor.login} ${event.payload.action} a comment on PR <https://github.com/${event.repo.name}/pull/${event.payload.pull_request.number}|${event.repo.name}#${event.payload.pull_request.number}>:\n"
-                phrase+= "```${event.payload.comment.body}```\n"
+                phrase+= "```${payloadBody}```\n"
             }
             else if (event.type == "GollumEvent") {
                 def actorLogin = event.actor.login
