@@ -34,8 +34,9 @@ class ConfluenceListener  implements SlackMessagePostedListener {
 
     SlackPreparedMessage search(def types, def topics) {
         def typesIn = types.collect{ "\"${it}\""}.join(",")
-        def topicsIn = topics.collect{ "\"${it}\""}.join(",")
-        def cql = "type IN (${typesIn}) AND label IN (${topicsIn})"
+        def topicsFilter = "label = " + topics.collect{ "\"${it}\""}.join(" AND label = ")
+
+        def cql = "type IN (${typesIn}) AND ${topicsFilter}"
         cql = "cql=" + java.net.URLEncoder.encode(cql, "UTF-8")
         cql += "&limit=10"
         def http = new RESTClient(this.confluenceServerUrl)
