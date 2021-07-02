@@ -79,7 +79,7 @@
             else if(event.type == "IssuesEvent") {
                 // url of the issue into event.payload.issue.url
                 // repository url into event.payload.issue.repository_url
-                phrase = ":spiral_note_pad: ${event.actor.login} ${event.payload.action} issue <${event.payload.issue.url}|#${event.payload.issue.number}> onto <https://github.com/${event.repo.name}|${event.repo.name}>:\n"
+                phrase = ":spiral_note_pad: ${event.actor.login} ${event.payload.action} issue <https://github.com/${event.repo.name}/issues/${event.payload.issue.number}|#${event.payload.issue.number}> onto <https://github.com/${event.repo.name}|${event.repo.name}>:\n"
                 phrase += "```${event.payload.issue.title}```"
             }
             else if (event.type == "IssueCommentEvent") {
