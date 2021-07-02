@@ -15,6 +15,7 @@ import ch.qos.logback.classic.LoggerContext
 import com.ullink.slack.simpleslackapi.SlackSession
 import com.ullink.slack.simpleslackapi.impl.SlackSessionFactory
 import fr.spironet.slackbot.*
+import fr.spironet.slackbot.scheduled.ConfluenceRssScheduledService
 import fr.spironet.slackbot.scheduled.GithubScheduledService
 import fr.spironet.slackbot.scheduled.JiraRssScheduledService
 import fr.spironet.slackbot.scheduled.JiraScheduledService
@@ -43,6 +44,8 @@ JiraScheduledService jiraService = new JiraScheduledService(session, jiraListene
 jiraService.startAsync()
 JiraRssScheduledService jiraRssService = new JiraRssScheduledService(session)
 jiraRssService.startAsync()
+ConfluenceRssScheduledService confluenceService = new ConfluenceRssScheduledService(session)
+confluenceService.startAsync()
 GithubScheduledService githubService = new GithubScheduledService(session)
 githubService.startAsync()
 
