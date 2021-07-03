@@ -280,6 +280,9 @@ class OdooListener implements SlackMessagePostedListener  {
         if (attendance == null) {
             message = ":interrobang: user *${user}* not found."
         }
+        else if (attendance == false) {
+            message = ":interrobang: user *${user}* found, but Odoo refused to give me the attendance state."
+        }
         else if (attendance == "checked_out") {
             message = ":zzz: relying on Odoo, *${user}* is currently *signed out*."
         } else {
