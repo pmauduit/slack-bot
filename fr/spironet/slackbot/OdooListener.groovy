@@ -1,32 +1,20 @@
 package fr.spironet.slackbot
 
-import com.ullink.slack.simpleslackapi.SlackChannel
-import com.ullink.slack.simpleslackapi.SlackSession
-import com.ullink.slack.simpleslackapi.impl.SlackSessionFactory
-import com.ullink.slack.simpleslackapi.SlackUser
-import com.ullink.slack.simpleslackapi.events.SlackMessagePosted
-import com.ullink.slack.simpleslackapi.SlackPreparedMessage
-import com.ullink.slack.simpleslackapi.listeners.SlackMessagePostedListener
 
-import com.ullink.slack.simpleslackapi.listeners.SlackMessagePostedListener
-
-import org.slf4j.LoggerFactory
-import org.slf4j.Logger
-
-
-import java.text.ParseException
-import java.text.SimpleDateFormat
-import java.time.temporal.ChronoUnit
-import java.util.Arrays
-import java.util.Calendar
-import java.util.Date
-import java.util.HashMap
-import java.util.Map
-import java.util.TimeZone
-
-import com.odoo.rpc.exception.OeRpcException
 import com.odoo.rpc.json.OeExecutor
 import com.odoo.rpc.util.OeConst.OeModel
+import com.ullink.slack.simpleslackapi.SlackChannel
+import com.ullink.slack.simpleslackapi.SlackPreparedMessage
+import com.ullink.slack.simpleslackapi.SlackSession
+import com.ullink.slack.simpleslackapi.SlackUser
+import com.ullink.slack.simpleslackapi.events.SlackMessagePosted
+import com.ullink.slack.simpleslackapi.listeners.SlackMessagePostedListener
+import fr.spironet.slackbot.odoo.OdooClient
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
+import java.text.SimpleDateFormat
+import java.time.temporal.ChronoUnit
 
 /**
  * Odoo integration for slack-bot.
@@ -43,7 +31,7 @@ class OdooListener implements SlackMessagePostedListener  {
 
 
     def usage = """
-    Usage: !odoo <today|week|ts>
+    Usage: !odoo <today|week|ts|presence [user]>
     today|week: Returns time passed on the current day / week.
     ts: Displays a summary of the attendances suitable to fill in my timesheet.
     """
@@ -56,6 +44,8 @@ class OdooListener implements SlackMessagePostedListener  {
     def password
     def db
 
+    def odooClient = new OdooClient()
+
     public OdooListener() {
         scheme   = System.getenv("ODOO_SCHEME")
         host     = System.getenv("ODOO_HOST")
@@ -65,6 +55,7 @@ class OdooListener implements SlackMessagePostedListener  {
         db       = System.getenv("ODOO_DB")
 
         this.oeExecutor  = OeExecutor.getInstance(scheme, host, port, db, username, password)
+
     }
 
     @Override
@@ -99,6 +90,14 @@ class OdooListener implements SlackMessagePostedListener  {
                     timeSheet()
             )
             return
+          }
+          else if (arg == "presence") {
+              def user = messageContent =~ /\!odoo presence (\S+)$/
+              user = user[0][1]
+              session.sendMessage(channelOnWhichMessageWasPosted,
+                      getUserAttendanceState(user)
+              )
+              return
           }
 
         } catch (Exception e) {
@@ -213,7 +212,8 @@ class OdooListener implements SlackMessagePostedListener  {
       def progress = 100 * minutes / 2310 as float
       progress /= 5 as int
       if (progress > 20) progress = 20
-      return String.format(":clock4: Done *%02d:%02d* over *38:30* `[${"▓".multiply(progress)}${" ".multiply(20 - progress)}]`", minutes / 60 as Integer, minutes % 60 as Integer)
+      return String.format(":clock4: Done *%02d:%02d* over *38:30* `[${"▓".multiply(progress)}${" ".multiply(20 - progress)}]`",
+              minutes / 60 as Integer, minutes % 60 as Integer)
    }
 
 
@@ -257,6 +257,34 @@ class OdooListener implements SlackMessagePostedListener  {
       progress /= 5 as int
       if (progress > 20) progress = 20
 
-      return String.format(":clock4: Done *%02d:%02d* over *07:42* `[${"▓".multiply(progress)}${" ".multiply(20 - progress)}]`", minutes / 60 as Integer, minutes % 60 as Integer)
+      return String.format(":clock4: Done *%02d:%02d* over *07:42* `[${"▓".multiply(progress)}${" ".multiply(20 - progress)}]`",
+              minutes / 60 as Integer, minutes % 60 as Integer)
    }
+
+    private def getUserAttendanceState(def user) {
+        def attendance
+        def message = ""
+        try {
+            attendance = odooClient.getAttendanceState(user)
+        } catch (RuntimeException e1) {
+            odooClient.login()
+            // second chance ?
+            try {
+                attendance = odooClient.getAttendanceState(user)
+            } catch (RuntimeException e2) {
+                logger.error("Tried logging in again on Odoo, no luck, giving up", e2)
+                message = ":interrobang: Unable to get the current state for the user ${user}"
+                return new SlackPreparedMessage.Builder().withMessage(message).build()
+            }
+        }
+        if (attendance == null) {
+            message = ":interrobang: user *${user}* not found."
+        }
+        else if (attendance == "checked_out") {
+            message = ":zzz: relying on Odoo, *${user}* is currently *signed out*."
+        } else {
+            message = ":gear: relying on Odoo, *${user}* is currently *signed in*."
+        }
+        return new SlackPreparedMessage.Builder().withMessage(message).build()
+    }
 }
