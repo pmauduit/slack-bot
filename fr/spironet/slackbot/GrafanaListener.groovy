@@ -34,6 +34,9 @@ class GrafanaListener implements com.ullink.slack.simpleslackapi.listeners.Slack
                 if (issueKey == "monitoring") {
                     def wb = new WebBrowser()
                     def screenshot = wb.visitGrafanaMonitoringDashboard()
+                    if (screenshot == null) {
+                        throw new NullPointerException()
+                    }
                     session.sendFile(channelOnWhichMessageWasPosted, screenshot, "monitoring dashboard")
                     return
                 } else {
