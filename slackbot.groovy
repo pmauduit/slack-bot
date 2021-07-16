@@ -6,9 +6,10 @@
         @Grab('org.qfast.odoo-rpc:odoo-jsonrpc:1.0'),
         @Grab(group = 'org.kohsuke', module = 'github-api', version = '1.90'),
         @Grab(group = 'com.squareup.okhttp3', module = 'okhttp', version = '4.9.1'),
-        @Grab(group = 'com.google.guava', module = 'guava', version = '30.1.1-jre'),
+        @Grab(group = 'com.google.guava', module = 'guava', version = '25.0-jre'),
         @Grab(group='org.codehaus.groovy.modules.http-builder', module='http-builder', version='0.7.1'),
-        @Grab(group='org.jsoup', module='jsoup', version='1.13.1')
+        @Grab(group='org.jsoup', module='jsoup', version='1.13.1'),
+        @Grab(group='org.seleniumhq.selenium', module='selenium-java', version='3.141.59')
 ])
 import ch.qos.logback.classic.Level
 import ch.qos.logback.classic.LoggerContext
@@ -39,6 +40,7 @@ session.addMessagePostedListener(new JenkinsListener())
 session.addMessagePostedListener(new OdooListener())
 session.addMessagePostedListener(new GithubListener())
 session.addMessagePostedListener(new TempoListener())
+session.addMessagePostedListener(new GrafanaListener())
 
 JiraScheduledService jiraService = new JiraScheduledService(session, jiraListener.issueService)
 jiraService.startAsync()
