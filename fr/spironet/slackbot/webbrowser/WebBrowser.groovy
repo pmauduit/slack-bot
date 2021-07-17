@@ -32,31 +32,36 @@ class WebBrowser {
             logger.error("Driver not available.")
             return null
         }
-        def kibanaUser = System.getenv("KIBANA_USER")
-        def kibanaPassword = System.getenv("KIBANA_PASSWORD")
-        def kibanaUrl = System.getenv("KIBANA_URL")
-        def dashboardPath = System.getenv("KIBANA_DASHBOARD")
-        // makes sure to cleanup cookies before accessing the page
-        driver.manage().deleteAllCookies()
-        driver.get("https://${kibanaUser}:${kibanaPassword}@${kibanaUrl}/")
-        System.sleep(1000)
-        // ok, now we should have a cookie ?
-        def finalUrl = "https://${kibanaUrl}${dashboardPath}"
-        driver.get(finalUrl)
-        // wait for long enough to let the time to draw the page
-        System.sleep(15000)
-        byte[] data = driver.getScreenshotAs(OutputType.BYTES)
-        if (data == null) {
-            return null
+        try {
+            def kibanaUser = System.getenv("KIBANA_USER")
+            def kibanaPassword = System.getenv("KIBANA_PASSWORD")
+            def kibanaUrl = System.getenv("KIBANA_URL")
+            def dashboardPath = System.getenv("KIBANA_DASHBOARD")
+            // makes sure to cleanup cookies before accessing the page
+            driver.manage().deleteAllCookies()
+            driver.get("https://${kibanaUser}:${kibanaPassword}@${kibanaUrl}/")
+            System.sleep(1000)
+            // ok, now we should have a cookie ?
+            def finalUrl = "https://${kibanaUrl}${dashboardPath}"
+            driver.get(finalUrl)
+            // wait for long enough to let the time to draw the page
+            System.sleep(15000)
+            byte[] data = driver.getScreenshotAs(OutputType.BYTES)
+            if (data == null) {
+                return null
+            }
+            // crop the image a bit before sending it
+            def im = ImageIO.read(new ByteArrayInputStream(data))
+            // open gimp if you need to figure out relevant params here
+            def cropped = im.getSubimage(184, 120, 1720, 760)
+            def baos = new ByteArrayOutputStream(2048)
+            ImageIO.write(cropped, "png", baos)
+            data = baos.toByteArray()
+            return data
+        } finally {
+            driver.close()
+            driver.quit()
         }
-        // crop the image a bit before sending it
-        def im = ImageIO.read(new ByteArrayInputStream(data))
-        // open gimp if you need to figure out relevant params here
-        def cropped = im.getSubimage(184,120,1720, 760)
-        def baos = new ByteArrayOutputStream(2048)
-        ImageIO.write(cropped, "png", baos)
-        data = baos.toByteArray()
-        return data
     }
 
     public def visitGrafanaMonitoringDashboard() {
@@ -67,35 +72,40 @@ class WebBrowser {
             logger.error("Driver not available.")
             return null
         }
-        def grafanaUser = System.getenv("GRAFANA_USER")
-        def grafanaPassword = System.getenv("GRAFANA_PASSWORD")
-        def grafanaUrl = System.getenv("GRAFANA_URL")
-        def grafanaDashboard = System.getenv("GRAFANA_DASHBOARD_PATH")
+        try {
+            def grafanaUser = System.getenv("GRAFANA_USER")
+            def grafanaPassword = System.getenv("GRAFANA_PASSWORD")
+            def grafanaUrl = System.getenv("GRAFANA_URL")
+            def grafanaDashboard = System.getenv("GRAFANA_DASHBOARD_PATH")
 
-        if (!grafanaUser  || !grafanaPassword || !grafanaUrl || !grafanaDashboard ) {
-            return null
+            if (!grafanaUser || !grafanaPassword || !grafanaUrl || !grafanaDashboard) {
+                return null
+            }
+
+            driver.get(grafanaUrl)
+            def userInput = driver.findElementByCssSelector("input[name='user']")
+            def passwordInput = driver.findElementByCssSelector("input[name='password']")
+            def loginButton = driver.findElementByCssSelector("button")
+
+            userInput.sendKeys(grafanaUser)
+            passwordInput.sendKeys(grafanaPassword)
+            loginButton.click()
+            // long enough to have a session
+            System.sleep(500)
+            // then visit the dashboard
+            driver.get("${grafanaUrl}${grafanaDashboard}")
+            def bodyPage = driver.findElementByCssSelector("body")
+            bodyPage.sendKeys("dkdk")
+            // long enough to draw the page
+            System.sleep(5000)
+            byte[] data = driver.getScreenshotAs(OutputType.BYTES)
+
+            // returns the screenshot
+            return data
+        } finally {
+            driver.close()
+            driver.quit()
         }
-
-        driver.get(grafanaUrl)
-        def userInput = driver.findElementByCssSelector("input[name='user']")
-        def passwordInput = driver.findElementByCssSelector("input[name='password']")
-        def loginButton = driver.findElementByCssSelector("button")
-
-        userInput.sendKeys(grafanaUser)
-        passwordInput.sendKeys(grafanaPassword)
-        loginButton.click()
-        // long enough to have a session
-        System.sleep(500)
-        // then visit the dashboard
-        driver.get("${grafanaUrl}${grafanaDashboard}")
-        def bodyPage = driver.findElementByCssSelector("body")
-        bodyPage.sendKeys("dkdk")
-        // long enough to draw the page
-        System.sleep(5000)
-        byte[] data = driver.getScreenshotAs(OutputType.BYTES)
-
-        // returns the screenshot
-        return data
     }
 
     public static void main(String[] args) {
