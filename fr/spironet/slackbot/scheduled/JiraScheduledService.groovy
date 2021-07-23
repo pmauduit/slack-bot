@@ -17,6 +17,9 @@ class JiraScheduledService extends AbstractScheduledService
     def issueService
     def botOwnerEmail = System.getenv("BOT_OWNER_EMAIL")
 
+    def jiraUrl
+    def jiraUser
+    def jiraPassword
 
     def issueCache = CacheBuilder.newBuilder()
             .maximumSize(10000)
@@ -26,6 +29,14 @@ class JiraScheduledService extends AbstractScheduledService
     public JiraScheduledService(def session, def issueService) {
         this.slackSession = session
         this.issueService = issueService
+        def props = new Properties()
+        File propertiesFile = new File(System.getenv("JIRA_CLIENT_PROPERTY_FILE"))
+        propertiesFile.withInputStream {
+            props.load(it)
+        }
+        this.jiraUrl      = props.getProperty("jira.server.url")
+        this.jiraUser     = props.getProperty("jira.user.id")
+        this.jiraPassword = props.getProperty("jira.user.pwd")
     }
 
     @Override
@@ -53,7 +64,7 @@ class JiraScheduledService extends AbstractScheduledService
         }
         def message = ":warning: New issues coming from JIRA *(${issuesToNotify.size()})*:\n"
         issuesToNotify.each {
-            message += "• *<https://jira.camptocamp.com/browse/${it.key}|${it.key}>* - ${it.fields.summary}\n"
+            message += "• *<${this.jiraUrl}/browse/${it.key}|${it.key}>* - ${it.fields.summary}\n"
         }
         return new SlackPreparedMessage.Builder().withMessage(message).build()
     }
