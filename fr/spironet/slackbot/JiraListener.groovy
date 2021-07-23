@@ -163,8 +163,10 @@ class JiraListener implements SlackMessagePostedListener  {
         def ret = ":spiral_note_pad: Worklog for *<${this.jiraUrl}/browse/${jiraIssue}|${jiraIssue}>* (over the last 4 weeks):\n"
         timeByUsers.each {
           // Morph seconds to hh:mm:ss
-          def timeSpent =  new GregorianCalendar( 0, 0, 0, 0, 0, it.timeSpent, 0 ).time.format( 'HH:mm:ss' )
-          ret += "• ${it.name}: ${timeSpent}\n"
+          def numberOfDays = (it.timeSpent / (3600 * 24)) as int
+          def timeSpent =  new GregorianCalendar( 0, 0, 0, 0, 0, it.timeSpent, 0 )
+                  .time.format("HH:mm:ss")
+          ret += "• ${it.name}: ${numberOfDays} days, ${timeSpent}\n"
         }
         return new SlackPreparedMessage.Builder().withMessage(ret).build()
     }
