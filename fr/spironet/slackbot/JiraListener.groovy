@@ -61,7 +61,7 @@ class JiraListener implements SlackMessagePostedListener  {
         def currentOrg = getRelatedOrg(it)
         ret += "• *<https://jira.camptocamp.com/browse/${it.key}|${it.key}>*"
         if (currentOrg != null) {
-          ret += " - :office: ${currentOrg}"
+          ret += " - :office: *${currentOrg}*"
         }
         ret += " - ${it.fields.summary}\n"
       }
