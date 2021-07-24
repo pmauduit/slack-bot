@@ -64,6 +64,30 @@ class JiraListener implements SlackMessagePostedListener  {
       }
     }
 
+    /**
+     * Pretty-print a number of seconds to HH:mm:ss format.
+     * Previous strategy was to use a calendar adding the number of seconds to epoch
+     * but this was not satisfaying, as it was zeroed after 24h, and the number of days
+     * was discarded. Also displaying "1 day x hours ..." is misleading, as a day of
+     * work at C2C is 7h42m, not 24h.
+     *
+     * @param totalSeconds
+     * @return a formatted string following  the "HH:mm:ss"
+     */
+    private def prettyPrintSeconds(def totalSeconds) {
+      def numberOfHours = (totalSeconds / 3600) as int
+      def numberOfMinutes = ((totalSeconds - (numberOfHours * 3600)) / 60) as int
+      def numberOfSeconds = totalSeconds % 60
+
+      return "${numberOfHours}:${numberOfMinutes.toString().padLeft(2,"0")}:${numberOfSeconds.toString().padLeft(2, "0")}"
+    }
+
+  /**
+   * Returns the issues for the user's mail passed as argument.
+   *
+   * @param slackUserMail the user's email who one want the issues for.
+   * @return a slack message with the issues (or a message telling that no issues are opened so far).
+   */
     private SlackPreparedMessage myIssues(def slackUserMail) {
       def jql = "resolution = Unresolved AND assignee = '${slackUserMail}' ORDER BY priority DESC, updated DESC"
       def issues = issueService.getIssuesFromQuery(jql)
@@ -82,7 +106,13 @@ class JiraListener implements SlackMessagePostedListener  {
       return new SlackPreparedMessage.Builder().withMessage(ret).build()
     }
 
-    private SlackPreparedMessage issuesMonitoring() {
+  /**
+   * Prepares a slack message with the issues currently opened and displayed as highest prio on
+   * our grafana dashboard.
+   *
+   * @return a slack message with the issues (or with no issue if there are not).
+   */
+  private SlackPreparedMessage issuesMonitoring() {
       // Same as filter here: https://jira.camptocamp.com/issues/?filter=12612
       def jql = "project = GEO AND priority = Highest AND created >= -24h AND NOT status = Resolved"
       def issues = issueService.getIssuesFromQuery(jql)
@@ -101,6 +131,12 @@ class JiraListener implements SlackMessagePostedListener  {
       return new SlackPreparedMessage.Builder().withMessage(ret).build()
     }
 
+    /**
+     * Prepares a slack message with the issues currently opened in the support queue, since
+     * the begining of the current week.
+     *
+     * @return a slack message with the issues (or with no issue if there are not).
+     */
     private SlackPreparedMessage issuesSupport() {
       def jql = "project = GEO and created <= now() and created  >= startOfWeek()"
       def issues = issueService.getIssuesFromQuery(jql)
@@ -119,12 +155,21 @@ class JiraListener implements SlackMessagePostedListener  {
       return new SlackPreparedMessage.Builder().withMessage(ret).build()
     }
 
+  /**
+   * Gets the worklog entries for the issue given as argument.
+   *
+   * Note: C2C JIRA instance is using v2 of the JIRA API, a parameter "startedAfter"
+   * is documented but in the v3.
+   *
+   * The same parameter does not seem to work on v2. We have no better option to grab
+   * every worklog entries and filter the result from our side ...
+   *
+   * @param jiraIssue the JIRA issue key (or id) to get the worklog from.
+   * @return the worklog entries.
+   */
     private def getWorklog(def jiraIssue) {
         try {
             // lol: https://jira.atlassian.com/browse/JRACLOUD-73630
-            // anyway, even if documented, it seems that this startedAfter parameter
-            // won't work with API v2, which is the latest available on the c2c instance ...
-            // guess I'll filter dates by hand, and too bad if it stresses our servers.
             def fourWeeksAgo = use (groovy.time.TimeCategory) {
                 4.weeks.ago
             }
@@ -147,6 +192,12 @@ class JiraListener implements SlackMessagePostedListener  {
 
     }
 
+    /**
+     * Prepares a slack message with the worklog entries summarized by users, over the last 4 weeks.
+     *
+     * @param jiraIssue
+     * @return a slack message with the worklog summary.
+     */
     private SlackPreparedMessage issueWorklog(def jiraIssue) {
         def wl = getWorklog(jiraIssue)
         def timeByUsers = []
@@ -160,13 +211,9 @@ class JiraListener implements SlackMessagePostedListener  {
           }
         }
         timeByUsers.sort { a,b -> a.timeSpent <=> b.timeSpent }
-        def ret = ":spiral_note_pad: Worklog for *<${this.jiraUrl}/browse/${jiraIssue}|${jiraIssue}>* (over the last 4 weeks):\n"
+        def ret = "*:spiral_note_pad: Worklog for <${this.jiraUrl}/browse/${jiraIssue}|${jiraIssue}>* _(over the last 4 weeks)_:\n"
         timeByUsers.each {
-          // Morph seconds to hh:mm:ss
-          def numberOfDays = (it.timeSpent / (3600 * 24)) as int
-          def timeSpent =  new GregorianCalendar( 0, 0, 0, 0, 0, it.timeSpent, 0 )
-                  .time.format("HH:mm:ss")
-          ret += "• ${it.name}: ${numberOfDays} days, ${timeSpent}\n"
+          ret += "• ${it.name}: ${prettyPrintSeconds(it.timeSpent)}\n"
         }
         return new SlackPreparedMessage.Builder().withMessage(ret).build()
     }
