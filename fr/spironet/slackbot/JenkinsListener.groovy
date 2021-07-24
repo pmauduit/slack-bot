@@ -18,6 +18,7 @@ class JenkinsListener implements SlackMessagePostedListener  {
 
   private final static Logger logger = LoggerFactory.getLogger(JenkinsListener.class)
 
+  private def jenkinsUrl
 
   static final def USAGE = """Usage: !jenkins <cmd> <args>
   Examples:
@@ -38,6 +39,7 @@ class JenkinsListener implements SlackMessagePostedListener  {
       jenkinsServer = new JenkinsServer(new URI(System.getenv("JENKINS_URL")),
        System.getenv("JENKINS_USERNAME"),
        System.getenv("JENKINS_TOKEN"))
+      jenkinsUrl = System.getenv("JENKINS_URL")
     }
 
     private void triggerBuild(def prj, def branch) {
@@ -57,7 +59,7 @@ class JenkinsListener implements SlackMessagePostedListener  {
         return
       }
       if (messageContent.contains("!jenkins")) {
-        println "Jenkins request detected"
+        logger.debug("Jenkins request detected")
         try {
           // !jenkins <command> <args>
           // !jenkins launch-build <repo/branch>
@@ -75,7 +77,7 @@ class JenkinsListener implements SlackMessagePostedListener  {
              branch = georMapping[match[0][2]][1]
           }
           triggerBuild(prj, branch)
-          String jenkinsMessage = "Build requested: https://ci.camptocamp.com/job/geospatial/job/${prj}/job/${branch}/"
+          String jenkinsMessage = "Build requested: https://${jenkinsUrl}job/geospatial/job/${prj}/job/${branch}/"
           session.sendMessage(channelOnWhichMessageWasPosted,
             new SlackPreparedMessage.Builder().withMessage(jenkinsMessage).build()
           )
