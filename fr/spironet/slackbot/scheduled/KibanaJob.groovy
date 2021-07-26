@@ -33,13 +33,7 @@ class KibanaJob implements Job
                 logger.error("Unable to find the channel where to post the dashboard")
                 return
             }
-/*            slackSession.sendFile(chan,
-                    kibanaScreenshot,
-                    "météo_des_plateformes_georchestra")*/
-            // for now, send me the file, let's see if having it in the
-            // expected channel is acceptable
-            slackSession.sendFileToUser(
-                    slackSession.findUserByEmail("pierre.mauduit@camptocamp.com"),
+            slackSession.sendFile(chan,
                     kibanaScreenshot,
                     "météo_des_plateformes_georchestra")
         }
