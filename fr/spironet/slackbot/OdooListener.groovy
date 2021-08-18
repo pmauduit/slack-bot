@@ -98,8 +98,11 @@ class OdooListener implements SlackMessagePostedListener  {
                       getUserAttendanceState(user)
               )
               return
+          } else {
+              session.sendMessage(channelOnWhichMessageWasPosted,
+                      new SlackPreparedMessage.Builder().withMessage(usage).build()
+              )
           }
-
         } catch (Exception e) {
           logger.error("Error occured", e)
           if (e.getMessage().contains("Odoo Session Expired")) {
