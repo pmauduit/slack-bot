@@ -181,5 +181,3 @@ class OdooClient {
         println ret
     }
 }
-
-class DisconnectedFromOdooException extends Exception {}
