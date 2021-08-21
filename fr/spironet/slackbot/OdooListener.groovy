@@ -9,6 +9,7 @@ import com.ullink.slack.simpleslackapi.SlackSession
 import com.ullink.slack.simpleslackapi.SlackUser
 import com.ullink.slack.simpleslackapi.events.SlackMessagePosted
 import com.ullink.slack.simpleslackapi.listeners.SlackMessagePostedListener
+import fr.spironet.slackbot.odoo.DisconnectedFromOdooException
 import fr.spironet.slackbot.odoo.OdooClient
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -31,9 +32,11 @@ class OdooListener implements SlackMessagePostedListener  {
 
 
     def usage = """
-    Usage: !odoo <today|week|ts|presence [user]>
-    today|week: Returns time passed on the current day / week.
-    ts: Displays a summary of the attendances suitable to fill in my timesheet.
+    :page_facing_up: Usage: !odoo <today|week|ts|presence [user]|vacations>
+    • today|week: Returns time passed on the current day / week.
+    • ts: Displays a summary of the attendances suitable to fill in my timesheet.
+    • presence: Tries to detect if the user is signed in (note: does not work for people in other locations than Chambéry's office).
+    • vacations: prints my coming validated vacations (note: works only for mine, I don't have access to others' ones).
     """
 
     def oeExecutor
@@ -55,7 +58,30 @@ class OdooListener implements SlackMessagePostedListener  {
         db       = System.getenv("ODOO_DB")
 
         this.oeExecutor  = OeExecutor.getInstance(scheme, host, port, db, username, password)
+        if (! odooClient.isLoggedIn()) {
+            odooClient.login()
+        }
+    }
 
+    private def vacations() {
+        def plannedVacations = []
+        try {
+            plannedVacations = odooClient.getComingLeavesForUser(this.username)
+        } catch (DisconnectedFromOdooException e) {
+            odooClient.login()
+        }
+        def message = ""
+        if (plannedVacations.size() > 0) {
+            message = ":desert_island: Here are your currently accepted leaves *(${plannedVacations.size()})*:\n"
+            plannedVacations.each {
+                def from = Date.parse('yyyy-MM-dd HH:mm:ss', it.date_from).format("yyyy-MM-dd")
+                def to = Date.parse('yyyy-MM-dd HH:mm:ss', it.date_to).format("yyyy-MM-dd")
+                message += "• *from* ${from} *to* ${to} - ${it.name} _(${it.number_of_days} days)_\n"
+            }
+        } else {
+            message = ":desert_island: No accepted vacations planned yet."
+        }
+        return new SlackPreparedMessage.Builder().withMessage(message).build()
     }
 
     @Override
@@ -90,6 +116,12 @@ class OdooListener implements SlackMessagePostedListener  {
                     timeSheet()
             )
             return
+          }
+          else if (arg == "vacations") {
+              session.sendMessage(channelOnWhichMessageWasPosted,
+                      vacations()
+              )
+              return
           }
           else if (arg == "presence") {
               def user = messageContent =~ /\!odoo presence (\S+)$/
