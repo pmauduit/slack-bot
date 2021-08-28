@@ -1,8 +1,5 @@
 package fr.spironet.slackbot
 
-
-import com.odoo.rpc.json.OeExecutor
-import com.odoo.rpc.util.OeConst.OeModel
 import com.ullink.slack.simpleslackapi.SlackChannel
 import com.ullink.slack.simpleslackapi.SlackPreparedMessage
 import com.ullink.slack.simpleslackapi.SlackSession
@@ -38,8 +35,6 @@ class OdooListener implements SlackMessagePostedListener  {
     • presence: Tries to detect if the user is signed in (note: does not work for people in other locations than Chambéry's office).
     • vacations: prints my coming validated vacations (note: works only for mine, I don't have access to others' ones).
     """
-
-    def oeExecutor
     def scheme
     def host
     def port
@@ -81,7 +76,7 @@ class OdooListener implements SlackMessagePostedListener  {
         } else {
             message = ":desert_island: No accepted vacations planned yet."
         }
-        return new SlackPreparedMessage.Builder().withMessage(message).build()
+        return SlackPreparedMessage.builder().message(message).build()
     }
 
     @Override
@@ -132,7 +127,7 @@ class OdooListener implements SlackMessagePostedListener  {
               return
           } else {
               session.sendMessage(channelOnWhichMessageWasPosted,
-                      new SlackPreparedMessage.Builder().withMessage(usage).build()
+                      SlackPreparedMessage.builder().message(usage).build()
               )
           }
         } catch (Exception e) {
@@ -145,7 +140,7 @@ class OdooListener implements SlackMessagePostedListener  {
              return
           }
           session.sendMessage(channelOnWhichMessageWasPosted,
-            new SlackPreparedMessage.Builder().withMessage(usage).build()
+            SlackPreparedMessage.builder().message(usage).build()
           )
         }
       }
@@ -309,7 +304,7 @@ class OdooListener implements SlackMessagePostedListener  {
             } catch (RuntimeException e2) {
                 logger.error("Tried logging in again on Odoo, no luck, giving up", e2)
                 message = ":interrobang: Unable to get the current state for the user ${user}"
-                return new SlackPreparedMessage.Builder().withMessage(message).build()
+                return SlackPreparedMessage.builder().message(message).build()
             }
         }
         if (attendance == null) {
@@ -323,6 +318,6 @@ class OdooListener implements SlackMessagePostedListener  {
         } else {
             message = ":gear: relying on Odoo, *${user}* is currently *signed in*."
         }
-        return new SlackPreparedMessage.Builder().withMessage(message).build()
+        return SlackPreparedMessage.builder().message(message).build()
     }
 }

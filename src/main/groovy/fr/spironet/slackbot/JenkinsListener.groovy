@@ -79,12 +79,12 @@ class JenkinsListener implements SlackMessagePostedListener  {
           triggerBuild(prj, branch)
           String jenkinsMessage = "Build requested: https://${jenkinsUrl}job/geospatial/job/${prj}/job/${branch}/"
           session.sendMessage(channelOnWhichMessageWasPosted,
-            new SlackPreparedMessage.Builder().withMessage(jenkinsMessage).build()
+            SlackPreparedMessage.builder().message(jenkinsMessage).build()
           )
         } catch (Exception e) {
           logger.error("Error occured", e)
           session.sendMessage(channelOnWhichMessageWasPosted,
-            new SlackPreparedMessage.Builder().withMessage(USAGE).build()
+            SlackPreparedMessage.builder().message(USAGE).build()
           )
         }
       }

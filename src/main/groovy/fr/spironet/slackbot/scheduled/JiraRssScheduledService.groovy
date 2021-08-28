@@ -42,7 +42,7 @@ class JiraRssScheduledService extends AbstractScheduledService {
             message += "\n"
         }
 
-        return new SlackPreparedMessage.Builder().withMessage(message).build()
+        return SlackPreparedMessage.builder().message(message).build()
     }
 
     @Override

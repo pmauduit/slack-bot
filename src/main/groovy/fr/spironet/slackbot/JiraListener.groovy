@@ -92,7 +92,7 @@ class JiraListener implements SlackMessagePostedListener  {
       def jql = "resolution = Unresolved AND assignee = '${slackUserMail}' ORDER BY priority DESC, updated DESC"
       def issues = issueService.getIssuesFromQuery(jql)
       if (issues.issues.size() == 0) {
-          return new SlackPreparedMessage.Builder().withMessage("No issues for this user").build()
+          return SlackPreparedMessage.builder().message("No issues for this user").build()
       }
       def ret = ":warning: Unresolved issues *(${issues.issues.size()})*:\n"
       issues.issues.each {
@@ -103,7 +103,7 @@ class JiraListener implements SlackMessagePostedListener  {
         }
         ret += " - ${it.fields.summary}\n"
       }
-      return new SlackPreparedMessage.Builder().withMessage(ret).build()
+      return SlackPreparedMessage.builder().message(ret).build()
     }
 
   /**
@@ -117,8 +117,8 @@ class JiraListener implements SlackMessagePostedListener  {
       def jql = "project = GEO AND priority = Highest AND created >= -24h AND NOT status = Resolved"
       def issues = issueService.getIssuesFromQuery(jql)
       if (issues.issues.size() == 0)
-        return new SlackPreparedMessage.Builder().
-                withMessage(":warning: _There are no issue on the monitoring screen currently._").build()
+        return SlackPreparedMessage.builder().
+                message(":warning: _There are no issue on the monitoring screen currently._").build()
       def ret = ":warning: Issues currently reported on the monitoring screen *(${issues.issues.size()})*:\n"
       issues.issues.each {
         def currentOrg = getRelatedOrg(it)
@@ -128,7 +128,7 @@ class JiraListener implements SlackMessagePostedListener  {
         }
         ret += " - ${it.fields.summary}\n"
       }
-      return new SlackPreparedMessage.Builder().withMessage(ret).build()
+      return SlackPreparedMessage.builder().message(ret).build()
     }
 
     /**
@@ -152,7 +152,7 @@ class JiraListener implements SlackMessagePostedListener  {
       if (issues.issues.size() <= 0) {
         ret += "*none.*\n"
       }
-      return new SlackPreparedMessage.Builder().withMessage(ret).build()
+      return SlackPreparedMessage.builder().message(ret).build()
     }
 
   /**
@@ -215,7 +215,7 @@ class JiraListener implements SlackMessagePostedListener  {
         timeByUsers.each {
           ret += "• ${it.name}: ${prettyPrintSeconds(it.timeSpent)}\n"
         }
-        return new SlackPreparedMessage.Builder().withMessage(ret).build()
+        return SlackPreparedMessage.builder().message(ret).build()
     }
 
     @Override
@@ -271,12 +271,12 @@ class JiraListener implements SlackMessagePostedListener  {
           "${issue.getFields().getDescription()}\n\n"+
           "Reported by: ${issue.getFields().getReporter().getName()}"
           session.sendMessage(channelOnWhichMessageWasPosted,
-            new SlackPreparedMessage.Builder().withMessage(jiraIssueMessage).build()
+            SlackPreparedMessage.builder().message(jiraIssueMessage).build()
           )
         } catch (Exception e) {
           logger.error("Error occured", e)
           session.sendMessage(channelOnWhichMessageWasPosted,
-            new SlackPreparedMessage.Builder().withMessage(usage).build()
+            SlackPreparedMessage.builder().message(usage).build()
           )
         }
       }

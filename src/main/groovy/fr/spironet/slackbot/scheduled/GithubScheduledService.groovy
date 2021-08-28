@@ -105,7 +105,7 @@
             else {
                 phrase = ":interrobang: I don't know how to handle github events of type '${event.type}' yet, see <https://docs.github.com/en/developers/webhooks-and-events/events/github-event-types|github documentation>"
             }
-            def msg = new SlackPreparedMessage.Builder().withMessage(phrase).build()
+            def msg = SlackPreparedMessage.builder().message(phrase).build()
 
             this.slackSession.sendMessageToUser(botOwner, msg)
         }

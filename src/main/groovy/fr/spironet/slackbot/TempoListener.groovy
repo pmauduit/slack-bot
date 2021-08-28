@@ -115,7 +115,7 @@ class TempoListener implements SlackMessagePostedListener  {
       } else {
         ret = "*An error occured*, code: ${response.code}"
       }
-      return new SlackPreparedMessage.Builder().withMessage(ret).build()
+      return SlackPreparedMessage.builder().message(ret).build()
     }
 
     def parseCommand(def str) throws Exception {
@@ -146,7 +146,7 @@ class TempoListener implements SlackMessagePostedListener  {
         } catch (Exception e) {
           logger.error("Error occured", e)
           session.sendMessage(channelOnWhichMessageWasPosted,
-            new SlackPreparedMessage.Builder().withMessage(usage).build()
+            SlackPreparedMessage.builder().message(usage).build()
           )
         }
       }

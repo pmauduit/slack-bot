@@ -29,7 +29,7 @@ class ConfluenceListener  implements SlackMessagePostedListener {
     """
 
     SlackPreparedMessage usage() {
-        return new SlackPreparedMessage.Builder().withMessage(this.usage).build()
+        return SlackPreparedMessage.builder().message(this.usage).build()
     }
 
     SlackPreparedMessage search(def types, def topics) {
@@ -60,7 +60,7 @@ class ConfluenceListener  implements SlackMessagePostedListener {
                 ret += "*partial results returned, use the <${this.confluenceServerUrl}|confluence search tool> to find the other ones.*"
             }
         }
-        return new SlackPreparedMessage.Builder().withMessage(ret).build()
+        return SlackPreparedMessage.builder().message(ret).build()
     }
 
 

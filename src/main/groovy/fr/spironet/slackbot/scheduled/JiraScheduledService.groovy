@@ -66,7 +66,7 @@ class JiraScheduledService extends AbstractScheduledService
         issuesToNotify.each {
             message += "• *<${this.jiraUrl}/browse/${it.key}|${it.key}>* - ${it.fields.summary}\n"
         }
-        return new SlackPreparedMessage.Builder().withMessage(message).build()
+        return SlackPreparedMessage.builder().message(message).build()
     }
 
     @Override

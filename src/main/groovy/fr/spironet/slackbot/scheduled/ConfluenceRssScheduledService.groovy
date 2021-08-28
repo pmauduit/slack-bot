@@ -66,7 +66,7 @@ class ConfluenceRssScheduledService  extends AbstractScheduledService {
                 message += "${emoji} ${it.summary}: <${it.url}|${it.title}>\n"
                 this.notificationMap.put(it.id, it.id)
             }
-            def slackMessage = new SlackPreparedMessage.Builder().withMessage(message).build()
+            def slackMessage = SlackPreparedMessage.builder().message(message).build()
             slackSession.sendMessageToUser(botOwner, slackMessage)
         } catch (Exception e) {
             logger.error("Error occured while running", e)

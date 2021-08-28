@@ -80,7 +80,7 @@ class GithubListener implements SlackMessagePostedListener  {
               ret += "\n"
           }
       }
-      return new SlackPreparedMessage.Builder().withMessage(ret).build()
+      return SlackPreparedMessage.builder().message(ret).build()
     }
 
     private SlackPreparedMessage openedPrs(def repo) {
@@ -95,7 +95,7 @@ class GithubListener implements SlackMessagePostedListener  {
            ret += "• *<${pr.getHtmlUrl()}|${pr.getTitle()}>* - (author: ${pr.getUser().getLogin()})\n"
         }
       }
-      return new SlackPreparedMessage.Builder().withMessage(ret).build()
+      return SlackPreparedMessage.builder().message(ret).build()
     }
 
     SlackPreparedMessage findRepositories(def topics) {
@@ -119,7 +119,7 @@ class GithubListener implements SlackMessagePostedListener  {
           ret += "• *<${it.html_url}|${it.full_name}>* - ${it.description ? it.description : "_No description_"}\n"
         }
       }
-      return new SlackPreparedMessage.Builder().withMessage(ret).build()
+      return SlackPreparedMessage.builder().message(ret).build()
     }
 
     @Override
@@ -150,7 +150,7 @@ class GithubListener implements SlackMessagePostedListener  {
         } catch (Exception e) {
           logger.error("Error occured", e)
           session.sendMessage(channelOnWhichMessageWasPosted,
-            new SlackPreparedMessage.Builder().withMessage(usage).build()
+            SlackPreparedMessage.builder().message(usage).build()
           )
         }
       }
