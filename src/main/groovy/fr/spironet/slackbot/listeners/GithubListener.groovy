@@ -1,4 +1,4 @@
-package fr.spironet.slackbot
+package fr.spironet.slackbot.listeners
 
 import com.ullink.slack.simpleslackapi.SlackChannel
 import com.ullink.slack.simpleslackapi.SlackSession
@@ -7,6 +7,7 @@ import com.ullink.slack.simpleslackapi.SlackUser
 import com.ullink.slack.simpleslackapi.events.SlackMessagePosted
 import com.ullink.slack.simpleslackapi.SlackPreparedMessage
 import com.ullink.slack.simpleslackapi.listeners.SlackMessagePostedListener
+import fr.spironet.slackbot.listeners.JiraListener
 import groovyx.net.http.RESTClient
 import org.kohsuke.github.GitHub
 import org.kohsuke.github.GHIssueState

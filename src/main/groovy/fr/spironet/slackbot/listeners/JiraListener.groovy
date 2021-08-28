@@ -1,4 +1,4 @@
-package fr.spironet.slackbot
+package fr.spironet.slackbot.listeners
 
 import com.ullink.slack.simpleslackapi.SlackChannel
 import com.ullink.slack.simpleslackapi.SlackSession

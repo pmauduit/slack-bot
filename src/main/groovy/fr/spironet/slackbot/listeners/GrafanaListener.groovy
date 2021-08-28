@@ -1,19 +1,18 @@
-package fr.spironet.slackbot
+package fr.spironet.slackbot.listeners
 
 import com.ullink.slack.simpleslackapi.SlackChannel
 import com.ullink.slack.simpleslackapi.SlackPreparedMessage
 import com.ullink.slack.simpleslackapi.SlackSession
 import com.ullink.slack.simpleslackapi.SlackUser
 import com.ullink.slack.simpleslackapi.events.SlackMessagePosted
-import com.ullink.slack.simpleslackapi.listeners.SlackMessagePostedListener
 import fr.spironet.slackbot.webbrowser.WebBrowser
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-class KibanaListener implements SlackMessagePostedListener  {
-    private final static Logger logger = LoggerFactory.getLogger(KibanaListener.class)
+class GrafanaListener implements com.ullink.slack.simpleslackapi.listeners.SlackMessagePostedListener  {
+    private final static Logger logger = LoggerFactory.getLogger(GrafanaListener.class)
 
-    private def usage = "Usage: !kibana weather: returns a screenshot of the kibana dashboard.\n"
+    private def usage = "Usage: !grafana monitoring: returns a screenshot of the current monitoring screen.\n"
     private def error = "I am not capable of browsing the web currently.\n${this.usage}"
 
 
@@ -27,21 +26,18 @@ class KibanaListener implements SlackMessagePostedListener  {
             return
         }
 
-        if (messageContent.contains("!kibana")) {
+        if (messageContent.contains("!grafana")) {
             try {
-                def match = messageContent =~ /\!kibana (\S+)/
+                def match = messageContent =~ /\!grafana (\S+)/
                 def issueKey = match[0][1]
-                // Getting the "météo des plateformes"
-                if (issueKey == "weather") {
+                // Getting the current state of the monitoring screen
+                if (issueKey == "monitoring") {
                     def wb = new WebBrowser()
-                    def screenshot = wb.visitKibanaDashboard()
+                    def screenshot = wb.visitGrafanaMonitoringDashboard()
                     if (screenshot == null) {
                         throw new NullPointerException()
                     }
-                    session.sendFile(
-                            channelOnWhichMessageWasPosted,
-                            screenshot,
-                            "Weather report on our geOrchestra platforms on the past 7 days")
+                    session.sendFile(channelOnWhichMessageWasPosted, screenshot, "monitoring dashboard")
                     return
                 } else {
                     session.sendMessage(channelOnWhichMessageWasPosted,

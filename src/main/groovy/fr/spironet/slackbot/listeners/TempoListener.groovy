@@ -1,11 +1,8 @@
-package fr.spironet.slackbot
+package fr.spironet.slackbot.listeners
 
-import java.util.Properties
-import java.io.File
 
 import com.ullink.slack.simpleslackapi.SlackChannel
 import com.ullink.slack.simpleslackapi.SlackSession
-import com.ullink.slack.simpleslackapi.impl.SlackSessionFactory
 import com.ullink.slack.simpleslackapi.SlackUser
 import com.ullink.slack.simpleslackapi.events.SlackMessagePosted
 import com.ullink.slack.simpleslackapi.SlackPreparedMessage

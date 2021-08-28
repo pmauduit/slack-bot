@@ -1,4 +1,4 @@
-package fr.spironet.slackbot
+package fr.spironet.slackbot.listeners
 
 import com.ullink.slack.simpleslackapi.SlackChannel
 import com.ullink.slack.simpleslackapi.SlackPreparedMessage
@@ -52,7 +52,7 @@ class OdooListener implements SlackMessagePostedListener  {
         password = System.getenv("ODOO_PASSWORD")
         db       = System.getenv("ODOO_DB")
 
-        this.oeExecutor  = OeExecutor.getInstance(scheme, host, port, db, username, password)
+        //this.oeExecutor  = OeExecutor.getInstance(scheme, host, port, db, username, password)
         if (! odooClient.isLoggedIn()) {
             odooClient.login()
         }

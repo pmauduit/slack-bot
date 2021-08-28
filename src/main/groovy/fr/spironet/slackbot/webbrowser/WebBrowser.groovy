@@ -56,8 +56,7 @@ class WebBrowser {
             def cropped = im.getSubimage(184, 120, 1720, 760)
             def baos = new ByteArrayOutputStream(2048)
             ImageIO.write(cropped, "png", baos)
-            data = baos.toByteArray()
-            return data
+            return new ByteArrayInputStream(baos.toByteArray())
         } finally {
             driver.close()
             driver.quit()
@@ -101,7 +100,7 @@ class WebBrowser {
             byte[] data = driver.getScreenshotAs(OutputType.BYTES)
 
             // returns the screenshot
-            return data
+            return  new ByteArrayInputStream(data)
         } finally {
             driver.close()
             driver.quit()

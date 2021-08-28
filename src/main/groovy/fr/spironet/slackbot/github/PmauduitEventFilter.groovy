@@ -38,7 +38,7 @@ class PmauduitEventFilter implements EventFilter {
     }
 
     public static void main(String[] args) {
-        def filterCls = Class.forName("fr.spironet.slackbot.github.PmauduitEventFilter")
+        def filterCls = Class.forName("fr.spironet.SlackBot.github.PmauduitEventFilter")
         def filter = filterCls.newInstance()
         def result = filter.doFilter([actor: [login: "sbrunner"]])
         assert result == true

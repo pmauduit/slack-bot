@@ -1,9 +1,15 @@
+package fr.spironet.slackbot
+
 import ch.qos.logback.classic.Level
 import ch.qos.logback.classic.LoggerContext
 import com.ullink.slack.simpleslackapi.SlackSession
 import com.ullink.slack.simpleslackapi.impl.SlackSessionFactory
-import fr.spironet.slackbot.*
-import fr.spironet.slackbot.scheduled.*
+import fr.spironet.slackbot.listeners.*
+import fr.spironet.slackbot.scheduled.ConfluenceRssScheduledService
+import fr.spironet.slackbot.scheduled.GithubScheduledService
+import fr.spironet.slackbot.scheduled.JiraRssScheduledService
+import fr.spironet.slackbot.scheduled.JiraScheduledService
+import fr.spironet.slackbot.scheduled.KibanaJob
 import org.quartz.impl.StdSchedulerFactory
 import org.slf4j.LoggerFactory
 
@@ -31,7 +37,6 @@ session.addMessagePostedListener(new TempoListener())
 session.addMessagePostedListener(new GrafanaListener())
 session.addMessagePostedListener(new KibanaListener())
 
-/*
 JiraScheduledService jiraService = new JiraScheduledService(session, jiraListener.issueService)
 jiraService.startAsync()
 JiraRssScheduledService jiraRssService = new JiraRssScheduledService(session)
@@ -53,4 +58,3 @@ def scheduler = new StdSchedulerFactory().getScheduler()
 scheduler.getContext().put(KibanaJob.SLACK_SESSION_ID, session)
 scheduler.scheduleJob(job, trigger)
 scheduler.start()
-*/

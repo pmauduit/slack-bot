@@ -33,7 +33,7 @@
                     <archive>
                         <manifest>
                             <mainClass>
-                                slackbot
+                                fr.spironet.slackbot.SlackBot
                             </mainClass>
                         </manifest>
                     </archive>
