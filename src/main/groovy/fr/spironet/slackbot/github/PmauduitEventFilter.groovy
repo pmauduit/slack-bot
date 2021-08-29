@@ -32,17 +32,8 @@ class PmauduitEventFilter implements EventFilter {
             }
             return false
         } catch (Exception e) {
-            logger.error("Don't know whether to filter out the event or not, keeping it.", e)
+            logger.warn("Don't know whether to filter out the event or not, keeping it.", e)
             return false
         }
-    }
-
-    public static void main(String[] args) {
-        def filterCls = Class.forName("fr.spironet.SlackBot.github.PmauduitEventFilter")
-        def filter = filterCls.newInstance()
-        def result = filter.doFilter([actor: [login: "sbrunner"]])
-        assert result == true
-        result = filter.doFilter([:])
-        assert result == false
     }
 }
