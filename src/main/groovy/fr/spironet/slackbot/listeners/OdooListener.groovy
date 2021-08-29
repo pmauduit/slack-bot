@@ -15,14 +15,8 @@ import java.text.SimpleDateFormat
 import java.time.temporal.ChronoUnit
 
 /**
- * Odoo integration for slack-bot.
- * Note: this requires the following module:
- * https://bitbucket.org/qfast/odoo-jsonrpc/src/master/
- *
- * This it is not available on the official maven repositories, one need
- * to setup it by hand.
+ * Odoo listener for slack-bot.
  */
-
 class OdooListener implements SlackMessagePostedListener  {
 
   private final static Logger logger = LoggerFactory.getLogger(OdooListener.class)
@@ -58,7 +52,7 @@ class OdooListener implements SlackMessagePostedListener  {
      * for the user being connected onto Odoo.
      *
      * Note: being able to view leaves from another user is not possible
-     * with a simple / developer account, one probably need to at least
+     * with a simple / developer account as mine, one probably need to at least
      * be project manager.
      *
      * @return a SlackPreparedMessage instance.
@@ -302,13 +296,6 @@ class OdooListener implements SlackMessagePostedListener  {
           }
         } catch (Exception e) {
           logger.error("Error occured", e)
-          if (e.getMessage().contains("Odoo Session Expired")) {
-             //this.oeExecutor.logout()
-             //this.oeExecutor = OeExecutor.getInstance(scheme, host, port, db, username, password)
-             // retry
-             onEvent(event, session)
-             return
-          }
           session.sendMessage(channelOnWhichMessageWasPosted,
             SlackPreparedMessage.builder().message(usage).build()
           )
