@@ -140,6 +140,13 @@ class OdooClient {
         return response.data.result.records[0].attendance_state
     }
 
+    /**
+     * Gets the coming accepted leave requests for the user given as argument.
+     *
+     * @param user the user whose leave requests have to be fetched.
+     * @return null if user is not found, else the accepted leave requests to come.
+     * @throws RuntimeException if an error is returned by the Odoo server.
+     */
     public def getComingLeavesForUser(def user) {
         def userId = findUser(user)["id"]
 
@@ -171,4 +178,32 @@ class OdooClient {
             it.state == "validate"
         }
     }
+
+    public def getAttendances(def userLogin, def from, def to) {
+        def odooSearchReadUrl = "${odooScheme}://${odooHost}:${odooPort}/web/dataset/search_read"
+        def response = http.post(
+                uri: odooSearchReadUrl,
+                body: [
+                        jsonrpc: "2.0",
+                        method: "call",
+                        params: [
+                                model: "hr.attendance",
+                                domain: [
+                                        ["employee_id.user_id.login", "=", userLogin],
+                                        [ "check_in", ">=", from],
+                                        [ "check_in", "<=", to]
+                                ],
+                                fields: [ "check_in", "check_out"]
+                        ]
+                ],
+                requestContentType: ContentType.JSON,
+                headers: [Accept: "application/json"]
+        )
+        if (response.data.error?.message == "Odoo Session Expired") {
+            this.isLoggedIn = false
+            throw new DisconnectedFromOdooException();
+        }
+        return response.data.result.records
+    }
+
 }
