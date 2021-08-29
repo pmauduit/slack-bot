@@ -8,7 +8,7 @@ class MockOdooServer extends RESTClient {
     def userExisting = true
     def badLoginCredentials = false
 
-    def weeklyAttendance = true
+    def attendanceType = "weekly"
 
     @Override
     public Object post(Map<String,?> args) {
@@ -33,12 +33,16 @@ class MockOdooServer extends RESTClient {
             def ret = new File(this.getClass().getResource("attendance-empty-response.json").toURI()).text
             return [ data: new JsonSlurper().parseText(ret) ]
         }
-        else if (model == "hr.attendance" && weeklyAttendance) {
+        else if (model == "hr.attendance" && attendanceType == "weekly") {
             def ret = new File(this.getClass().getResource("hr-attendances-response-payload.json").toURI()).text
             return [ data: new JsonSlurper().parseText(ret) ]
         }
-        else if (model == "hr.attendance" && ! weeklyAttendance) {
+        else if (model == "hr.attendance" && attendanceType == "daily") {
             def ret = new File(this.getClass().getResource("hr-attendance-day-response-payload.json").toURI()).text
+            return [ data: new JsonSlurper().parseText(ret) ]
+        }
+        else if (model == "hr.attendance" && attendanceType == "ts") {
+            def ret = new File(this.getClass().getResource("hr-attendances-timesheet-response-payload.json").toURI()).text
             return [ data: new JsonSlurper().parseText(ret) ]
         }
         else if (model == "hr.leave" && ! sessionInvalidated) {

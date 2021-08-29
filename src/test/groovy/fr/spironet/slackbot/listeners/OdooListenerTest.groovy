@@ -21,7 +21,7 @@ class OdooListenerTest {
 
     @Test
     void testTotalTimeWeek() {
-        toTest.odooClient.http.weeklyAttendance = true
+        toTest.odooClient.http.attendanceType = "weekly"
         def ret = toTest.totalTimeWeek()
 
         assertTrue(ret.contains("*40:11*"))
@@ -29,10 +29,17 @@ class OdooListenerTest {
 
     @Test
     void testTotalTimeToday() {
-        toTest.odooClient.http.weeklyAttendance = false
+        toTest.odooClient.http.attendanceType = "daily"
         def ret = toTest.totalTimeToday()
 
         assertTrue(ret.contains("* over *07:42*"))
     }
 
+    @Test
+    void testTimeSheet() {
+        toTest.odooClient.http.attendanceType = "ts"
+        def ret = toTest.timeSheet()
+
+        assertTrue(ret.contains("2021-08-25: 08:00"))
+    }
 }

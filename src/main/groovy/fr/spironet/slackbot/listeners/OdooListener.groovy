@@ -199,22 +199,24 @@ class OdooListener implements SlackMessagePostedListener  {
                 minutes / 60 as Integer, minutes % 60 as Integer)
     }
 
-    private def timeSheet() {
+    /**
+     * Formats a String, giving a listing of the working time over the last
+     * 8 days, useful to fill in ones timesheet.
+     *
+     * @return a String with the expected infos, if no error occured.
+     */
+    def timeSheet() {
         Calendar cal = Calendar.getInstance()
         Date now = cal.getTime()
-        cal.add(Calendar.DAY_OF_YEAR, -10)
+        cal.add(Calendar.DAY_OF_YEAR, -10) // ten days actually, but we don't use to work on the weekend.
         Date lastWeek = cal.getTime()
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd")
-        SimpleDateFormat fromOdooDateFmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 
-        Object[] domain = [
-                [ "check_in", ">=", format.format(lastWeek) + "T00:00:00.0Z"],
-                [ "check_in", "<=", format.format(now)   + "T00:00:00.0Z"]
-        ]
+        def from = format.format(lastWeek) + "T00:00:00.0Z"
+        def to   = format.format(now)   + "T00:00:00.0Z"
 
-        Map<String, Object>[] ret = oeExecutor.searchRead(OeModel.HR_ATTENDANCE.getName(),
-                Arrays.asList(domain), (Integer) 0, (Integer) 0, null, "check_in","check_out")
+        def ret = odooClient.getAttendances(this.username, from, to)
 
         SimpleDateFormat outputOdooFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         outputOdooFormat.setTimeZone(TimeZone.getTimeZone("GMT"))
@@ -222,10 +224,9 @@ class OdooListener implements SlackMessagePostedListener  {
         long minutes = 0
         def  perDay = [:]
         def currentDay = null
-        for (int i = 0 ; i < ret.length ; i ++) {
-            Map current = (Map) ret[i]
-            Object o = current.get("check_out")
-            Date cIn  = outputOdooFormat.parse(current.get("check_in").toString().replaceAll("\"", ""))
+
+        ret.each {
+            def cIn = outputOdooFormat.parse(it.check_in)
             def nd = format.format(cIn)
             if (currentDay == null) {
                 currentDay = nd
@@ -235,12 +236,7 @@ class OdooListener implements SlackMessagePostedListener  {
                 currentDay = nd
                 minutes = 0
             }
-            Date cOut
-            if (! current.get("check_out").equals("false")) {
-                cOut = outputOdooFormat.parse(current.get("check_out").toString().replaceAll("\"", ""))
-            } else {
-                cOut = new Date()
-            }
+            Date cOut = it.check_out != false ? outputOdooFormat.parse(it.check_out) : new Date()
             minutes += ChronoUnit.MINUTES.between(cIn.toInstant(), cOut.toInstant())
         }
         def retstr = ""
