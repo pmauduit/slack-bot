@@ -1,0 +1,53 @@
+{
+  "results": [
+    {
+      "content": {
+        "id": "77516020",
+        "type": "blogpost",
+        "status": "current",
+        "title": "Point Pentagone du 15 juillet 2021",
+        "restrictions": { },
+        "_links": {
+          "webui": "/pages/viewpage.action?pageId=77516020",
+          "tinyui": "/x/9MyeB",
+          "self": "https://confluence/confluence/rest/api/content/77516020"
+        },
+        "_expandable": {
+          "container": "",
+          "metadata": "",
+          "extensions": "",
+          "operations": "",
+          "children": "",
+          "history": "/rest/api/content/77516020/history",
+          "ancestors": "",
+          "body": "",
+          "version": "",
+          "descendants": "",
+          "space": "/rest/api/space/GEOR"
+        }
+      },
+      "title": "Point Pentagone du 15 juillet 2021",
+      "excerpt": "Présents : Jean-Michel ServiceSecrets, FVB, PMT Programme : disponibilité en période d&#39;été factures tickets heures support divers points : sigeo-cache, changement de version de bases de données (portail extranet), évolutions à venir ... Dispos :  FVB absent 2 dernières semaines juillet + 3ème semaine a",
+      "url": "/pages/viewpage.action?pageId=77516020",
+      "resultGlobalContainer": {
+        "title": "geOrchestra",
+        "displayUrl": "/display/GEOR"
+      },
+      "entityType": "content",
+      "iconCssClass": "aui-icon content-type-blogpost",
+      "lastModified": "2021-07-16T09:37:35.875+02:00",
+      "friendlyLastModified": "16/07/2021",
+      "timestamp": 1626421055875
+    }
+  ],
+  "start": 0,
+  "limit": 3,
+  "size": 1,
+  "totalSize": 1,
+  "cqlQuery": "type IN (\"blogpost\") AND label = \"pentagone\"",
+  "searchDuration": 18,
+  "_links": {
+    "base": "https://confluence/confluence",
+    "context": "/confluence"
+  }
+}
