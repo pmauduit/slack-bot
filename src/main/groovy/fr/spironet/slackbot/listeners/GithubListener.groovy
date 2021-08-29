@@ -20,6 +20,7 @@ class GithubListener implements SlackMessagePostedListener  {
   private final static Logger logger = LoggerFactory.getLogger(JiraListener.class)
 
     def gh_token
+    def http
 
     def usage = """
     Usage: !github <command> <args...>
@@ -49,6 +50,7 @@ class GithubListener implements SlackMessagePostedListener  {
     ]
 
     public GithubListener() {
+       http = new RESTClient("https://api.github.com")
        gh_token = System.getenv("GITHUB_TOKEN")
     }
 
@@ -99,17 +101,20 @@ class GithubListener implements SlackMessagePostedListener  {
       return SlackPreparedMessage.builder().message(ret).build()
     }
 
+    def doGithubSearch(def query) {
+      http.get(path: "/search/repositories",
+              queryString: query,
+              headers: ["Authorization": "Bearer ${this.gh_token}",
+                        "User-Agent": "groovyx.net.http.RESTClient"])
+    }
+
     SlackPreparedMessage findRepositories(def topics) {
       def topicsQuery = topics.collect {
         "topic:${it}"
       }.join('+')
 
       def actualQuery = String.format("q=org:camptocamp+${topicsQuery}")
-      def http = new RESTClient("https://api.github.com")
-      def response = http.get(path: "/search/repositories",
-              queryString: actualQuery,
-              headers: ["Authorization": "Bearer ${this.gh_token}",
-                        "User-Agent": "groovyx.net.http.RESTClient"])
+      def response = doGithubSearch(actualQuery)
       def ret = ""
       if (response.data.total_count == 0) {
         ret = ":ledger: No github repository found in Camptocamp with topic *${topics}*\n"
