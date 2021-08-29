@@ -161,10 +161,4 @@ class GithubListener implements SlackMessagePostedListener  {
         }
       }
     }
-
-  public static void main(String[] args) {
-      def ghLstnr = new GithubListener()
-      def msg = ghLstnr.findRepositories(["rennes"])
-      assert "camptocamp/georchestra-rennes-public" in msg.toString()
-  }
 }
