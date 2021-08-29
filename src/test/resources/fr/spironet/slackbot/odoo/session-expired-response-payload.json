@@ -1,0 +1,18 @@
+{
+  "jsonrpc": "2.0",
+  "id": null,
+  "error": {
+    "code": 100,
+    "message": "Odoo Session Expired",
+    "data": {
+      "name": "odoo.http.SessionExpiredException",
+      "debug": "Traceback (most recent call last):\n  File \"/odoo/src/odoo/http.py\", line 624, in _handle_exception\n    return super(JsonRequest, self)._handle_exception(exception)\n  File \"/odoo/src/odoo/http.py\", line 310, in _handle_exception\n    raise pycompat.reraise(type(exception), exception, sys.exc_info()[2])\n  File \"/odoo/src/odoo/tools/pycompat.py\", line 14, in reraise\n    raise value\n  File \"/odoo/src/addons/http_routing/models/ir_http.py\", line 457, in _dispatch\n    cls._authenticate(func.routing['auth'])\n  File \"/odoo/src/odoo/addons/base/models/ir_http.py\", line 124, in _authenticate\n    getattr(cls, \"_auth_method_%s\" % auth_method)()\n  File \"/odoo/src/odoo/addons/base/models/ir_http.py\", line 97, in _auth_method_user\n    raise http.SessionExpiredException(\"Session expired\")\nodoo.http.SessionExpiredException: Session expired\n",
+      "message": "Session expired",
+      "arguments": [
+        "Session expired"
+      ],
+      "exception_type": "internal_error",
+      "context": {}
+    }
+  }
+}

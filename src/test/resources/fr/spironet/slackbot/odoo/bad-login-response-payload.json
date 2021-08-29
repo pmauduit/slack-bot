@@ -1,0 +1,18 @@
+{
+  "jsonrpc": "2.0",
+  "id": null,
+  "error": {
+    "code": 200,
+    "message": "Odoo Server Error",
+    "data": {
+      "name": "odoo.exceptions.AccessDenied",
+      "debug": "Traceback (most recent call last):\n  File \"/odoo/src/odoo/http.py\", line 624, in _handle_exception\n    return super(JsonRequest, self)._handle_exception(exception)\n  File \"/odoo/src/odoo/http.py\", line 310, in _handle_exception\n    raise pycompat.reraise(type(exception), exception, sys.exc_info()[2])\n  File \"/odoo/src/odoo/tools/pycompat.py\", line 14, in reraise\n    raise value\n  File \"/odoo/src/odoo/http.py\", line 669, in dispatch\n    result = self._call_function(**self.params)\n  File \"/odoo/src/odoo/http.py\", line 350, in _call_function\n    return checked_call(self.db, *args, **kwargs)\n  File \"/odoo/src/odoo/service/model.py\", line 94, in wrapper\n    return f(dbname, *args, **kwargs)\n  File \"/odoo/src/odoo/http.py\", line 339, in checked_call\n    result = self.endpoint(*a, **kw)\n  File \"/odoo/src/odoo/http.py\", line 915, in __call__\n    return self.method(*args, **kw)\n  File \"/odoo/src/odoo/http.py\", line 515, in response_wrap\n    response = f(*args, **kw)\n  File \"/odoo/src/addons/web/controllers/main.py\", line 1204, in authenticate\n    request.session.authenticate(db, login, password)\n  File \"/odoo/src/odoo/http.py\", line 1006, in authenticate\n    uid = odoo.registry(db)['res.users'].authenticate(db, login, password, env)\n  File \"/odoo/src/addons/website/models/res_users.py\", line 72, in authenticate\n    uid = super(ResUsers, cls).authenticate(db, login, password, user_agent_env)\n  File \"/odoo/src/odoo/addons/base/models/res_users.py\", line 642, in authenticate\n    uid = cls._login(db, login, password)\n  File \"/odoo/src/odoo/addons/base/models/res_users.py\", line 621, in _login\n    user._check_credentials(password)\n  File \"/odoo/src/odoo/addons/base/models/res_users.py\", line 324, in _check_credentials\n    raise AccessDenied()\nodoo.exceptions.AccessDenied: Access denied\n",
+      "message": "Access denied",
+      "arguments": [
+        "Access denied"
+      ],
+      "exception_type": "access_denied",
+      "context": {}
+    }
+  }
+}

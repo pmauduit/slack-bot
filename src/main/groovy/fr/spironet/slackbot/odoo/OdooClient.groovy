@@ -3,6 +3,8 @@ package fr.spironet.slackbot.odoo
 import groovyx.net.http.ContentType
 import groovyx.net.http.RESTClient
 
+import java.text.SimpleDateFormat
+
 /**
  * The Odoo Java library I was using since then is horrible to use in Groovy:
  * there are too many uncertainty on which method should be called, the
@@ -32,7 +34,6 @@ class OdooClient {
     public def login() {
         def odooLoginUrl = "${odooScheme}://${odooHost}:${odooPort}/web/session/authenticate"
 
-
         def response = http.post(
                     uri: odooLoginUrl,
                     body: [jsonrpc: "2.0",
@@ -43,6 +44,9 @@ class OdooClient {
                     headers: [Accept: "application/json"]
 
         )
+        if (response.data.error?.data?.name == "odoo.exceptions.AccessDenied") {
+            throw new AccessDeniedOdooException()
+        }
         this.isLoggedIn = true
         return response.data
     }
@@ -123,6 +127,10 @@ class OdooClient {
                 requestContentType: ContentType.JSON,
                 headers: [Accept: "application/json"]
         )
+        if (response.data.error?.message == "Odoo Session Expired") {
+            this.isLoggedIn = false
+            throw new DisconnectedFromOdooException();
+        }
         if (response.data.error?.message != null) {
             throw new RuntimeException(response.data.error.message)
         }
@@ -145,7 +153,7 @@ class OdooClient {
                                 model: "hr.leave",
                                 domain: [
                                         ["user_id", "=", userId],
-                                        ["date_from", ">=", new Date().format('YYYY-MM-dd 00:00:00')],
+                                        ["date_from", ">=", new SimpleDateFormat("yyyy-MM-dd").format(new Date()) ],
                                 ],
                                 fields: []
                         ]
@@ -153,31 +161,14 @@ class OdooClient {
                 requestContentType: ContentType.JSON,
                 headers: [Accept: "application/json"]
         )
-
+        if (response.data.error?.message == "Odoo Session Expired") {
+            this.isLoggedIn = false
+            throw new DisconnectedFromOdooException();
+        }
         return response.data.result.records.sort {
-            Date.parse('yyyy-MM-dd HH:mm:ss', it.date_from)
+            new SimpleDateFormat('yyyy-MM-dd HH:mm:ss').parse(it.date_from)
         }.findAll {
             it.state == "validate"
         }
-    }
-
-    public static void main(String[] args) {
-        def toTest = new OdooClient()
-        toTest.login()
-        //def state = toTest.getAttendanceState("yjacolin")
-//      //assert state in ["checked_out", "checked_in"]
-//      // check the attendance of Pamela Anderson
-//      def state = toTest.getAttendanceState("panderson")
-//      assert state == null
-//        toTest.findUser("yjacolin")
-        //toTest.getColor()
-        //toTest.getFields("res.users")
-        //toTest.getLeaves()
-        //toTest.getLeaves()
-        //toTest.getLeads()
-        //toTest.getFields("crm.lead")
-        //toTest.getFields("res.users")
-        def ret = toTest.getComingLeavesForUser("pmauduit")
-        println ret
     }
 }
