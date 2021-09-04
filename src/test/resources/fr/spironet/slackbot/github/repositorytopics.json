@@ -1,0 +1,156 @@
+{
+  "data": {
+    "search": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "Y3Yzc21yOkY="
+      },
+      "repos": [
+        {
+          "repo": {
+            "nameWithOwner": "myorg/terraform-chamberymetropole",
+            "repositoryTopics": {
+              "topics": [
+                {
+                  "topic": {
+                    "name": "geospatial"
+                  }
+                },
+                {
+                  "topic": {
+                    "name": "chambery"
+                  }
+                },
+                {
+                  "topic": {
+                    "name": "deployment"
+                  }
+                },
+                {
+                  "topic": {
+                    "name": "terraform"
+                  }
+                },
+                {
+                  "topic": {
+                    "name": "runtime"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "repo": {
+            "nameWithOwner": "myorg/georchestra-chambery-configuration",
+            "repositoryTopics": {
+              "topics": [
+                {
+                  "topic": {
+                    "name": "geospatial"
+                  }
+                },
+                {
+                  "topic": {
+                    "name": "chambery"
+                  }
+                },
+                {
+                  "topic": {
+                    "name": "configuration"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "repo": {
+            "nameWithOwner": "myorg/georchestra-chambery-public-customizations",
+            "repositoryTopics": {
+              "topics": [
+                {
+                  "topic": {
+                    "name": "geospatial"
+                  }
+                },
+                {
+                  "topic": {
+                    "name": "chambery"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "repo": {
+            "nameWithOwner": "myorg/georchestra-chambery-cicd",
+            "repositoryTopics": {
+              "topics": [
+                {
+                  "topic": {
+                    "name": "geospatial"
+                  }
+                },
+                {
+                  "topic": {
+                    "name": "chambery"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "repo": {
+            "nameWithOwner": "myorg/chambery-geoserver-datadir-public",
+            "repositoryTopics": {
+              "topics": [
+                {
+                  "topic": {
+                    "name": "geospatial"
+                  }
+                },
+                {
+                  "topic": {
+                    "name": "chambery"
+                  }
+                },
+                {
+                  "topic": {
+                    "name": "configuration"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "repo": {
+            "nameWithOwner": "myorg/chambery-geoserver-datadir",
+            "repositoryTopics": {
+              "topics": [
+                {
+                  "topic": {
+                    "name": "geospatial"
+                  }
+                },
+                {
+                  "topic": {
+                    "name": "chambery"
+                  }
+                },
+                {
+                  "topic": {
+                    "name": "configuration"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}
