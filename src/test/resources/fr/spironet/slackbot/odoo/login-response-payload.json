@@ -1,0 +1,128 @@
+{
+  "jsonrpc": "2.0",
+  "id": null,
+  "result": {
+    "uid": 69,
+    "is_system": false,
+    "is_admin": false,
+    "user_context": {
+      "lang": "fr_FR",
+      "tz": "Europe/Zurich",
+      "uid": 69
+    },
+    "db": "odoo_db",
+    "server_version": "13.0+e",
+    "server_version_info": [
+      13,
+      0,
+      0,
+      "final",
+      0,
+      "e"
+    ],
+    "name": "Doe John",
+    "username": "jdoe",
+    "partner_display_name": "MegaCorp, Doe John",
+    "company_id": 2,
+    "partner_id": 999,
+    "web.base.url": "https://megacorp-nxdomain.com",
+    "user_companies": {
+      "current_company": [
+        2,
+        "MegaCorp"
+      ],
+      "allowed_companies": [
+        [
+          2,
+          "MegaCorp"
+        ]
+      ]
+    },
+    "currencies": {
+      "4": {
+        "symbol": "CAD",
+        "position": "after",
+        "digits": [
+          69,
+          2
+        ]
+      },
+      "5": {
+        "symbol": "CHF",
+        "position": "before",
+        "digits": [
+          69,
+          2
+        ]
+      },
+      "1": {
+        "symbol": "€",
+        "position": "after",
+        "digits": [
+          69,
+          2
+        ]
+      },
+      "19": {
+        "symbol": "£",
+        "position": "after",
+        "digits": [
+          69,
+          2
+        ]
+      },
+      "383": {
+        "symbol": "Q",
+        "position": "after",
+        "digits": [
+          69,
+          2
+        ]
+      },
+      "2": {
+        "symbol": "USD",
+        "position": "after",
+        "digits": [
+          69,
+          2
+        ]
+      },
+      "40": {
+        "symbol": "ZAR",
+        "position": "after",
+        "digits": [
+          69,
+          2
+        ]
+      }
+    },
+    "show_effect": false,
+    "display_switch_company_menu": false,
+    "cache_hashes": {
+      "load_menus": "ee91fc7f03026a65276f306212b7d838aba941aa",
+      "qweb": "015a7b0aca5ea4166037ce0c5fae4cd02b12901e",
+      "translations": "6ada708e01a54e4bf2a9f4265198947b2a4af458"
+    },
+    "max_time_between_keys_in_ms": 55,
+    "company_currency_id": 1,
+    "companies_currency_id": {
+      "2": 1
+    },
+    "warning": "user",
+    "expiration_date": "2022-10-01 00:00:00",
+    "expiration_reason": "renewal",
+    "out_of_office_message": false,
+    "map_box_token": false,
+    "odoobot_initialized": true,
+    "ocn_token_key": false,
+    "fcm_project_id": "186813708685",
+    "inbox_action": 1266,
+    "timesheet_uom": {
+      "id": 14,
+      "name": "h",
+      "rounding": 0.01,
+      "timesheet_widget": "float_time"
+    },
+    "timesheet_uom_factor": 1
+  }
+}

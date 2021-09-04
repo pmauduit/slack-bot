@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <title>Confluence RSS Feed</title>
+    <link rel="alternate" href="https://confluence/confluence" />
+    <subtitle>Confluence Syndication Feed</subtitle>
+    <id>https://confluence/confluence</id>
+    <entry>
+        <title>CR réunion de démo Sprint 2 GN4/geOrchestra</title>
+        <link rel="alternate" href="https://confluence/confluence/pages/viewpage.action?pageId=82123694" />
+        <category term="geonetwork4" />
+        <category term="projectX" />
+        <author>
+            <name>John Doe</name>
+        </author>
+        <id>tag:confluence,2009:blogpost-82123694-1</id>
+        <updated>2021-08-27T15:47:45Z</updated>
+        <published>2021-08-26T22:00:00Z</published>
+        <summary type="html">&lt;div class="feed"&gt;    &lt;p&gt;
+            Blog post
+            &lt;b&gt;added&lt;/b&gt; by
+            &lt;a href="    https://confluence/confluence/display/~jdoe
+            "&gt;John Doe&lt;/a&gt;
+            &lt;/p&gt;
+            &lt;div style="padding: 10px 0;"&gt;
+            &lt;a href="https://confluence/confluence/pages/viewpage.action?pageId=82123694"&gt;View Online&lt;/a&gt;
+            &amp;middot;
+            &lt;a href="https://confluence/confluence/pages/viewpage.action?pageId=82123694&amp;showComments=true&amp;showCommentArea=true#addcomment"&gt;Add Comment&lt;/a&gt;
+            &lt;/div&gt;
+            &lt;/div&gt;</summary>
+        <dc:creator>John Doe</dc:creator>
+        <dc:date>2021-08-26T22:00:00Z</dc:date>
+    </entry>
+    <entry>
+        <title>CR réunion de démo Sprint 2 GN4/geOrchestra &gt; 2021-08-27 GN4 geOrchestra Sprint 2 DEMO.pdf</title>
+        <link rel="alternate" href="https://confluence/confluence/download/attachments/82123694/2021-08-27%20GN4%20geOrchestra%20Sprint%202%20DEMO.pdf?version=1&amp;modificationDate=1630077749155&amp;api=v2" />
+        <category term="geonetwork4" />
+        <category term="projectX" />
+        <author>
+            <name>John Doe</name>
+        </author>
+        <id>tag:confluence,2009:attachment-82123752-1</id>
+        <updated>2021-08-27T15:22:29Z</updated>
+        <published>2021-08-27T15:22:29Z</published>
+        <summary type="html">&lt;div class="feed"&gt;    &lt;p&gt;File
+            &lt;b&gt;attached&lt;/b&gt; by
+            &lt;a href="    https://confluence/confluence/display/~jdoe
+            "&gt;John Doe&lt;/a&gt;
+            &lt;/p&gt;
+            &lt;div style="border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 10px;"&gt;
+            &lt;p&gt;
+
+
+
+
+
+            &lt;span class="aui-icon content-type-attachment-pdf" title="PDF File"&gt;PDF File&lt;/span&gt; &lt;a href="https://confluence/confluence/download/attachments/82123694/2021-08-27%20GN4%20geOrchestra%20Sprint%202%20DEMO.pdf?version=1&amp;amp;modificationDate=1630077749155&amp;amp;api=v2"&gt;2021-08-27 GN4 geOrchestra Sprint 2 DEMO.pdf&lt;/a&gt; &lt;span class="smalltext"&gt;(170 kB)&lt;/span&gt;
+            &lt;br/&gt;
+            &lt;/p&gt;
+            &lt;/div&gt;
+
+            &lt;div style="padding: 10px 0;"&gt;
+            &lt;a href="https://confluence/confluence/pages/viewpageattachments.action?pageId=82123694"&gt;View Attachments&lt;/a&gt;
+            &lt;/div&gt;
+
+            &lt;/div&gt;</summary>
+        <dc:creator>John Doe</dc:creator>
+        <dc:date>2021-08-27T15:22:29Z</dc:date>
+    </entry>
+    <entry>
+        <title>Nouvelles priorités de l'équipe projectX pour le projet de migration à GeoNetwork 4</title>
+        <link rel="alternate" href="https://confluence/confluence/pages/viewpage.action?pageId=82123692" />
+        <category term="geonetwork4" />
+        <category term="projectX" />
+        <author>
+            <name>John Doe</name>
+        </author>
+        <id>tag:confluence,2009:blogpost-82123692-1</id>
+        <updated>2021-08-27T11:52:29Z</updated>
+        <published>2021-08-26T22:00:00Z</published>
+        <summary type="html">&lt;div class="feed"&gt;    &lt;p&gt;
+            Blog post
+            &lt;b&gt;added&lt;/b&gt; by
+            &lt;a href="    https://confluence/confluence/display/~jdoe
+            "&gt;John Doe&lt;/a&gt;
+            &lt;/p&gt;
+            &lt;div style="padding: 10px 0;"&gt;
+            &lt;a href="https://confluence/confluence/pages/viewpage.action?pageId=82123692"&gt;View Online&lt;/a&gt;
+            &amp;middot;
+            &lt;a href="https://confluence/confluence/pages/viewpage.action?pageId=82123692&amp;showComments=true&amp;showCommentArea=true#addcomment"&gt;Add Comment&lt;/a&gt;
+            &lt;/div&gt;
+            &lt;/div&gt;</summary>
+        <dc:creator>John Doe</dc:creator>
+        <dc:date>2021-08-26T22:00:00Z</dc:date>
+    </entry>
+    <entry>
+        <title>GitHub graphQL API</title>
+        <link rel="alternate" href="https://confluence/confluence/display/~jdoe2/GitHub+graphQL+API" />
+        <category term="github" />
+        <category term="api" />
+        <author>
+            <name>John Doe 2</name>
+        </author>
+        <id>tag:confluence,2009:page-63018532-5</id>
+        <updated>2021-08-25T21:29:27Z</updated>
+        <published>2020-10-02T14:53:46Z</published>
+        <summary type="html">&lt;div class="feed"&gt;    &lt;p&gt;
+            Page
+            &lt;b&gt;edited&lt;/b&gt; by
+            &lt;a href="    https://confluence/confluence/display/~jdoe2
+            "&gt;John Doe 2&lt;/a&gt;
+            &lt;/p&gt;
+            &lt;div style="padding: 10px 0;"&gt;
+            &lt;a href="https://confluence/confluence/display/~jdoe2/GitHub+graphQL+API"&gt;View Online&lt;/a&gt;
+            &amp;middot;
+            &lt;a href="https://confluence/confluence/pages/diffpagesbyversion.action?pageId=63018532&amp;revisedVersion=5&amp;originalVersion=4"&gt;View Changes Online&lt;/a&gt;
+            &amp;middot;
+            &lt;a href="https://confluence/confluence/display/~jdoe2/GitHub+graphQL+API?showComments=true&amp;showCommentArea=true#addcomment"&gt;Add Comment&lt;/a&gt;
+            &lt;/div&gt;
+            &lt;/div&gt;</summary>
+        <dc:creator>John Doe 2</dc:creator>
+        <dc:date>2020-10-02T14:53:46Z</dc:date>
+    </entry>
+    <entry>
+        <title>Reverse-engineering JIRA</title>
+        <link rel="alternate" href="https://confluence/confluence/display/~jdoe2/Reverse-engineering+JIRA" />
+        <category term="slackbot" />
+        <category term="groovy" />
+        <author>
+            <name>John Doe 2</name>
+        </author>
+        <id>tag:confluence,2009:page-71497854-14</id>
+        <updated>2021-08-25T18:29:31Z</updated>
+        <published>2021-05-27T14:18:18Z</published>
+        <summary type="html">&lt;div class="feed"&gt;    &lt;p&gt;
+            Page
+            &lt;b&gt;edited&lt;/b&gt; by
+            &lt;a href="    https://confluence/confluence/display/~jdoe2
+            "&gt;John Doe 2&lt;/a&gt;
+            &lt;/p&gt;
+            &lt;div style="padding: 10px 0;"&gt;
+            &lt;a href="https://confluence/confluence/display/~jdoe2/Reverse-engineering+JIRA"&gt;View Online&lt;/a&gt;
+            &amp;middot;
+            &lt;a href="https://confluence/confluence/pages/diffpagesbyversion.action?pageId=71497854&amp;revisedVersion=14&amp;originalVersion=13"&gt;View Changes Online&lt;/a&gt;
+            &amp;middot;
+            &lt;a href="https://confluence/confluence/display/~jdoe2/Reverse-engineering+JIRA?showComments=true&amp;showCommentArea=true#addcomment"&gt;Add Comment&lt;/a&gt;
+            &lt;/div&gt;
+            &lt;/div&gt;</summary>
+        <dc:creator>John Doe 2</dc:creator>
+        <dc:date>2021-05-27T14:18:18Z</dc:date>
+    </entry>
+    <entry>
+        <title>Adaptation des cours aux PSH</title>
+        <link rel="alternate" href="https://confluence/confluence/display/GS/Adaptation+des+cours+aux+PSH" />
+        <author>
+            <name>John Doe 3</name>
+        </author>
+        <id>tag:confluence,2009:page-77525146-2</id>
+        <updated>2021-08-25T11:54:54Z</updated>
+        <published>2021-08-06T11:40:24Z</published>
+        <summary type="html">&lt;div class="feed"&gt;    &lt;p&gt;
+            Page
+            &lt;b&gt;edited&lt;/b&gt; by
+            &lt;a href="    https://confluence/confluence/display/~jdoe3
+            "&gt;John Doe 3&lt;/a&gt;
+            &lt;/p&gt;
+            &lt;div style="padding: 10px 0;"&gt;
+            &lt;a href="https://confluence/confluence/display/GS/Adaptation+des+cours+aux+PSH"&gt;View Online&lt;/a&gt;
+            &amp;middot;
+            &lt;a href="https://confluence/confluence/pages/diffpagesbyversion.action?pageId=77525146&amp;revisedVersion=2&amp;originalVersion=1"&gt;View Changes Online&lt;/a&gt;
+            &amp;middot;
+            &lt;a href="https://confluence/confluence/display/GS/Adaptation+des+cours+aux+PSH?showComments=true&amp;showCommentArea=true#addcomment"&gt;Add Comment&lt;/a&gt;
+            &lt;/div&gt;
+            &lt;/div&gt;</summary>
+        <dc:creator>John Doe 3</dc:creator>
+        <dc:date>2021-08-06T11:40:24Z</dc:date>
+    </entry>
+    <entry>
+        <title>GS Devops sessions</title>
+        <link rel="alternate" href="https://confluence/confluence/display/GS/GS+Devops+sessions" />
+        <author>
+            <name>John Doe 2</name>
+        </author>
+        <id>tag:confluence,2009:page-42427283-48</id>
+        <updated>2021-08-24T13:55:11Z</updated>
+        <published>2020-02-20T15:25:20Z</published>
+        <summary type="html">&lt;div class="feed"&gt;    &lt;p&gt;
+            Page
+            &lt;b&gt;edited&lt;/b&gt; by
+            &lt;a href="    https://confluence/confluence/display/~jdoe2
+            "&gt;John Doe 2&lt;/a&gt;
+            &lt;/p&gt;
+            &lt;div style="padding: 10px 0;"&gt;
+            &lt;a href="https://confluence/confluence/display/GS/GS+Devops+sessions"&gt;View Online&lt;/a&gt;
+            &amp;middot;
+            &lt;a href="https://confluence/confluence/pages/diffpagesbyversion.action?pageId=42427283&amp;revisedVersion=48&amp;originalVersion=47"&gt;View Changes Online&lt;/a&gt;
+            &amp;middot;
+            &lt;a href="https://confluence/confluence/display/GS/GS+Devops+sessions?showComments=true&amp;showCommentArea=true#addcomment"&gt;Add Comment&lt;/a&gt;
+            &lt;/div&gt;
+            &lt;/div&gt;</summary>
+        <dc:creator>John Doe 2</dc:creator>
+        <dc:date>2020-02-20T15:25:20Z</dc:date>
+    </entry>
+    <entry>
+        <title>Ouverture d'une formation de géomatique à l'institut d'Urbanisme et de Géographie Alpine de Grenoble</title>
+        <link rel="alternate" href="https://confluence/confluence/pages/viewpage.action?pageId=82121397" />
+        <category term="recrutement" />
+        <author>
+            <name>John Doe</name>
+        </author>
+        <id>tag:confluence,2009:blogpost-82121397-1</id>
+        <updated>2021-08-24T13:35:49Z</updated>
+        <published>2021-08-23T22:00:00Z</published>
+        <summary type="html">&lt;div class="feed"&gt;    &lt;p&gt;
+            Blog post
+            &lt;b&gt;added&lt;/b&gt; by
+            &lt;a href="    https://confluence/confluence/display/~jdoe
+            "&gt;John Doe&lt;/a&gt;
+            &lt;/p&gt;
+            &lt;div style="padding: 10px 0;"&gt;
+            &lt;a href="https://confluence/confluence/pages/viewpage.action?pageId=82121397"&gt;View Online&lt;/a&gt;
+            &amp;middot;
+            &lt;a href="https://confluence/confluence/pages/viewpage.action?pageId=82121397&amp;showComments=true&amp;showCommentArea=true#addcomment"&gt;Add Comment&lt;/a&gt;
+            &lt;/div&gt;
+            &lt;/div&gt;</summary>
+        <dc:creator>John Doe</dc:creator>
+        <dc:date>2021-08-23T22:00:00Z</dc:date>
+    </entry>
+</feed>
+

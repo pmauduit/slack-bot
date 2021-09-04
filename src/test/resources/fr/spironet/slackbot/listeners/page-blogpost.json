@@ -1,0 +1,131 @@
+{
+  "results": [
+    {
+      "content": {
+        "id": "42418996",
+        "type": "page",
+        "status": "current",
+        "title": "Pentagone",
+        "restrictions": { },
+        "_links": {
+          "webui": "/pages/viewpage.action?pageId=42418996",
+          "tinyui": "/x/NEOHAg",
+          "self": "https://confluence/confluence/rest/api/content/42418996"
+        },
+        "_expandable": {
+          "container": "",
+          "metadata": "",
+          "extensions": "",
+          "operations": "",
+          "children": "",
+          "history": "/rest/api/content/42418996/history",
+          "ancestors": "",
+          "body": "",
+          "version": "",
+          "descendants": "",
+          "space": "/rest/api/space/GEOR"
+        }
+      },
+      "title": "Pentagon",
+      "excerpt": "geOrchestra est utilisé depuis 2014 par le Pentagone pour diffuser ses données géographiques en production à ses agents et applications via une plateforme OGC. Site web : https://pentagon.gov/ (intranet et extranet, plus de 4000 agents au total) Doc",
+      "url": "/pages/viewpage.action?pageId=42418996",
+      "resultGlobalContainer": {
+        "title": "geOrchestra",
+        "displayUrl": "/display/GEOR"
+      },
+      "entityType": "content",
+      "iconCssClass": "aui-icon content-type-page",
+      "lastModified": "2021-07-19T12:42:48.447+02:00",
+      "friendlyLastModified": "19/07/2021",
+      "timestamp": 1626691368447
+    },
+    {
+      "content": {
+        "id": "71469419",
+        "type": "page",
+        "status": "current",
+        "title": "Plateforme publique",
+        "restrictions": { },
+        "_links": {
+          "webui": "/display/GEOR/Plateforme+publique",
+          "tinyui": "/x/a4lCB",
+          "self": "https://confluence/confluence/rest/api/content/71469419"
+        },
+        "_expandable": {
+          "container": "",
+          "metadata": "",
+          "extensions": "",
+          "operations": "",
+          "children": "",
+          "history": "/rest/api/content/71469419/history",
+          "ancestors": "",
+          "body": "",
+          "version": "",
+          "descendants": "",
+          "space": "/rest/api/space/GEOR"
+        }
+      },
+      "title": "Plateforme publique",
+      "excerpt": "Introduction Fin 2019 / début 2020, MegaCorp a récupéré un marché de maintenance pour leur plateforme publique, jusqu&#39;alors gérée par les services du gouvernement. L&#39;idée était de fournir un service comparable à ce qui est déjà proposé par la plateforme privéee e.g. gestion et maintenance d&#39;environnements Rancher. Tickets JIRA",
+      "url": "/display/GEOR/Plateforme+publique",
+      "resultGlobalContainer": {
+        "title": "geOrchestra",
+        "displayUrl": "/display/GEOR"
+      },
+      "entityType": "content",
+      "iconCssClass": "aui-icon content-type-page",
+      "lastModified": "2021-04-21T12:26:01.374+02:00",
+      "friendlyLastModified": "21/04/2021",
+      "timestamp": 1619000761374
+    },
+    {
+      "content": {
+        "id": "77516020",
+        "type": "blogpost",
+        "status": "current",
+        "title": "Point Gouvernement américain du 15 juillet 2021",
+        "restrictions": { },
+        "_links": {
+          "webui": "/pages/viewpage.action?pageId=77516020",
+          "tinyui": "/x/9MyeB",
+          "self": "https://confluence/confluence/rest/api/content/77516020"
+        },
+        "_expandable": {
+          "container": "",
+          "metadata": "",
+          "extensions": "",
+          "operations": "",
+          "children": "",
+          "history": "/rest/api/content/77516020/history",
+          "ancestors": "",
+          "body": "",
+          "version": "",
+          "descendants": "",
+          "space": "/rest/api/space/GEOR"
+        }
+      },
+      "title": "Point Gouvernement américain du 15 juillet 2021",
+      "excerpt": "Présents : John Doe Bush, FVB, PMT Programme : disponibilité en période d&#39;été factures tickets heures support divers points : sigeo-cache, changement de version de bases de données (portail extranet), évolutions à venir ... Dispos :  FVB absent 2 dernières semaines juillet + 3ème semaine a",
+      "url": "/pages/viewpage.action?pageId=77516020",
+      "resultGlobalContainer": {
+        "title": "geOrchestra",
+        "displayUrl": "/display/GEOR"
+      },
+      "entityType": "content",
+      "iconCssClass": "aui-icon content-type-blogpost",
+      "lastModified": "2021-07-16T09:37:35.875+02:00",
+      "friendlyLastModified": "16/07/2021",
+      "timestamp": 1626421055875
+    }
+  ],
+  "start": 0,
+  "limit": 3,
+  "size": 3,
+  "totalSize": 4,
+  "cqlQuery": "type IN (\"page\",\"blogpost\") AND label = \"pentagon\"",
+  "searchDuration": 20,
+  "_links": {
+    "base": "https://confluence/confluence",
+    "context": "/confluence"
+  }
+}
