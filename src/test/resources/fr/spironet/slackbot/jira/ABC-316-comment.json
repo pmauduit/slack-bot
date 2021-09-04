@@ -1,0 +1,471 @@
+{
+  "startAt": 0,
+  "maxResults": 1048576,
+  "total": 12,
+  "comments": [
+    {
+      "self": "https://jira/rest/api/2/issue/79623/comment/215219",
+      "id": "215219",
+      "author": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john@doe.org",
+        "avatarUrls": {
+          "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+          "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+          "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+          "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "body": "Note préliminaire: CAS 6 utilise JDK11. La méthode d'intégration conseillée est de partir de l'overlay (https://github.com/apereo/cas-overlay-template), qui n'utilise plus maven mais gradle.\r\n",
+      "updateAuthor": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john@doe.org",
+        "avatarUrls": {
+          "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+          "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+          "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+          "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "created": "2021-07-15T18:01:33.362+0200",
+      "updated": "2021-07-15T18:01:33.362+0200"
+    },
+    {
+      "self": "https://jira/rest/api/2/issue/79623/comment/215625",
+      "id": "215625",
+      "author": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john@doe.org",
+        "avatarUrls": {
+          "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+          "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+          "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+          "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "body": "Travaillé sur le sujet une bonne partie de la journée, satisfait de l'avancée, mais il reste encore beaucoup à faire, ci après quelques remarques:\r\n\r\n* Je pense garder CAS dans un dépot séparé, c'est également l'approche qu'on envisage sur mapstore de toutes facons\r\n* J'ai ajouté un thème georchestra que j'ai commencé à personnaliser\r\n* J'ai réussi à intégrer le header georchestra déjà, et j'arrive à récupérer la taille dans l'habituel default.properties du datadir\r\n* Coté architecture, j'ai finalement opté pour une webapp classique plutot qu'une appli standalone spring-boot, car le système de build le permettait\r\n* J'ai déjà les dépendances nécessaires pour se brancher sur du LDAP, reste plus qu'à retrouver la configuration adéquate, mais cela a déjà été fait pour l'ifremer / geonetwork-sextant\r\n* Pour les configurations plus exotiques (je pense à DT et Rennes), j'ai à peu près trouvé comment injecter mon code custom (personnalisation dans le thème pour l'intégration du header), reste à savoir comment - si besoin - on peut débrancher les objets de base de CAS pour brancher les notres à la place.\r\n* Je reste sur Gradle pour le moment, même si je ne suis vraiment pas habitué à ce système de build. Peut-être qu'on pourrait faire la même chose avec maven vu qu'un plugin \"overlay\" existe également pour ce système, mais dans la mesure où on reste dans un dépot séparé pour le moment, il n'est pas nécessaire de se poser la question.\r\n\r\n\r\nC'est pour le moment publié ici: https://github.com/jdoe/georchestra-cas-server ; je pourrai transmettre la propriété à l'organisation georchestra quand le travail d'intégration sera terminé.\r\n",
+      "updateAuthor": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john@doe.org",
+        "avatarUrls": {
+          "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+          "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+          "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+          "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "created": "2021-07-20T18:08:34.697+0200",
+      "updated": "2021-07-20T18:11:23.247+0200"
+    },
+    {
+      "self": "https://jira/rest/api/2/issue/79623/comment/215626",
+      "id": "215626",
+      "author": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john@doe.org",
+        "avatarUrls": {
+          "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+          "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+          "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+          "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "body": "Pour rebondir sur la description du ticket, cela nécessitera un build spécifique sur géo2france, avec le module suivant en plus:\r\nhttps://apereo.github.io/cas/6.3.x/installation/OAuth-OpenId-Authentication.html#oauthopenid-authentication\r\n",
+      "updateAuthor": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john@doe.org",
+        "avatarUrls": {
+          "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+          "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+          "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+          "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "created": "2021-07-20T18:16:35.255+0200",
+      "updated": "2021-07-20T18:16:35.255+0200"
+    },
+    {
+      "self": "https://jira/rest/api/2/issue/79623/comment/217739",
+      "id": "217739",
+      "author": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john@doe.org",
+        "avatarUrls": {
+          "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+          "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+          "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+          "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "body": "J'ai à peu près un truc fonctionnel. Au niveau du thème / UI il y a encore du travail (cf ticket lié), mais j'ai une connexion au LDAP qui semble fonctionner:\r\n\r\n!Screenshot from 2021-08-17 19-18-17.png|width=1137,height=491!\r\n\r\nNote: le message obtenu provient du fait que je suis retourné volontairement sur CAS après authentification. Il y aura de toutes facons moyen de surcharger le template dans le thème afin de ne pas l'afficher.\r\n",
+      "updateAuthor": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john@doe.org",
+        "avatarUrls": {
+          "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+          "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+          "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+          "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "created": "2021-08-17T19:21:19.399+0200",
+      "updated": "2021-08-17T19:21:19.399+0200"
+    },
+    {
+      "self": "https://jira/rest/api/2/issue/79623/comment/217794",
+      "id": "217794",
+      "author": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john@doe.org",
+        "avatarUrls": {
+          "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+          "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+          "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+          "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "body": "J'ai créé un embryon de CI en github actions, on a dorénavant une image docker publiée sur docker-hub, avec le tag 6.3.5-dev. On a également une archive war attachée au run de la github action.\r\n",
+      "updateAuthor": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john@doe.org",
+        "avatarUrls": {
+          "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+          "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+          "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+          "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "created": "2021-08-18T14:16:45.770+0200",
+      "updated": "2021-08-18T14:16:45.770+0200"
+    },
+    {
+      "self": "https://jira/rest/api/2/issue/79623/comment/217807",
+      "id": "217807",
+      "author": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john@doe.org",
+        "avatarUrls": {
+          "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+          "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+          "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+          "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "body": "Avec le patch suivant dans la compo docker georchestra:\r\n{code}\r\ndiff --git a/docker-compose.yml b/docker-compose.yml\r\nindex b8bb76a..746639e 100644\r\n--- a/docker-compose.yml\r\n+++ b/docker-compose.yml\r\n@@ -60,11 +60,9 @@ services:\r\n     restart: always\r\n \r\n   cas:\r\n-    image: georchestra/cas:latest\r\n+    image: georchestra/cas:6.3.5-dev\r\n     depends_on:\r\n       - ldap\r\n-    volumes:\r\n-      - ./config:/etc/georchestra\r\n     environment:\r\n       - JAVA_OPTIONS=-Dorg.eclipse.jetty.annotations.AnnotationParser.LEVEL=OFF\r\n       - XMS=256M\r\n{code}\r\n\r\nJe parviens à avoir une invite de connexion et à me connecter avec les identifiants par défaut du LDAP. Il reste un bon coup de peinture (GSHDF-317), mais l'essentiel pour commencer est en place.\r\n",
+      "updateAuthor": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john@doe.org",
+        "avatarUrls": {
+          "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+          "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+          "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+          "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "created": "2021-08-18T15:26:25.952+0200",
+      "updated": "2021-08-18T15:26:25.952+0200"
+    },
+    {
+      "self": "https://jira/rest/api/2/issue/79623/comment/218080",
+      "id": "218080",
+      "author": {
+        "self": "https://jira/rest/api/2/user?username=user2",
+        "name": "user2",
+        "key": "user2",
+        "emailAddress": "user2@company.com",
+        "avatarUrls": {
+          "48x48": "https://gravatar/avatar/azerty?d=mm&s=48",
+          "24x24": "https://gravatar/avatar/azerty?d=mm&s=24",
+          "16x16": "https://gravatar/avatar/azerty?d=mm&s=16",
+          "32x32": "https://gravatar/avatar/azerty?d=mm&s=32"
+        },
+        "displayName": "User Number2",
+        "active": true,
+        "timeZone": "Europe/Paris"
+      },
+      "body": "Possibilité de récupérer un thème par défaut ?",
+      "updateAuthor": {
+        "self": "https://jira/rest/api/2/user?username=user2",
+        "name": "user2",
+        "key": "user2",
+        "emailAddress": "user2@company.com",
+        "avatarUrls": {
+          "48x48": "https://gravatar/avatar/azerty?d=mm&s=48",
+          "24x24": "https://gravatar/avatar/azerty?d=mm&s=24",
+          "16x16": "https://gravatar/avatar/azerty?d=mm&s=16",
+          "32x32": "https://gravatar/avatar/azerty?d=mm&s=32"
+        },
+        "displayName": "User Number2",
+        "active": true,
+        "timeZone": "Europe/Paris"
+      },
+      "created": "2021-08-23T10:47:31.776+0200",
+      "updated": "2021-08-23T10:47:31.776+0200",
+      "visibility": {
+        "type": "role",
+        "value": "Developers"
+      }
+    },
+    {
+      "self": "https://jira/rest/api/2/issue/79623/comment/218619",
+      "id": "218619",
+      "author": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john@doe.org",
+        "avatarUrls": {
+          "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+          "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+          "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+          "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "body": "Fait avec: https://github.com/georchestra/georchestra-cas-server/commit/cfd2cdd34b883698d3ff09340a08d9d13d4e78f0",
+      "updateAuthor": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john@doe.org",
+        "avatarUrls": {
+          "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+          "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+          "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+          "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "created": "2021-08-26T15:42:22.344+0200",
+      "updated": "2021-08-26T15:42:22.344+0200",
+      "visibility": {
+        "type": "role",
+        "value": "Developers"
+      }
+    },
+    {
+      "self": "https://jira/rest/api/2/issue/79623/comment/218860",
+      "id": "218860",
+      "author": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john@doe.org",
+        "avatarUrls": {
+          "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+          "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+          "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+          "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "body": "TODO installer les endpoints OpenID-connect / OAuth2 coté CAS, et avoir une application tierce qui peut se connecter dessus, en dehors de la compo georchestra.\r\n",
+      "updateAuthor": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john@doe.org",
+        "avatarUrls": {
+          "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+          "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+          "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+          "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "created": "2021-08-30T10:49:31.123+0200",
+      "updated": "2021-08-30T10:49:31.123+0200",
+      "visibility": {
+        "type": "role",
+        "value": "Developers"
+      }
+    },
+    {
+      "self": "https://jira/rest/api/2/issue/79623/comment/218920",
+      "id": "218920",
+      "author": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john@doe.org",
+        "avatarUrls": {
+          "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+          "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+          "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+          "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "body": "Les endpoints pour Oauth2 se rajoutent facilement, reste à créer une petite appli (spring boot) de test pour voir comment cela fonctionne dans les détails.",
+      "updateAuthor": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john@doe.org",
+        "avatarUrls": {
+          "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+          "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+          "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+          "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "created": "2021-08-30T15:52:23.388+0200",
+      "updated": "2021-08-30T15:52:23.388+0200",
+      "visibility": {
+        "type": "role",
+        "value": "Developers"
+      }
+    },
+    {
+      "self": "https://jira/rest/api/2/issue/79623/comment/218976",
+      "id": "218976",
+      "author": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john@doe.org",
+        "avatarUrls": {
+          "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+          "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+          "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+          "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "body": "https://github.com/jdoe/spring-boot-oauth2-client-sample-app",
+      "updateAuthor": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john@doe.org",
+        "avatarUrls": {
+          "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+          "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+          "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+          "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "created": "2021-08-31T09:38:09.762+0200",
+      "updated": "2021-08-31T09:38:09.762+0200",
+      "visibility": {
+        "type": "role",
+        "value": "Developers"
+      }
+    },
+    {
+      "self": "https://jira/rest/api/2/issue/79623/comment/219002",
+      "id": "219002",
+      "author": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john@doe.org",
+        "avatarUrls": {
+          "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+          "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+          "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+          "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "body": "Ok, je commence à avoir un prototype de serveur CAS6 intégré dans georchestra, qui agit comme un provider Oauth2 (cf vidéo jointe  [^cas-6-oauth-provider-spec.ogv] d'une spec rapidement codée pour valider l'approche).\r\n\r\n [^cas-6-oauth-provider-spec.ogv] ",
+      "updateAuthor": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john@doe.org",
+        "avatarUrls": {
+          "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+          "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+          "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+          "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "created": "2021-08-31T10:27:56.591+0200",
+      "updated": "2021-08-31T10:27:56.591+0200"
+    }
+  ]
+}

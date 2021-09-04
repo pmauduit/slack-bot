@@ -1,5 +1,6 @@
 package fr.spironet.slackbot.jira
 
+import fr.spironet.slackbot.github.GithubApiClient
 import groovyx.net.http.ContentType
 import groovyx.net.http.RESTClient
 import org.apache.lucene.analysis.standard.StandardAnalyzer
@@ -19,17 +20,29 @@ class IssueDetailsResolver {
     private def confluenceUrl
     // reusing the same credentials as on JIRA
 
-    private def githubToken
+    def githubApi
 
-    private def http
+    def http
 
     public IssueDetailsResolver() {
         if (System.getenv("JIRA_CLIENT_PROPERTY_FILE") == null) {
             throw new RuntimeException("expected JIRA_CLIENT_PROPERTY_FILE env variable")
         }
-        File propertiesFile = new File(System.getenv("JIRA_CLIENT_PROPERTY_FILE"))
-        def props = new Properties()
+        if (System.getenv("GITHUB_TOKEN") == null) {
+            throw new RuntimeException("expected GITHUB_TOKEN env variable")
+        }
+        if (System.getenv("CONFLUENCE_SERVER_URL") == null) {
+            throw new RuntimeException("expected CONFLUENCE_SERVER_URL env variable")
+        }
+        this.IssueDetailsResolver(System.getenv("JIRA_CLIENT_PROPERTY_FILE"),
+                System.getenv("CONFLUENCE_SERVER_URL"),
+                System.getenv("GITHUB_TOKEN")
+        )
+    }
 
+    public IssueDetailsResolver(def jiraPropsFile, def confluenceServerUrl, def ghToken) {
+        File propertiesFile = new File(jiraPropsFile)
+        def props = new Properties()
         propertiesFile.withInputStream {
             props.load(it)
         }
@@ -39,12 +52,9 @@ class IssueDetailsResolver {
 
         this.http = new RESTClient(this.jiraUrl)
 
-        this.confluenceUrl = System.getenv("CONFLUENCE_SERVER_URL")
-        if (this.confluenceUrl == null) {
-            throw new RuntimeException("expected CONFLUENCE_SERVER_URL env variable")
-        }
+        this.confluenceUrl = confluenceServerUrl
+        this.githubApi = new GithubApiClient(ghToken)
     }
-
     /**
      * Confluence search by tag.
      * Copy-pasted / inspired from the ConfluenceListener class.
@@ -266,39 +276,4 @@ class IssueDetailsResolver {
 
         return issue
     }
-
-    public static void main(String[] args) {
-        def toTest = new IssueDetailsResolver()
-        //def ret = toTest.resolve("GSEST-405")
-        //def ret = toTest.resolve("GSGGE2019-22")
-       // def ret = toTest.resolve("GEO-4638")
-        //def ret = toTest.confluenceSearch(["rennes"])
-        //def ret = toTest.resolve("GSREN-13")
-        //println ret
-        //def ret = toTest.resolve("GSREN-17")
-        //println ret
-        def issue = toTest.resolve("GEO-4712")
-        println issue.possibleLabels
-
-
-        // Analyze the worklog per worker on an issue
-        // worklog.json issued from https://jira.camptocamp.com/rest/api/2/issue/AGFR-1/worklog
-        // Avoid loading the page, as it DoS a bit the jira instance ;-)
-        /*
-        def dudu = new File("/home/pmauduit/Documents/worklog.json").getText()
-        def jsonSlurper = new JsonSlurper()
-        def parsed = jsonSlurper.parseText(dudu)
-        def processed = [:]
-        parsed.worklogs.each {
-            if (processed[it.author.displayName] == null)
-                processed[it.author.displayName] = it.timeSpentSeconds
-            else {
-                processed[it.author.displayName] += it.timeSpentSeconds
-            }
-        }
-        processed.sort{ it.value }
-        print processed
-         */
-    }
-
 }

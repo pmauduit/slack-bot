@@ -1,0 +1,212 @@
+{
+  "startAt": 0,
+  "maxResults": 5,
+  "total": 5,
+  "worklogs": [
+    {
+      "self": "https://jira/rest/api/2/issue/79623/worklog/287770",
+      "author": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john.doe@example.org",
+        "avatarUrls": {
+          "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+          "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+          "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+          "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "updateAuthor": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john.doe@example.org",
+        "avatarUrls": {
+          "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+          "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+          "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+          "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "comment": "investigating CAS overlay",
+      "created": "2021-07-19T10:32:07.678+0200",
+      "updated": "2021-07-19T10:33:41.205+0200",
+      "started": "2021-07-15T00:00:00.000+0200",
+      "timeSpent": "27m",
+      "timeSpentSeconds": 1620,
+      "id": "287770",
+      "issueId": "79623"
+    },
+    {
+      "self": "https://jira/rest/api/2/issue/79623/worklog/290017",
+      "author": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john.doe@example.org",
+        "avatarUrls": {
+          "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+          "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+          "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+          "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "updateAuthor": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john.doe@example.org",
+        "avatarUrls": {
+          "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+          "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+          "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+          "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "comment": "first shot integrating CAS 6",
+      "created": "2021-07-26T09:45:37.616+0200",
+      "updated": "2021-07-26T09:45:58.565+0200",
+      "started": "2021-07-20T00:00:00.000+0200",
+      "timeSpent": "5h 53m",
+      "timeSpentSeconds": 21180,
+      "id": "290017",
+      "issueId": "79623"
+    },
+    {
+      "self": "https://jira/rest/api/2/issue/79623/worklog/298356",
+      "author": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john.doe@example.org",
+        "avatarUrls": {
+          "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+          "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+          "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+          "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "updateAuthor": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john.doe@example.org",
+        "avatarUrls": {
+          "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+          "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+          "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+          "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "comment": "integration CAS 6",
+      "created": "2021-08-23T10:05:14.996+0200",
+      "updated": "2021-08-23T10:05:28.241+0200",
+      "started": "2021-08-17T00:00:00.000+0200",
+      "timeSpent": "2h 10m",
+      "timeSpentSeconds": 7800,
+      "id": "298356",
+      "issueId": "79623"
+    },
+    {
+      "self": "https://jira/rest/api/2/issue/79623/worklog/298357",
+      "author": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john.doe@example.org",
+        "avatarUrls": {
+          "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+          "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+          "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+          "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "updateAuthor": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john.doe@example.org",
+        "avatarUrls": {
+          "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+          "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+          "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+          "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "comment": "WIP on a gh action",
+      "created": "2021-08-23T10:05:45.561+0200",
+      "updated": "2021-08-23T10:05:45.561+0200",
+      "started": "2021-08-18T00:00:00.000+0200",
+      "timeSpent": "2h 30m",
+      "timeSpentSeconds": 9000,
+      "id": "298357",
+      "issueId": "79623"
+    },
+    {
+      "self": "https://jira/rest/api/2/issue/79623/worklog/300737",
+      "author": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john.doe@example.org",
+        "avatarUrls": {
+          "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+          "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+          "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+          "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "updateAuthor": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john.doe@example.org",
+        "avatarUrls": {
+          "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+          "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+          "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+          "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "comment": "WIP ui",
+      "created": "2021-08-30T09:25:39.762+0200",
+      "updated": "2021-08-30T09:25:39.762+0200",
+      "started": "2021-08-26T00:00:00.000+0200",
+      "timeSpent": "1h",
+      "timeSpentSeconds": 3600,
+      "id": "300737",
+      "issueId": "79623"
+    }
+  ]
+}

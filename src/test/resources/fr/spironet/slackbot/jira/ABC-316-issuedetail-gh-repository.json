@@ -1,0 +1,45 @@
+{
+  "errors": [],
+  "detail": [
+    {
+      "repositories": [
+        {
+          "name": "repo",
+          "url": "https://github.com/org/repo",
+          "commits": [
+            {
+              "id": "70b86f27a7fe6afe19845a37f9511e66b18b2d41",
+              "displayId": "70b86f2",
+              "authorTimestamp": "2021-08-31T10:29:40.000+0200",
+              "url": "https://github.com/org/repo/commit/70b86f27a7fe6afe19845a37f9511e66b18b2d41",
+              "author": {
+                "name": "John Doe",
+                "avatar": "https://avatars/4"
+              },
+              "fileCount": 1,
+              "merge": false,
+              "message": "adding a spec for testing CAS6 as Oauth2 provider [ABC-316]",
+              "files": [
+                {
+                  "path": "src/test/groovy/Oauth2Cas6ProviderSpec.groovy",
+                  "url": "https://github.com/org/repo/commit/70b86f27a7fe6afe19845a37f9511e66b18b2d41#diff-0",
+                  "changeType": "ADDED",
+                  "linesAdded": 35,
+                  "linesRemoved": 0
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "_instance": {
+        "singleInstance": true,
+        "baseUrl": "https://github.com",
+        "name": "GitHub",
+        "typeName": "GitHub",
+        "id": "github",
+        "type": "github"
+      }
+    }
+  ]
+}

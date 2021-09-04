@@ -1,0 +1,17 @@
+[
+  {
+    "id": 27223,
+    "self": "https://jira/rest/api/2/issue/ABC-316/remotelink/27223",
+    "application": {},
+    "object": {
+      "url": "https://spring.io/guides/tutorials/spring-boot-oauth2/",
+      "title": "Oauth2 tutorial - spring boot documentation",
+      "icon": {
+        "url16x16": ""
+      },
+      "status": {
+        "icon": {}
+      }
+    }
+  }
+]

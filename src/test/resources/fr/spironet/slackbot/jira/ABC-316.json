@@ -1,0 +1,984 @@
+{
+  "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+  "id": "79623",
+  "self": "https://jira/rest/api/2/issue/79623",
+  "key": "ABC-316",
+  "fields": {
+    "issuetype": {
+      "self": "https://jira/rest/api/2/issuetype/10002",
+      "id": "10002",
+      "description": "A task that needs to be done.",
+      "iconUrl": "https://jira/secure/viewavatar?size=xsmall&avatarId=10318&avatarType=issuetype",
+      "name": "Task",
+      "subtask": false,
+      "avatarId": 10318
+    },
+    "timespent": 43200,
+    "project": {
+      "self": "https://jira/rest/api/2/project/12101",
+      "id": "12101",
+      "key": "ABC",
+      "name": "super_project",
+      "projectTypeKey": "software",
+      "avatarUrls": {
+        "48x48": "https://jira/secure/projectavatar?pid=12101&avatarId=12531",
+        "24x24": "https://jira/secure/projectavatar?size=small&pid=12101&avatarId=12531",
+        "16x16": "https://jira/secure/projectavatar?size=xsmall&pid=12101&avatarId=12531",
+        "32x32": "https://jira/secure/projectavatar?size=medium&pid=12101&avatarId=12531"
+      }
+    },
+    "customfield_11000": null,
+    "fixVersions": [],
+    "customfield_11001": null,
+    "customfield_11200": null,
+    "aggregatetimespent": 43200,
+    "resolution": null,
+    "customfield_10500": null,
+    "customfield_10305": null,
+    "customfield_10701": null,
+    "customfield_10306": null,
+    "customfield_10702": null,
+    "customfield_10900": null,
+    "customfield_10307": null,
+    "resolutiondate": null,
+    "workratio": 30,
+    "lastViewed": "2021-09-02T17:16:55.342+0200",
+    "watches": {
+      "self": "https://jira/rest/api/2/issue/ABC-316/watchers",
+      "watchCount": 2,
+      "isWatching": true
+    },
+    "created": "2021-07-06T17:29:40.018+0200",
+    "priority": {
+      "self": "https://jira/rest/api/2/priority/3",
+      "iconUrl": "https://jira/images/icons/priorities/medium.svg",
+      "name": "Medium",
+      "id": "3"
+    },
+    "customfield_10100": null,
+    "customfield_10300": null,
+    "labels": [
+      "authentication",
+      "cas",
+      "integration",
+      "oauth2"
+    ],
+    "customfield_10301": null,
+    "customfield_10610": null,
+    "customfield_10611": null,
+    "customfield_10612": null,
+    "customfield_10613": null,
+    "customfield_10614": null,
+    "timeestimate": 100800,
+    "aggregatetimeoriginalestimate": 144000,
+    "versions": [],
+    "customfield_10616": null,
+    "customfield_10617": null,
+    "customfield_10618": null,
+    "customfield_10619": null,
+    "issuelinks": [
+      {
+        "id": "66848",
+        "self": "https://jira/rest/api/2/issueLink/66848",
+        "type": {
+          "id": "10000",
+          "name": "Blocks",
+          "inward": "is blocked by",
+          "outward": "blocks",
+          "self": "https://jira/rest/api/2/issueLinkType/10000"
+        },
+        "outwardIssue": {
+          "id": "79624",
+          "key": "ABC-317",
+          "self": "https://jira/rest/api/2/issue/79624",
+          "fields": {
+            "summary": "Pages login/logout responsives pour CAS 6",
+            "status": {
+              "self": "https://jira/rest/api/2/status/10400",
+              "description": "Specifications need to be completed",
+              "iconUrl": "https://jira/images/icons/statuses/generic.png",
+              "name": "Draft",
+              "id": "10400",
+              "statusCategory": {
+                "self": "https://jira/rest/api/2/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://jira/rest/api/2/priority/3",
+              "iconUrl": "https://jira/images/icons/priorities/medium.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://jira/rest/api/2/issuetype/10002",
+              "id": "10002",
+              "description": "A task that needs to be done.",
+              "iconUrl": "https://jira/secure/viewavatar?size=xsmall&avatarId=10318&avatarType=issuetype",
+              "name": "Task",
+              "subtask": false,
+              "avatarId": 10318
+            }
+          }
+        }
+      }
+    ],
+    "assignee": {
+      "self": "https://jira/rest/api/2/user?username=jdoe",
+      "name": "jdoe",
+      "key": "jdoe",
+      "emailAddress": "john@doe.org",
+      "avatarUrls": {
+        "48x48": "https://gravatar/avatar/abcdefg?d=mm&s=48",
+        "24x24": "https://gravatar/avatar/abcdefg?d=mm&s=24",
+        "16x16": "https://gravatar/avatar/abcdefg?d=mm&s=16",
+        "32x32": "https://gravatar/avatar/abcdefg?d=mm&s=32"
+      },
+      "displayName": "John Doe",
+      "active": true,
+      "timeZone": "Europe/Zurich"
+    },
+    "updated": "2021-09-02T17:16:55.230+0200",
+    "status": {
+      "self": "https://jira/rest/api/2/status/3",
+      "description": "This issue is being actively worked on at the moment by the assignee.",
+      "iconUrl": "https://jira/images/icons/statuses/inprogress.png",
+      "name": "In Progress",
+      "id": "3",
+      "statusCategory": {
+        "self": "https://jira/rest/api/2/statuscategory/4",
+        "id": 4,
+        "key": "indeterminate",
+        "colorName": "yellow",
+        "name": "In Progress"
+      }
+    },
+    "components": [
+      {
+        "self": "https://jira/rest/api/2/component/12820",
+        "id": "12820",
+        "name": "Evolutions 2021"
+      }
+    ],
+    "timeoriginalestimate": 144000,
+    "description": "Objectif à terme : \"faire en sorte qu'un utilisateur puisse se connecter sur un observatoire de territoire --basé sur geoclip (https://geoterritoires/#c=home) – via ses identifiants (via OpenID ou OAuth)\"\r\n",
+    "customfield_10010": null,
+    "customfield_11100": "{summaryBean=com.atlassian.jira.plugin.devstatus.rest.SummaryBean@69987873[summary={pullrequest=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@11c34206[overall=PullRequestOverallBean{stateCount=0, state='OPEN', details=PullRequestOverallDetails{openCount=0, mergedCount=0, declinedCount=0}},byInstanceType={}], build=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@9865037[overall=com.atlassian.jira.plugin.devstatus.summary.beans.BuildOverallBean@25ee073[failedBuildCount=0,successfulBuildCount=0,unknownBuildCount=0,count=0,lastUpdated=<null>,lastUpdatedTimestamp=<null>],byInstanceType={}], review=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@318694f1[overall=com.atlassian.jira.plugin.devstatus.summary.beans.ReviewsOverallBean@2d93b434[stateCount=0,state=<null>,dueDate=<null>,overDue=false,count=0,lastUpdated=<null>,lastUpdatedTimestamp=<null>],byInstanceType={}], deployment-environment=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@162f5e59[overall=com.atlassian.jira.plugin.devstatus.summary.beans.DeploymentOverallBean@63076997[topEnvironments=[],showProjects=false,successfulCount=0,count=0,lastUpdated=<null>,lastUpdatedTimestamp=<null>],byInstanceType={}], repository=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@6623481a[overall=com.atlassian.jira.plugin.devstatus.summary.beans.CommitOverallBean@56a172fe[count=1,lastUpdated=2021-08-31T10:29:40.000+0200,lastUpdatedTimestamp=2021-08-31T10:29:40.000+02:00],byInstanceType={github=com.atlassian.jira.plugin.devstatus.summary.beans.ObjectByInstanceTypeBean@26b2717f[count=1,name=GitHub]}], branch=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@6203bef1[overall=com.atlassian.jira.plugin.devstatus.summary.beans.BranchOverallBean@1e9c4933[count=0,lastUpdated=<null>,lastUpdatedTimestamp=<null>],byInstanceType={}]},errors=[],configErrors=[]], devSummaryJson={\"cachedValue\":{\"errors\":[],\"configErrors\":[],\"summary\":{\"pullrequest\":{\"overall\":{\"count\":0,\"lastUpdated\":null,\"stateCount\":0,\"state\":\"OPEN\",\"details\":{\"openCount\":0,\"mergedCount\":0,\"declinedCount\":0,\"total\":0},\"open\":true},\"byInstanceType\":{}},\"build\":{\"overall\":{\"count\":0,\"lastUpdated\":null,\"failedBuildCount\":0,\"successfulBuildCount\":0,\"unknownBuildCount\":0},\"byInstanceType\":{}},\"review\":{\"overall\":{\"count\":0,\"lastUpdated\":null,\"stateCount\":0,\"state\":null,\"dueDate\":null,\"overDue\":false,\"completed\":false},\"byInstanceType\":{}},\"deployment-environment\":{\"overall\":{\"count\":0,\"lastUpdated\":null,\"topEnvironments\":[],\"showProjects\":false,\"successfulCount\":0},\"byInstanceType\":{}},\"repository\":{\"overall\":{\"count\":1,\"lastUpdated\":\"2021-08-31T10:29:40.000+0200\"},\"byInstanceType\":{\"github\":{\"count\":1,\"name\":\"GitHub\"}}},\"branch\":{\"overall\":{\"count\":0,\"lastUpdated\":null},\"byInstanceType\":{}}}},\"isStale\":true}}",
+    "customfield_11300": null,
+    "timetracking": {
+      "originalEstimate": "1w",
+      "remainingEstimate": "3d 4h",
+      "timeSpent": "1d 4h",
+      "originalEstimateSeconds": 144000,
+      "remainingEstimateSeconds": 100800,
+      "timeSpentSeconds": 43200
+    },
+    "customfield_10401": null,
+    "customfield_10006": null,
+    "customfield_10402": null,
+    "customfield_10007": null,
+    "customfield_10601": null,
+    "customfield_10008": [],
+    "customfield_10602": null,
+    "customfield_10800": null,
+    "attachment": [
+      {
+        "self": "https://jira/rest/api/2/attachment/57190",
+        "id": "57190",
+        "filename": "cas-6-oauth-provider-spec.ogv",
+        "author": {
+          "self": "https://jira/rest/api/2/user?username=jdoe",
+          "name": "jdoe",
+          "key": "jdoe",
+          "emailAddress": "john@doe.org",
+          "avatarUrls": {
+            "48x48": "https://gravatar/avatar/abcdefg?d=mm&s=48",
+            "24x24": "https://gravatar/avatar/abcdefg?d=mm&s=24",
+            "16x16": "https://gravatar/avatar/abcdefg?d=mm&s=16",
+            "32x32": "https://gravatar/avatar/abcdefg?d=mm&s=32"
+          },
+          "displayName": "John Doe",
+          "active": true,
+          "timeZone": "Europe/Zurich"
+        },
+        "created": "2021-08-31T10:27:47.450+0200",
+        "size": 1792178,
+        "mimeType": "video/ogg",
+        "content": "https://jira/secure/attachment/57190/cas-6-oauth-provider-spec.ogv"
+      },
+      {
+        "self": "https://jira/rest/api/2/attachment/56846",
+        "id": "56846",
+        "filename": "Screenshot from 2021-08-17 19-18-17.png",
+        "author": {
+          "self": "https://jira/rest/api/2/user?username=jdoe",
+          "name": "jdoe",
+          "key": "jdoe",
+          "emailAddress": "john@doe.org",
+          "avatarUrls": {
+            "48x48": "https://gravatar/avatar/abcdefg?d=mm&s=48",
+            "24x24": "https://gravatar/avatar/abcdefg?d=mm&s=24",
+            "16x16": "https://gravatar/avatar/abcdefg?d=mm&s=16",
+            "32x32": "https://gravatar/avatar/abcdefg?d=mm&s=32"
+          },
+          "displayName": "John Doe",
+          "active": true,
+          "timeZone": "Europe/Zurich"
+        },
+        "created": "2021-08-17T19:19:54.235+0200",
+        "size": 70534,
+        "mimeType": "image/png",
+        "content": "https://jira/secure/attachment/56846/Screenshot+from+2021-08-17+19-18-17.png",
+        "thumbnail": "https://jira/secure/thumbnail/56846/_thumb_56846.png"
+      }
+    ],
+    "customfield_10009": null,
+    "customfield_10603": null,
+    "aggregatetimeestimate": 100800,
+    "customfield_10604": null,
+    "customfield_10605": null,
+    "customfield_10607": null,
+    "customfield_10608": null,
+    "customfield_10609": null,
+    "summary": "Migration à CAS 6 dans geOrchestra et geo2france",
+    "creator": {
+      "self": "https://jira/rest/api/2/user?username=jdoe2",
+      "name": "jdoe2",
+      "key": "jdoe2",
+      "emailAddress": "jane@doe.com",
+      "avatarUrls": {
+        "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+        "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+        "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+        "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+      },
+      "displayName": "Jane Doe",
+      "active": true,
+      "timeZone": "Europe/Paris"
+    },
+    "subtasks": [],
+    "reporter": {
+      "self": "https://jira/rest/api/2/user?username=jdoe2",
+      "name": "jdoe2",
+      "key": "jdoe2",
+      "emailAddress": "jane@doe.com",
+      "avatarUrls": {
+        "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+        "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+        "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+        "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+      },
+      "displayName": "Jane Doe",
+      "active": true,
+      "timeZone": "Europe/Paris"
+    },
+    "customfield_10000": "0|zc7hi4:",
+    "aggregateprogress": {
+      "progress": 43200,
+      "total": 144000,
+      "percent": 30
+    },
+    "customfield_10001": null,
+    "customfield_10200": null,
+    "customfield_10002": null,
+    "customfield_10400": null,
+    "environment": null,
+    "duedate": null,
+    "progress": {
+      "progress": 43200,
+      "total": 144000,
+      "percent": 30
+    },
+    "comment": {
+      "comments": [
+        {
+          "self": "https://jira/rest/api/2/issue/79623/comment/215219",
+          "id": "215219",
+          "author": {
+            "self": "https://jira/rest/api/2/user?username=jdoe",
+            "name": "jdoe",
+            "key": "jdoe",
+            "emailAddress": "john@doe.org",
+            "avatarUrls": {
+              "48x48": "https://gravatar/avatar/abcdefg?d=mm&s=48",
+              "24x24": "https://gravatar/avatar/abcdefg?d=mm&s=24",
+              "16x16": "https://gravatar/avatar/abcdefg?d=mm&s=16",
+              "32x32": "https://gravatar/avatar/abcdefg?d=mm&s=32"
+            },
+            "displayName": "John Doe",
+            "active": true,
+            "timeZone": "Europe/Zurich"
+          },
+          "body": "Note préliminaire: CAS 6 utilise JDK11. La méthode d'intégration conseillée est de partir de l'overlay (https://github.com/apereo/cas-overlay-template), qui n'utilise plus maven mais gradle.\r\n",
+          "updateAuthor": {
+            "self": "https://jira/rest/api/2/user?username=jdoe",
+            "name": "jdoe",
+            "key": "jdoe",
+            "emailAddress": "john@doe.org",
+            "avatarUrls": {
+              "48x48": "https://gravatar/avatar/abcdefg?d=mm&s=48",
+              "24x24": "https://gravatar/avatar/abcdefg?d=mm&s=24",
+              "16x16": "https://gravatar/avatar/abcdefg?d=mm&s=16",
+              "32x32": "https://gravatar/avatar/abcdefg?d=mm&s=32"
+            },
+            "displayName": "John Doe",
+            "active": true,
+            "timeZone": "Europe/Zurich"
+          },
+          "created": "2021-07-15T18:01:33.362+0200",
+          "updated": "2021-07-15T18:01:33.362+0200"
+        },
+        {
+          "self": "https://jira/rest/api/2/issue/79623/comment/215625",
+          "id": "215625",
+          "author": {
+            "self": "https://jira/rest/api/2/user?username=jdoe",
+            "name": "jdoe",
+            "key": "jdoe",
+            "emailAddress": "john@doe.org",
+            "avatarUrls": {
+              "48x48": "https://gravatar/avatar/abcdefg?d=mm&s=48",
+              "24x24": "https://gravatar/avatar/abcdefg?d=mm&s=24",
+              "16x16": "https://gravatar/avatar/abcdefg?d=mm&s=16",
+              "32x32": "https://gravatar/avatar/abcdefg?d=mm&s=32"
+            },
+            "displayName": "John Doe",
+            "active": true,
+            "timeZone": "Europe/Zurich"
+          },
+          "body": "Travaillé sur le sujet une bonne partie de la journée, satisfait de l'avancée, mais il reste encore beaucoup à faire, ci après quelques remarques:\r\n\r\n* Je pense garder CAS dans un dépot séparé, c'est également l'approche qu'on envisage sur mapstore de toutes facons\r\n* J'ai ajouté un thème georchestra que j'ai commencé à personnaliser\r\n* J'ai réussi à intégrer le header georchestra déjà, et j'arrive à récupérer la taille dans l'habituel default.properties du datadir\r\n* Coté architecture, j'ai finalement opté pour une webapp classique plutot qu'une appli standalone spring-boot, car le système de build le permettait\r\n* J'ai déjà les dépendances nécessaires pour se brancher sur du LDAP, reste plus qu'à retrouver la configuration adéquate, mais cela a déjà été fait pour l'ifremer / geonetwork-sextant\r\n* Pour les configurations plus exotiques (je pense à DT et Rennes), j'ai à peu près trouvé comment injecter mon code custom (personnalisation dans le thème pour l'intégration du header), reste à savoir comment - si besoin - on peut débrancher les objets de base de CAS pour brancher les notres à la place.\r\n* Je reste sur Gradle pour le moment, même si je ne suis vraiment pas habitué à ce système de build. Peut-être qu'on pourrait faire la même chose avec maven vu qu'un plugin \"overlay\" existe également pour ce système, mais dans la mesure où on reste dans un dépot séparé pour le moment, il n'est pas nécessaire de se poser la question.\r\n\r\n\r\nC'est pour le moment publié ici: https://github.com/jdoe/georchestra-cas-server ; je pourrai transmettre la propriété à l'organisation georchestra quand le travail d'intégration sera terminé.\r\n",
+          "updateAuthor": {
+            "self": "https://jira/rest/api/2/user?username=jdoe",
+            "name": "jdoe",
+            "key": "jdoe",
+            "emailAddress": "john@doe.org",
+            "avatarUrls": {
+              "48x48": "https://gravatar/avatar/abcdefg?d=mm&s=48",
+              "24x24": "https://gravatar/avatar/abcdefg?d=mm&s=24",
+              "16x16": "https://gravatar/avatar/abcdefg?d=mm&s=16",
+              "32x32": "https://gravatar/avatar/abcdefg?d=mm&s=32"
+            },
+            "displayName": "John Doe",
+            "active": true,
+            "timeZone": "Europe/Zurich"
+          },
+          "created": "2021-07-20T18:08:34.697+0200",
+          "updated": "2021-07-20T18:11:23.247+0200"
+        },
+        {
+          "self": "https://jira/rest/api/2/issue/79623/comment/215626",
+          "id": "215626",
+          "author": {
+            "self": "https://jira/rest/api/2/user?username=jdoe",
+            "name": "jdoe",
+            "key": "jdoe",
+            "emailAddress": "john@doe.org",
+            "avatarUrls": {
+              "48x48": "https://gravatar/avatar/abcdefg?d=mm&s=48",
+              "24x24": "https://gravatar/avatar/abcdefg?d=mm&s=24",
+              "16x16": "https://gravatar/avatar/abcdefg?d=mm&s=16",
+              "32x32": "https://gravatar/avatar/abcdefg?d=mm&s=32"
+            },
+            "displayName": "John Doe",
+            "active": true,
+            "timeZone": "Europe/Zurich"
+          },
+          "body": "Pour rebondir sur la description du ticket, cela nécessitera un build spécifique sur géo2france, avec le module suivant en plus:\r\nhttps://apereo.github.io/cas/6.3.x/installation/OAuth-OpenId-Authentication.html#oauthopenid-authentication\r\n",
+          "updateAuthor": {
+            "self": "https://jira/rest/api/2/user?username=jdoe",
+            "name": "jdoe",
+            "key": "jdoe",
+            "emailAddress": "john@doe.org",
+            "avatarUrls": {
+              "48x48": "https://gravatar/avatar/abcdefg?d=mm&s=48",
+              "24x24": "https://gravatar/avatar/abcdefg?d=mm&s=24",
+              "16x16": "https://gravatar/avatar/abcdefg?d=mm&s=16",
+              "32x32": "https://gravatar/avatar/abcdefg?d=mm&s=32"
+            },
+            "displayName": "John Doe",
+            "active": true,
+            "timeZone": "Europe/Zurich"
+          },
+          "created": "2021-07-20T18:16:35.255+0200",
+          "updated": "2021-07-20T18:16:35.255+0200"
+        },
+        {
+          "self": "https://jira/rest/api/2/issue/79623/comment/217739",
+          "id": "217739",
+          "author": {
+            "self": "https://jira/rest/api/2/user?username=jdoe",
+            "name": "jdoe",
+            "key": "jdoe",
+            "emailAddress": "john@doe.org",
+            "avatarUrls": {
+              "48x48": "https://gravatar/avatar/abcdefg?d=mm&s=48",
+              "24x24": "https://gravatar/avatar/abcdefg?d=mm&s=24",
+              "16x16": "https://gravatar/avatar/abcdefg?d=mm&s=16",
+              "32x32": "https://gravatar/avatar/abcdefg?d=mm&s=32"
+            },
+            "displayName": "John Doe",
+            "active": true,
+            "timeZone": "Europe/Zurich"
+          },
+          "body": "J'ai à peu près un truc fonctionnel. Au niveau du thème / UI il y a encore du travail (cf ticket lié), mais j'ai une connexion au LDAP qui semble fonctionner:\r\n\r\n!Screenshot from 2021-08-17 19-18-17.png|width=1137,height=491!\r\n\r\nNote: le message obtenu provient du fait que je suis retourné volontairement sur CAS après authentification. Il y aura de toutes facons moyen de surcharger le template dans le thème afin de ne pas l'afficher.\r\n",
+          "updateAuthor": {
+            "self": "https://jira/rest/api/2/user?username=jdoe",
+            "name": "jdoe",
+            "key": "jdoe",
+            "emailAddress": "john@doe.org",
+            "avatarUrls": {
+              "48x48": "https://gravatar/avatar/abcdefg?d=mm&s=48",
+              "24x24": "https://gravatar/avatar/abcdefg?d=mm&s=24",
+              "16x16": "https://gravatar/avatar/abcdefg?d=mm&s=16",
+              "32x32": "https://gravatar/avatar/abcdefg?d=mm&s=32"
+            },
+            "displayName": "John Doe",
+            "active": true,
+            "timeZone": "Europe/Zurich"
+          },
+          "created": "2021-08-17T19:21:19.399+0200",
+          "updated": "2021-08-17T19:21:19.399+0200"
+        },
+        {
+          "self": "https://jira/rest/api/2/issue/79623/comment/217794",
+          "id": "217794",
+          "author": {
+            "self": "https://jira/rest/api/2/user?username=jdoe",
+            "name": "jdoe",
+            "key": "jdoe",
+            "emailAddress": "john@doe.org",
+            "avatarUrls": {
+              "48x48": "https://gravatar/avatar/abcdefg?d=mm&s=48",
+              "24x24": "https://gravatar/avatar/abcdefg?d=mm&s=24",
+              "16x16": "https://gravatar/avatar/abcdefg?d=mm&s=16",
+              "32x32": "https://gravatar/avatar/abcdefg?d=mm&s=32"
+            },
+            "displayName": "John Doe",
+            "active": true,
+            "timeZone": "Europe/Zurich"
+          },
+          "body": "J'ai créé un embryon de CI en github actions, on a dorénavant une image docker publiée sur docker-hub, avec le tag 6.3.5-dev. On a également une archive war attachée au run de la github action.\r\n",
+          "updateAuthor": {
+            "self": "https://jira/rest/api/2/user?username=jdoe",
+            "name": "jdoe",
+            "key": "jdoe",
+            "emailAddress": "john@doe.org",
+            "avatarUrls": {
+              "48x48": "https://gravatar/avatar/abcdefg?d=mm&s=48",
+              "24x24": "https://gravatar/avatar/abcdefg?d=mm&s=24",
+              "16x16": "https://gravatar/avatar/abcdefg?d=mm&s=16",
+              "32x32": "https://gravatar/avatar/abcdefg?d=mm&s=32"
+            },
+            "displayName": "John Doe",
+            "active": true,
+            "timeZone": "Europe/Zurich"
+          },
+          "created": "2021-08-18T14:16:45.770+0200",
+          "updated": "2021-08-18T14:16:45.770+0200"
+        },
+        {
+          "self": "https://jira/rest/api/2/issue/79623/comment/217807",
+          "id": "217807",
+          "author": {
+            "self": "https://jira/rest/api/2/user?username=jdoe",
+            "name": "jdoe",
+            "key": "jdoe",
+            "emailAddress": "john@doe.org",
+            "avatarUrls": {
+              "48x48": "https://gravatar/avatar/abcdefg?d=mm&s=48",
+              "24x24": "https://gravatar/avatar/abcdefg?d=mm&s=24",
+              "16x16": "https://gravatar/avatar/abcdefg?d=mm&s=16",
+              "32x32": "https://gravatar/avatar/abcdefg?d=mm&s=32"
+            },
+            "displayName": "John Doe",
+            "active": true,
+            "timeZone": "Europe/Zurich"
+          },
+          "body": "Avec le patch suivant dans la compo docker georchestra:\r\n{code}\r\ndiff --git a/docker-compose.yml b/docker-compose.yml\r\nindex b8bb76a..746639e 100644\r\n--- a/docker-compose.yml\r\n+++ b/docker-compose.yml\r\n@@ -60,11 +60,9 @@ services:\r\n     restart: always\r\n \r\n   cas:\r\n-    image: georchestra/cas:latest\r\n+    image: georchestra/cas:6.3.5-dev\r\n     depends_on:\r\n       - ldap\r\n-    volumes:\r\n-      - ./config:/etc/georchestra\r\n     environment:\r\n       - JAVA_OPTIONS=-Dorg.eclipse.jetty.annotations.AnnotationParser.LEVEL=OFF\r\n       - XMS=256M\r\n{code}\r\n\r\nJe parviens à avoir une invite de connexion et à me connecter avec les identifiants par défaut du LDAP. Il reste un bon coup de peinture (ABC-317), mais l'essentiel pour commencer est en place.\r\n",
+          "updateAuthor": {
+            "self": "https://jira/rest/api/2/user?username=jdoe",
+            "name": "jdoe",
+            "key": "jdoe",
+            "emailAddress": "john@doe.org",
+            "avatarUrls": {
+              "48x48": "https://gravatar/avatar/abcdefg?d=mm&s=48",
+              "24x24": "https://gravatar/avatar/abcdefg?d=mm&s=24",
+              "16x16": "https://gravatar/avatar/abcdefg?d=mm&s=16",
+              "32x32": "https://gravatar/avatar/abcdefg?d=mm&s=32"
+            },
+            "displayName": "John Doe",
+            "active": true,
+            "timeZone": "Europe/Zurich"
+          },
+          "created": "2021-08-18T15:26:25.952+0200",
+          "updated": "2021-08-18T15:26:25.952+0200"
+        },
+        {
+          "self": "https://jira/rest/api/2/issue/79623/comment/218080",
+          "id": "218080",
+          "author": {
+            "self": "https://jira/rest/api/2/user?username=jdoe2",
+            "name": "jdoe2",
+            "key": "jdoe2",
+            "emailAddress": "jane@doe.com",
+            "avatarUrls": {
+              "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+              "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+              "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+              "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+            },
+            "displayName": "Jane Doe",
+            "active": true,
+            "timeZone": "Europe/Paris"
+          },
+          "body": "Possibilité de récupérer un thème par défaut ?",
+          "updateAuthor": {
+            "self": "https://jira/rest/api/2/user?username=jdoe2",
+            "name": "jdoe2",
+            "key": "jdoe2",
+            "emailAddress": "jane@doe.com",
+            "avatarUrls": {
+              "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+              "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+              "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+              "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+            },
+            "displayName": "Jane Doe",
+            "active": true,
+            "timeZone": "Europe/Paris"
+          },
+          "created": "2021-08-23T10:47:31.776+0200",
+          "updated": "2021-08-23T10:47:31.776+0200",
+          "visibility": {
+            "type": "role",
+            "value": "Developers"
+          }
+        },
+        {
+          "self": "https://jira/rest/api/2/issue/79623/comment/218619",
+          "id": "218619",
+          "author": {
+            "self": "https://jira/rest/api/2/user?username=jdoe",
+            "name": "jdoe",
+            "key": "jdoe",
+            "emailAddress": "john@doe.org",
+            "avatarUrls": {
+              "48x48": "https://gravatar/avatar/abcdefg?d=mm&s=48",
+              "24x24": "https://gravatar/avatar/abcdefg?d=mm&s=24",
+              "16x16": "https://gravatar/avatar/abcdefg?d=mm&s=16",
+              "32x32": "https://gravatar/avatar/abcdefg?d=mm&s=32"
+            },
+            "displayName": "John Doe",
+            "active": true,
+            "timeZone": "Europe/Zurich"
+          },
+          "body": "Fait avec: https://git/org/repo/commit/abcdef",
+          "updateAuthor": {
+            "self": "https://jira/rest/api/2/user?username=jdoe",
+            "name": "jdoe",
+            "key": "jdoe",
+            "emailAddress": "john@doe.org",
+            "avatarUrls": {
+              "48x48": "https://gravatar/avatar/abcdefg?d=mm&s=48",
+              "24x24": "https://gravatar/avatar/abcdefg?d=mm&s=24",
+              "16x16": "https://gravatar/avatar/abcdefg?d=mm&s=16",
+              "32x32": "https://gravatar/avatar/abcdefg?d=mm&s=32"
+            },
+            "displayName": "John Doe",
+            "active": true,
+            "timeZone": "Europe/Zurich"
+          },
+          "created": "2021-08-26T15:42:22.344+0200",
+          "updated": "2021-08-26T15:42:22.344+0200",
+          "visibility": {
+            "type": "role",
+            "value": "Developers"
+          }
+        },
+        {
+          "self": "https://jira/rest/api/2/issue/79623/comment/218860",
+          "id": "218860",
+          "author": {
+            "self": "https://jira/rest/api/2/user?username=jdoe",
+            "name": "jdoe",
+            "key": "jdoe",
+            "emailAddress": "john@doe.org",
+            "avatarUrls": {
+              "48x48": "https://gravatar/avatar/abcdefg?d=mm&s=48",
+              "24x24": "https://gravatar/avatar/abcdefg?d=mm&s=24",
+              "16x16": "https://gravatar/avatar/abcdefg?d=mm&s=16",
+              "32x32": "https://gravatar/avatar/abcdefg?d=mm&s=32"
+            },
+            "displayName": "John Doe",
+            "active": true,
+            "timeZone": "Europe/Zurich"
+          },
+          "body": "TODO installer les endpoints OpenID-connect / OAuth2 coté CAS, et avoir une application tierce qui peut se connecter dessus, en dehors de la compo georchestra.\r\n",
+          "updateAuthor": {
+            "self": "https://jira/rest/api/2/user?username=jdoe",
+            "name": "jdoe",
+            "key": "jdoe",
+            "emailAddress": "john@doe.org",
+            "avatarUrls": {
+              "48x48": "https://gravatar/avatar/abcdefg?d=mm&s=48",
+              "24x24": "https://gravatar/avatar/abcdefg?d=mm&s=24",
+              "16x16": "https://gravatar/avatar/abcdefg?d=mm&s=16",
+              "32x32": "https://gravatar/avatar/abcdefg?d=mm&s=32"
+            },
+            "displayName": "John Doe",
+            "active": true,
+            "timeZone": "Europe/Zurich"
+          },
+          "created": "2021-08-30T10:49:31.123+0200",
+          "updated": "2021-08-30T10:49:31.123+0200",
+          "visibility": {
+            "type": "role",
+            "value": "Developers"
+          }
+        },
+        {
+          "self": "https://jira/rest/api/2/issue/79623/comment/218920",
+          "id": "218920",
+          "author": {
+            "self": "https://jira/rest/api/2/user?username=jdoe",
+            "name": "jdoe",
+            "key": "jdoe",
+            "emailAddress": "john@doe.org",
+            "avatarUrls": {
+              "48x48": "https://gravatar/avatar/abcdefg?d=mm&s=48",
+              "24x24": "https://gravatar/avatar/abcdefg?d=mm&s=24",
+              "16x16": "https://gravatar/avatar/abcdefg?d=mm&s=16",
+              "32x32": "https://gravatar/avatar/abcdefg?d=mm&s=32"
+            },
+            "displayName": "John Doe",
+            "active": true,
+            "timeZone": "Europe/Zurich"
+          },
+          "body": "Les endpoints pour Oauth2 se rajoutent facilement, reste à créer une petite appli (spring boot) de test pour voir comment cela fonctionne dans les détails.",
+          "updateAuthor": {
+            "self": "https://jira/rest/api/2/user?username=jdoe",
+            "name": "jdoe",
+            "key": "jdoe",
+            "emailAddress": "john@doe.org",
+            "avatarUrls": {
+              "48x48": "https://gravatar/avatar/abcdefg?d=mm&s=48",
+              "24x24": "https://gravatar/avatar/abcdefg?d=mm&s=24",
+              "16x16": "https://gravatar/avatar/abcdefg?d=mm&s=16",
+              "32x32": "https://gravatar/avatar/abcdefg?d=mm&s=32"
+            },
+            "displayName": "John Doe",
+            "active": true,
+            "timeZone": "Europe/Zurich"
+          },
+          "created": "2021-08-30T15:52:23.388+0200",
+          "updated": "2021-08-30T15:52:23.388+0200",
+          "visibility": {
+            "type": "role",
+            "value": "Developers"
+          }
+        },
+        {
+          "self": "https://jira/rest/api/2/issue/79623/comment/218976",
+          "id": "218976",
+          "author": {
+            "self": "https://jira/rest/api/2/user?username=jdoe",
+            "name": "jdoe",
+            "key": "jdoe",
+            "emailAddress": "john@doe.org",
+            "avatarUrls": {
+              "48x48": "https://gravatar/avatar/abcdefg?d=mm&s=48",
+              "24x24": "https://gravatar/avatar/abcdefg?d=mm&s=24",
+              "16x16": "https://gravatar/avatar/abcdefg?d=mm&s=16",
+              "32x32": "https://gravatar/avatar/abcdefg?d=mm&s=32"
+            },
+            "displayName": "John Doe",
+            "active": true,
+            "timeZone": "Europe/Zurich"
+          },
+          "body": "https://github.com/jdoe/spring-boot-oauth2-client-sample-app",
+          "updateAuthor": {
+            "self": "https://jira/rest/api/2/user?username=jdoe",
+            "name": "jdoe",
+            "key": "jdoe",
+            "emailAddress": "john@doe.org",
+            "avatarUrls": {
+              "48x48": "https://gravatar/avatar/abcdefg?d=mm&s=48",
+              "24x24": "https://gravatar/avatar/abcdefg?d=mm&s=24",
+              "16x16": "https://gravatar/avatar/abcdefg?d=mm&s=16",
+              "32x32": "https://gravatar/avatar/abcdefg?d=mm&s=32"
+            },
+            "displayName": "John Doe",
+            "active": true,
+            "timeZone": "Europe/Zurich"
+          },
+          "created": "2021-08-31T09:38:09.762+0200",
+          "updated": "2021-08-31T09:38:09.762+0200",
+          "visibility": {
+            "type": "role",
+            "value": "Developers"
+          }
+        },
+        {
+          "self": "https://jira/rest/api/2/issue/79623/comment/219002",
+          "id": "219002",
+          "author": {
+            "self": "https://jira/rest/api/2/user?username=jdoe",
+            "name": "jdoe",
+            "key": "jdoe",
+            "emailAddress": "john@doe.org",
+            "avatarUrls": {
+              "48x48": "https://gravatar/avatar/abcdefg?d=mm&s=48",
+              "24x24": "https://gravatar/avatar/abcdefg?d=mm&s=24",
+              "16x16": "https://gravatar/avatar/abcdefg?d=mm&s=16",
+              "32x32": "https://gravatar/avatar/abcdefg?d=mm&s=32"
+            },
+            "displayName": "John Doe",
+            "active": true,
+            "timeZone": "Europe/Zurich"
+          },
+          "body": "Ok, je commence à avoir un prototype de serveur CAS6 intégré dans georchestra, qui agit comme un provider Oauth2 (cf vidéo jointe  [^cas-6-oauth-provider-spec.ogv] d'une spec rapidement codée pour valider l'approche).\r\n\r\n [^cas-6-oauth-provider-spec.ogv] ",
+          "updateAuthor": {
+            "self": "https://jira/rest/api/2/user?username=jdoe",
+            "name": "jdoe",
+            "key": "jdoe",
+            "emailAddress": "john@doe.org",
+            "avatarUrls": {
+              "48x48": "https://gravatar/avatar/abcdefg?d=mm&s=48",
+              "24x24": "https://gravatar/avatar/abcdefg?d=mm&s=24",
+              "16x16": "https://gravatar/avatar/abcdefg?d=mm&s=16",
+              "32x32": "https://gravatar/avatar/abcdefg?d=mm&s=32"
+            },
+            "displayName": "John Doe",
+            "active": true,
+            "timeZone": "Europe/Zurich"
+          },
+          "created": "2021-08-31T10:27:56.591+0200",
+          "updated": "2021-08-31T10:27:56.591+0200"
+        }
+      ],
+      "maxResults": 12,
+      "total": 12,
+      "startAt": 0
+    },
+    "votes": {
+      "self": "https://jira/rest/api/2/issue/ABC-316/votes",
+      "votes": 0,
+      "hasVoted": false
+    },
+    "worklog": {
+      "startAt": 0,
+      "maxResults": 20,
+      "total": 5,
+      "worklogs": [
+        {
+          "self": "https://jira/rest/api/2/issue/79623/worklog/287770",
+          "author": {
+            "self": "https://jira/rest/api/2/user?username=jdoe",
+            "name": "jdoe",
+            "key": "jdoe",
+            "emailAddress": "john@doe.org",
+            "avatarUrls": {
+              "48x48": "https://gravatar/avatar/abcdefg?d=mm&s=48",
+              "24x24": "https://gravatar/avatar/abcdefg?d=mm&s=24",
+              "16x16": "https://gravatar/avatar/abcdefg?d=mm&s=16",
+              "32x32": "https://gravatar/avatar/abcdefg?d=mm&s=32"
+            },
+            "displayName": "John Doe",
+            "active": true,
+            "timeZone": "Europe/Zurich"
+          },
+          "updateAuthor": {
+            "self": "https://jira/rest/api/2/user?username=jdoe",
+            "name": "jdoe",
+            "key": "jdoe",
+            "emailAddress": "john@doe.org",
+            "avatarUrls": {
+              "48x48": "https://gravatar/avatar/abcdefg?d=mm&s=48",
+              "24x24": "https://gravatar/avatar/abcdefg?d=mm&s=24",
+              "16x16": "https://gravatar/avatar/abcdefg?d=mm&s=16",
+              "32x32": "https://gravatar/avatar/abcdefg?d=mm&s=32"
+            },
+            "displayName": "John Doe",
+            "active": true,
+            "timeZone": "Europe/Zurich"
+          },
+          "comment": "investigating CAS overlay",
+          "created": "2021-07-19T10:32:07.678+0200",
+          "updated": "2021-07-19T10:33:41.205+0200",
+          "started": "2021-07-15T00:00:00.000+0200",
+          "timeSpent": "27m",
+          "timeSpentSeconds": 1620,
+          "id": "287770",
+          "issueId": "79623"
+        },
+        {
+          "self": "https://jira/rest/api/2/issue/79623/worklog/290017",
+          "author": {
+            "self": "https://jira/rest/api/2/user?username=jdoe",
+            "name": "jdoe",
+            "key": "jdoe",
+            "emailAddress": "john@doe.org",
+            "avatarUrls": {
+              "48x48": "https://gravatar/avatar/abcdefg?d=mm&s=48",
+              "24x24": "https://gravatar/avatar/abcdefg?d=mm&s=24",
+              "16x16": "https://gravatar/avatar/abcdefg?d=mm&s=16",
+              "32x32": "https://gravatar/avatar/abcdefg?d=mm&s=32"
+            },
+            "displayName": "John Doe",
+            "active": true,
+            "timeZone": "Europe/Zurich"
+          },
+          "updateAuthor": {
+            "self": "https://jira/rest/api/2/user?username=jdoe",
+            "name": "jdoe",
+            "key": "jdoe",
+            "emailAddress": "john@doe.org",
+            "avatarUrls": {
+              "48x48": "https://gravatar/avatar/abcdefg?d=mm&s=48",
+              "24x24": "https://gravatar/avatar/abcdefg?d=mm&s=24",
+              "16x16": "https://gravatar/avatar/abcdefg?d=mm&s=16",
+              "32x32": "https://gravatar/avatar/abcdefg?d=mm&s=32"
+            },
+            "displayName": "John Doe",
+            "active": true,
+            "timeZone": "Europe/Zurich"
+          },
+          "comment": "first shot integrating CAS 6",
+          "created": "2021-07-26T09:45:37.616+0200",
+          "updated": "2021-07-26T09:45:58.565+0200",
+          "started": "2021-07-20T00:00:00.000+0200",
+          "timeSpent": "5h 53m",
+          "timeSpentSeconds": 21180,
+          "id": "290017",
+          "issueId": "79623"
+        },
+        {
+          "self": "https://jira/rest/api/2/issue/79623/worklog/298356",
+          "author": {
+            "self": "https://jira/rest/api/2/user?username=jdoe",
+            "name": "jdoe",
+            "key": "jdoe",
+            "emailAddress": "john@doe.org",
+            "avatarUrls": {
+              "48x48": "https://gravatar/avatar/abcdefg?d=mm&s=48",
+              "24x24": "https://gravatar/avatar/abcdefg?d=mm&s=24",
+              "16x16": "https://gravatar/avatar/abcdefg?d=mm&s=16",
+              "32x32": "https://gravatar/avatar/abcdefg?d=mm&s=32"
+            },
+            "displayName": "John Doe",
+            "active": true,
+            "timeZone": "Europe/Zurich"
+          },
+          "updateAuthor": {
+            "self": "https://jira/rest/api/2/user?username=jdoe",
+            "name": "jdoe",
+            "key": "jdoe",
+            "emailAddress": "john@doe.org",
+            "avatarUrls": {
+              "48x48": "https://gravatar/avatar/abcdefg?d=mm&s=48",
+              "24x24": "https://gravatar/avatar/abcdefg?d=mm&s=24",
+              "16x16": "https://gravatar/avatar/abcdefg?d=mm&s=16",
+              "32x32": "https://gravatar/avatar/abcdefg?d=mm&s=32"
+            },
+            "displayName": "John Doe",
+            "active": true,
+            "timeZone": "Europe/Zurich"
+          },
+          "comment": "integration CAS 6",
+          "created": "2021-08-23T10:05:14.996+0200",
+          "updated": "2021-08-23T10:05:28.241+0200",
+          "started": "2021-08-17T00:00:00.000+0200",
+          "timeSpent": "2h 10m",
+          "timeSpentSeconds": 7800,
+          "id": "298356",
+          "issueId": "79623"
+        },
+        {
+          "self": "https://jira/rest/api/2/issue/79623/worklog/298357",
+          "author": {
+            "self": "https://jira/rest/api/2/user?username=jdoe",
+            "name": "jdoe",
+            "key": "jdoe",
+            "emailAddress": "john@doe.org",
+            "avatarUrls": {
+              "48x48": "https://gravatar/avatar/abcdefg?d=mm&s=48",
+              "24x24": "https://gravatar/avatar/abcdefg?d=mm&s=24",
+              "16x16": "https://gravatar/avatar/abcdefg?d=mm&s=16",
+              "32x32": "https://gravatar/avatar/abcdefg?d=mm&s=32"
+            },
+            "displayName": "John Doe",
+            "active": true,
+            "timeZone": "Europe/Zurich"
+          },
+          "updateAuthor": {
+            "self": "https://jira/rest/api/2/user?username=jdoe",
+            "name": "jdoe",
+            "key": "jdoe",
+            "emailAddress": "john@doe.org",
+            "avatarUrls": {
+              "48x48": "https://gravatar/avatar/abcdefg?d=mm&s=48",
+              "24x24": "https://gravatar/avatar/abcdefg?d=mm&s=24",
+              "16x16": "https://gravatar/avatar/abcdefg?d=mm&s=16",
+              "32x32": "https://gravatar/avatar/abcdefg?d=mm&s=32"
+            },
+            "displayName": "John Doe",
+            "active": true,
+            "timeZone": "Europe/Zurich"
+          },
+          "comment": "WIP on a gh action",
+          "created": "2021-08-23T10:05:45.561+0200",
+          "updated": "2021-08-23T10:05:45.561+0200",
+          "started": "2021-08-18T00:00:00.000+0200",
+          "timeSpent": "2h 30m",
+          "timeSpentSeconds": 9000,
+          "id": "298357",
+          "issueId": "79623"
+        },
+        {
+          "self": "https://jira/rest/api/2/issue/79623/worklog/300737",
+          "author": {
+            "self": "https://jira/rest/api/2/user?username=jdoe",
+            "name": "jdoe",
+            "key": "jdoe",
+            "emailAddress": "john@doe.org",
+            "avatarUrls": {
+              "48x48": "https://gravatar/avatar/abcdefg?d=mm&s=48",
+              "24x24": "https://gravatar/avatar/abcdefg?d=mm&s=24",
+              "16x16": "https://gravatar/avatar/abcdefg?d=mm&s=16",
+              "32x32": "https://gravatar/avatar/abcdefg?d=mm&s=32"
+            },
+            "displayName": "John Doe",
+            "active": true,
+            "timeZone": "Europe/Zurich"
+          },
+          "updateAuthor": {
+            "self": "https://jira/rest/api/2/user?username=jdoe",
+            "name": "jdoe",
+            "key": "jdoe",
+            "emailAddress": "john@doe.org",
+            "avatarUrls": {
+              "48x48": "https://gravatar/avatar/abcdefg?d=mm&s=48",
+              "24x24": "https://gravatar/avatar/abcdefg?d=mm&s=24",
+              "16x16": "https://gravatar/avatar/abcdefg?d=mm&s=16",
+              "32x32": "https://gravatar/avatar/abcdefg?d=mm&s=32"
+            },
+            "displayName": "John Doe",
+            "active": true,
+            "timeZone": "Europe/Zurich"
+          },
+          "comment": "WIP ui",
+          "created": "2021-08-30T09:25:39.762+0200",
+          "updated": "2021-08-30T09:25:39.762+0200",
+          "started": "2021-08-26T00:00:00.000+0200",
+          "timeSpent": "1h",
+          "timeSpentSeconds": 3600,
+          "id": "300737",
+          "issueId": "79623"
+        }
+      ]
+    }
+  }
+}

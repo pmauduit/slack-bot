@@ -1,0 +1,18 @@
+{
+  "errors": [],
+  "detail": [
+    {
+      "branches": [],
+      "pullRequests": [],
+      "repositories": [],
+      "_instance": {
+        "singleInstance": true,
+        "baseUrl": "https://github.com",
+        "name": "GitHub",
+        "typeName": "GitHub",
+        "id": "github",
+        "type": "github"
+      }
+    }
+  ]
+}

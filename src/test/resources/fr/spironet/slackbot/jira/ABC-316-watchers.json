@@ -1,0 +1,37 @@
+{
+  "self": "https://jira/rest/api/2/issue/ABC-316/watchers",
+  "isWatching": true,
+  "watchCount": 2,
+  "watchers": [
+    {
+      "self": "https://jira/rest/api/2/user?username=jdoe",
+      "name": "jdoe",
+      "key": "jdoe",
+      "emailAddress": "john.doe@compagny.com",
+      "avatarUrls": {
+        "48x48": "https://gravatar/avatar/abcdef?d=mm&s=48",
+        "24x24": "https://gravatar/avatar/abcdef?d=mm&s=24",
+        "16x16": "https://gravatar/avatar/abcdef?d=mm&s=16",
+        "32x32": "https://gravatar/avatar/abcdef?d=mm&s=32"
+      },
+      "displayName": "John Doe",
+      "active": true,
+      "timeZone": "Europe/Zurich"
+    },
+    {
+      "self": "https://jira/rest/api/2/user?username=jdoe2",
+      "name": "jdoe2",
+      "key": "jdoe2",
+      "emailAddress": "jane.doe@company.com",
+      "avatarUrls": {
+        "48x48": "https://gravatar/avatar/abcdefghi?d=mm&s=48",
+        "24x24": "https://gravatar/avatar/abcdefghi?d=mm&s=24",
+        "16x16": "https://gravatar/avatar/abcdefghi?d=mm&s=16",
+        "32x32": "https://gravatar/avatar/abcdefghi?d=mm&s=32"
+      },
+      "displayName": "Jane Doe",
+      "active": true,
+      "timeZone": "Europe/Paris"
+    }
+  ]
+}
