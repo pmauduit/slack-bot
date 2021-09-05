@@ -23,7 +23,7 @@ class TerraformStateTest {
 
     @Before
     void setUp() {
-        toTest = new TerraformState()
+        toTest = new TerraformState(null, null  )
         toTest.s3 = new Object() {
             /** this one is called if no versionId is specified */
             def getObject(def arg1, def arg2) {

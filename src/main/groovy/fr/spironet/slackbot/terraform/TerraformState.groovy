@@ -1,6 +1,7 @@
 package fr.spironet.slackbot.terraform
 
-
+import com.amazonaws.ClientConfiguration
+import com.amazonaws.auth.BasicAWSCredentials
 import com.amazonaws.regions.Regions
 import com.amazonaws.services.s3.AmazonS3
 import com.amazonaws.services.s3.AmazonS3ClientBuilder
@@ -23,8 +24,22 @@ class TerraformState {
      *  configure your AWS profile. this requires to have a ~/.aws/credentials file, and
      *  set the `AWS_PROFILE` accordingly.
      */
-    def TerraformState(def bucket) {
-        s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.EU_WEST_1).build()
+    def TerraformState(def s3client, def bucket) {
+        s3 = s3client
+        /**
+         * I might need several different s3 clients to be able to spy on
+         * different buckets with different credentials ...
+         * And I am also interested in managing the way the credentials are
+         * passed by myself. This can be done this way:
+         *
+         * ```
+         *  def credentials = new BasicAWSCredentials("accessKey", "secretKey")
+         *  def credsProvider = new StaticCredentialsProvider(credentials)
+         *  s3 = AmazonS3ClientBuilder.standard().withCredentials(credsProvider)
+         *        .withRegion(Regions.EU_WEST_1)
+         *        .build()
+         * ```
+         */
         this.bucket = bucket
     }
 
