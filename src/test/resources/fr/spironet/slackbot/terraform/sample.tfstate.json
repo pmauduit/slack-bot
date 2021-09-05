@@ -1,0 +1,72 @@
+{
+  "version": 3,
+  "terraform_version": "0.11.15",
+  "serial": 273,
+  "lineage": "4ff7599-0abc-1060-89ad-4a25c871a0ac",
+  "modules": [
+    {
+      "path": [
+        "root"
+      ],
+      "outputs": {},
+      "resources": {
+        "rancher_stack.georchestra-ldap": {
+          "type": "rancher_stack",
+          "depends_on": [
+            "data.rancher_environment.env"
+          ],
+          "primary": {
+            "id": "1st13187",
+            "attributes": {
+              "catalog_id": "",
+              "description": "geOrchestra OpenLDAP stack",
+              "docker_compose": "version: '2'\nservices:\n  ldap:\n    image: georchestra/ldap:20.0.1\n    environment:\n      SLAPD_ADDITIONAL_MODULES: groupofmembers\n      SLAPD_DOMAIN: georchestra.org\n      SLAPD_ORGANISATION: geOrchestra\n      SLAPD_PASSWORD: secret\n    volumes:\n    - ldap_data:/var/lib/ldap\n    - ldap_config:/etc/ldap\n    labels:\n      io.rancher.scheduler.affinity:host_label: application=true\n      io.rancher.container.pull_image: always\n",
+              "environment.%": "0",
+              "environment_id": "1a641306",
+              "finish_upgrade": "true",
+              "id": "1st13187",
+              "name": "georchestra-ldap",
+              "rancher_compose": "version: '2'\nservices:\n  ldap:\n    scale: 1\n    start_on_create: true\n",
+              "rendered_docker_compose": "version: '2'\nservices:\n  ldap:\n    image: georchestra/ldap:20.0.1\n    environment:\n      SLAPD_ADDITIONAL_MODULES: groupofmembers\n      SLAPD_DOMAIN: georchestra.org\n      SLAPD_ORGANISATION: geOrchestra\n      SLAPD_PASSWORD: secret\n    volumes:\n    - ldap_data:/var/lib/ldap\n    - ldap_config:/etc/ldap\n    labels:\n      io.rancher.scheduler.affinity:host_label: application=true\n      io.rancher.container.pull_image: always\n",
+              "rendered_rancher_compose": "version: '2'\nservices:\n  ldap:\n    scale: 1\n    start_on_create: true\n",
+              "scope": "user",
+              "start_on_create": "true"
+            },
+            "meta": {},
+            "tainted": false
+          },
+          "deposed": [],
+          "provider": "provider.rancher"
+        },
+        "rancher_stack.georchestra-smtp": {
+          "type": "rancher_stack",
+          "depends_on": [
+            "data.rancher_environment.env"
+          ],
+          "primary": {
+            "id": "1st11002",
+            "attributes": {
+              "catalog_id": "georchestra:georchestra-smtp-prod:6",
+              "description": "geOrchestra SMTP stack",
+              "docker_compose": "",
+              "environment.%": "8",
+              "finish_upgrade": "true",
+              "id": "1st11002",
+              "name": "georchestra-smtp",
+              "rancher_compose": "",
+              "rendered_docker_compose": "version: '2'\nservices:\n  smtp:\n    image: camptocamp/exim:latest\n    environment:\n      MAILNAME: dudu.com\n      POSTMASTER: postmaster@dudu.com\n      RELAY_HOST: smtp\n      RELAY_PASSWORD: aaaa\n      RELAY_PORT: '25'\n      RELAY_USERNAME: aaaa\n    volumes:\n    - mailboxes:/var/mail/\n    - email_queue:/var/spool/exim4\n    labels:\n      io.rancher.scheduler.affinity:host_label: application=true\n      io.rancher.container.pull_image: always\n",
+              "rendered_rancher_compose": "version: '2'\nservices:\n  smtp:\n    scale: 1\n    start_on_create: true\n",
+              "scope": "user",
+              "start_on_create": "true"
+            },
+            "meta": {},
+            "tainted": false
+          },
+          "deposed": [],
+          "provider": "provider.rancher"
+        }
+      },
+      "depends_on": []
+    }
+  ]
+}

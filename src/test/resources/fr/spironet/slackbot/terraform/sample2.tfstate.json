@@ -1,0 +1,73 @@
+{
+  "version": 3,
+  "terraform_version": "0.11.15",
+  "serial": 273,
+  "lineage": "4ff7599-0abc-1060-89ad-4a25c871a0ac",
+  "modules": [
+    {
+      "path": [
+        "root"
+      ],
+      "outputs": {},
+      "resources": {
+        "rancher_stack.georchestra-ldap": {
+          "type": "rancher_stack",
+          "depends_on": [
+            "data.rancher_environment.env"
+          ],
+          "primary": {
+            "id": "1st13187",
+            "attributes": {
+              "catalog_id": "",
+              "description": "geOrchestra OpenLDAP stack",
+              "docker_compose": "version: '2'\nservices:\n  ldap:\n    image: georchestra/ldap:20.0.1\n    environment:\n      SLAPD_ADDITIONAL_MODULES: groupofmembers\n      SLAPD_DOMAIN: georchestra.org\n      SLAPD_ORGANISATION: geOrchestra\n      SLAPD_PASSWORD: secret\n    volumes:\n    - ldap_data:/var/lib/ldap\n    - ldap_config:/etc/ldap\n    labels:\n      io.rancher.scheduler.affinity:host_label: application=true\n      io.rancher.container.pull_image: always\n",
+              "environment.%": "0",
+              "environment_id": "1a641306",
+              "finish_upgrade": "true",
+              "id": "1st13187",
+              "name": "georchestra-ldap",
+              "rancher_compose": "version: '2'\nservices:\n  ldap:\n    scale: 1\n    start_on_create: false\n",
+              "rendered_docker_compose": "version: '2'\nservices:\n  ldap:\n    image: georchestra/ldap:20.0.1\n    environment:\n      SLAPD_ADDITIONAL_MODULES: groupofmembers\n      SLAPD_DOMAIN: georchestra.org\n      SLAPD_ORGANISATION: geOrchestra\n      SLAPD_PASSWORD: secret\n    volumes:\n    - ldap_data:/var/lib/ldap\n    - ldap_config:/etc/ldap\n    labels:\n      io.rancher.scheduler.affinity:host_label: application=true\n      io.rancher.container.pull_image: always\n",
+              "rendered_rancher_compose": "version: '2'\nservices:\n  ldap:\n    scale: 1\n    start_on_create: true\n",
+              "scope": "user",
+              "start_on_create": "true"
+            },
+            "meta": {},
+            "tainted": false
+          },
+          "deposed": [],
+          "provider": "provider.rancher"
+        },
+        "rancher_stack.monitoring-internal-services": {
+          "type": "rancher_stack",
+          "depends_on": [
+            "data.rancher_environment.env"
+          ],
+          "primary": {
+            "id": "1st11010",
+            "attributes": {
+              "catalog_id": "",
+              "description": "Monitor internal services like postgres and ldap",
+              "docker_compose": "version: '2'\nservices:\n  health-check:\n    image: camptocamp/internal_healthchecks:2017-10-18\n    environment:\n      LDAP_TEST_URL: ldap://cn=admin,dc=georchestra,dc=org:secret@ldap.georchestra-ldap/uid=geoserver_privileged_user,ou=users,dc=georchestra,dc=org\n      POSTGRES_CONNECTION_STRING: host=database port=5432 dbname=georchestra user=georchestra password=georchestra\n      POSTGRES_TEST_QUERY: SELECT * FROM ogcstatistics.ogc_services_log LIMIT 1\n    labels:\n      io.rancher.scheduler.affinity:host_label: monitoring=true\n",
+              "environment.%": "0",
+              "environment_id": "1a641306",
+              "finish_upgrade": "true",
+              "id": "1st11010",
+              "name": "monitoring-internal-services",
+              "rancher_compose": "version: '2'\nservices:\n  health-check:\n    scale: 1\n    start_on_create: true\n",
+              "rendered_docker_compose": "version: '2'\nservices:\n  health-check:\n    image: camptocamp/internal_healthchecks:2017-10-18\n    environment:\n      LDAP_TEST_URL: ldap://cn=admin,dc=georchestra,dc=org:secret@ldap.georchestra-ldap/uid=geoserver_privileged_user,ou=users,dc=georchestra,dc=org\n      POSTGRES_CONNECTION_STRING: host=database port=5432 dbname=georchestra user=georchestra password=georchestra\n      POSTGRES_TEST_QUERY: SELECT * FROM ogcstatistics.ogc_services_log LIMIT 1\n    labels:\n      io.rancher.scheduler.affinity:host_label: monitoring=true\n",
+              "rendered_rancher_compose": "version: '2'\nservices:\n  health-check:\n    scale: 1\n    start_on_create: true\n",
+              "scope": "user",
+              "start_on_create": "true"
+            },
+            "meta": {},
+            "tainted": false
+          },
+          "deposed": [],
+          "provider": "provider.rancher"
+        }
+      },
+      "depends_on": []
+    }
+  ]
+}
