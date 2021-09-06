@@ -68,7 +68,6 @@ class IssueDetailsResolver {
 
         def cql = "${topicsFilter}"
         cql = "cql=" + java.net.URLEncoder.encode(cql, "UTF-8")
-        def http = new RESTClient(this.confluenceUrl)
         def authorizationHeader = "Basic " + "${this.jiraUser}:${this.jiraPassword}".bytes.encodeBase64()
         def response = http.get(
                 uri: this.confluenceUrl,
