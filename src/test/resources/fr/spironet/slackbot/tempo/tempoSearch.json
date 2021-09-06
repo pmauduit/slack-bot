@@ -1,0 +1,258 @@
+[
+  {
+    "billableSeconds": 0,
+    "timeSpent": "1h",
+    "issue": {
+      "issueStatus": "Draft",
+      "epicName": "administratif",
+      "components": [],
+      "projectId": 12207,
+      "projectKey": "ADM",
+      "issueType": "Epic",
+      "iconUrl": "/images/icons/issuetypes/epic.svg",
+      "versions": [],
+      "summary": "administratif",
+      "internalIssue": true,
+      "estimatedRemainingSeconds": 0,
+      "reporterKey": "jiroobot",
+      "key": "ADM-1",
+      "id": 44815
+    },
+    "tempoWorklogId": 303063,
+    "comment": "TS w/34, FC w/35, meeting weekly PROJ4",
+    "timeSpentSeconds": 3600,
+    "location": {
+      "name": "Default Location",
+      "id": 1
+    },
+    "attributes": {},
+    "started": "2021-08-30 00:00:00.000",
+    "originTaskId": 44815,
+    "dateCreated": "2021-09-06 09:01:52.000",
+    "dateUpdated": "2021-09-06 09:01:52.000",
+    "worker": "jdoe",
+    "updater": "jdoe",
+    "originId": 303063
+  },
+  {
+    "billableSeconds": 6480,
+    "timeSpent": "1h 48m",
+    "issue": {
+      "issueStatus": "In Progress",
+      "components": [
+        12820
+      ],
+      "projectId": 12101,
+      "projectKey": "PROJ1",
+      "issueType": "Task",
+      "iconUrl": "/secure/viewavatar?size=xsmall&avatarId=10318&avatarType=issuetype",
+      "versions": [],
+      "summary": "Migration \u00e0 CAS 6 dans PROJ4rchestra et PROJ42france",
+      "internalIssue": false,
+      "originalEstimateSeconds": 144000,
+      "estimatedRemainingSeconds": 89520,
+      "reporterKey": "fpatchouli",
+      "key": "PROJ1-316",
+      "id": 79623
+    },
+    "tempoWorklogId": 303157,
+    "comment": "WIP on cas-poc (integrating oauth2 endpoints)",
+    "timeSpentSeconds": 6480,
+    "location": {
+      "name": "Default Location",
+      "id": 1
+    },
+    "attributes": {},
+    "started": "2021-08-30 00:00:00.000",
+    "originTaskId": 79623,
+    "dateCreated": "2021-09-06 09:05:33.000",
+    "dateUpdated": "2021-09-06 09:05:49.000",
+    "worker": "jdoe",
+    "updater": "jdoe",
+    "originId": 303157
+  },
+  {
+    "billableSeconds": 600,
+    "timeSpent": "10m",
+    "issue": {
+      "issueStatus": "Waiting for customer",
+      "components": [
+        10800
+      ],
+      "projectId": 10204,
+      "projectKey": "PROJ4",
+      "issueType": "Incident",
+      "iconUrl": "/servicedesk/issue-type-icons?icon=incident",
+      "versions": [],
+      "summary": "MapStore - Erreur 500 sur intgration fichier JS sur page HTML (embed)",
+      "internalIssue": false,
+      "reporterKey": "fdelvaux",
+      "key": "PROJ4-4723",
+      "id": 81659
+    },
+    "tempoWorklogId": 303173,
+    "comment": "investigations",
+    "timeSpentSeconds": 600,
+    "location": {
+      "name": "Default Location",
+      "id": 1
+    },
+    "attributes": {},
+    "started": "2021-08-31 00:00:00.000",
+    "originTaskId": 81659,
+    "dateCreated": "2021-09-06 09:07:28.000",
+    "dateUpdated": "2021-09-06 09:07:28.000",
+    "worker": "jdoe",
+    "updater": "jdoe",
+    "originId": 303173
+  },
+  {
+    "billableSeconds": 12720,
+    "timeSpent": "3h 32m",
+    "issue": {
+      "issueStatus": "In Progress",
+      "epicName": "PROJ5 remote",
+      "components": [],
+      "projectId": 12107,
+      "projectKey": "PROJ6",
+      "issueType": "Epic",
+      "iconUrl": "/images/icons/issuetypes/epic.svg",
+      "versions": [],
+      "summary": "DT-FTTH remote",
+      "internalIssue": false,
+      "originalEstimateSeconds": 199800,
+      "estimatedRemainingSeconds": 0,
+      "reporterKey": "mvonderquelle",
+      "key": "PROJ6-5",
+      "id": 45553
+    },
+    "tempoWorklogId": 303197,
+    "comment": "Meeting with Captain america\nWIP different other assigned JIRA issues",
+    "timeSpentSeconds": 12720,
+    "location": {
+      "name": "Default Location",
+      "id": 1
+    },
+    "attributes": {},
+    "started": "2021-09-01 00:00:00.000",
+    "originTaskId": 45553,
+    "dateCreated": "2021-09-06 09:14:30.000",
+    "dateUpdated": "2021-09-06 09:17:20.000",
+    "worker": "jdoe",
+    "updater": "jdoe",
+    "originId": 303197
+  },
+  {
+    "billableSeconds": 0,
+    "timeSpent": "2h",
+    "issue": {
+      "issueStatus": "Draft",
+      "epicName": "administratif",
+      "components": [],
+      "projectId": 12207,
+      "projectKey": "ADM",
+      "issueType": "Epic",
+      "iconUrl": "/images/icons/issuetypes/epic.svg",
+      "versions": [],
+      "summary": "administratif",
+      "internalIssue": true,
+      "estimatedRemainingSeconds": 0,
+      "reporterKey": "jiroobot",
+      "key": "ADM-1",
+      "id": 44815
+    },
+    "tempoWorklogId": 303212,
+    "comment": "Interview Superman",
+    "timeSpentSeconds": 7200,
+    "location": {
+      "name": "Default Location",
+      "id": 1
+    },
+    "attributes": {},
+    "started": "2021-09-02 00:00:00.000",
+    "originTaskId": 44815,
+    "dateCreated": "2021-09-06 09:23:48.000",
+    "dateUpdated": "2021-09-06 09:23:48.000",
+    "worker": "jdoe",
+    "updater": "jdoe",
+    "originId": 303212
+  },
+  {
+    "billableSeconds": 900,
+    "timeSpent": "15m",
+    "issue": {
+      "issueStatus": "Resolved",
+      "components": [
+        10800
+      ],
+      "projectId": 10204,
+      "projectKey": "PROJ4",
+      "issueType": "Incident",
+      "iconUrl": "/servicedesk/issue-type-icons?icon=incident",
+      "versions": [],
+      "summary": "Modification de base appli1",
+      "internalIssue": false,
+      "reporterKey": "jmpaturel",
+      "key": "PROJ4-4647",
+      "id": 80341
+    },
+    "tempoWorklogId": 303306,
+    "comment": "assistance deploy appli1",
+    "timeSpentSeconds": 900,
+    "location": {
+      "name": "Default Location",
+      "id": 1
+    },
+    "attributes": {},
+    "started": "2021-09-03 00:00:00.000",
+    "originTaskId": 80341,
+    "dateCreated": "2021-09-06 09:34:16.000",
+    "dateUpdated": "2021-09-06 09:34:16.000",
+    "worker": "jdoe",
+    "updater": "jdoe",
+    "originId": 303306
+  },
+  {
+    "billableSeconds": 7140,
+    "timeSpent": "1h 59m",
+    "issue": {
+      "issueStatus": "In Progress",
+      "components": [
+        12822
+      ],
+      "projectId": 12108,
+      "projectKey": "PROJ2",
+      "issueType": "Task",
+      "iconUrl": "/secure/viewavatar?size=xsmall&avatarId=10318&avatarType=issuetype",
+      "versions": [],
+      "summary": "WIP microservices",
+      "internalIssue": false,
+      "originalEstimateSeconds": 57600,
+      "estimatedRemainingSeconds": 120,
+      "epicKey": "PROJ3-409",
+      "epicIssue": {
+        "issueType": "Epic",
+        "iconUrl": "/images/icons/issuetypes/epic.svg",
+        "summary": "Fonctionnalit\u00e9s PROJ4Network 4 pour PROJ3"
+      },
+      "reporterKey": "fpatchouli",
+      "key": "PROJ2-7",
+      "id": 79704
+    },
+    "tempoWorklogId": 303309,
+    "comment": "WIP deploy in ansible the microservice",
+    "timeSpentSeconds": 7140,
+    "location": {
+      "name": "Default Location",
+      "id": 1
+    },
+    "attributes": {},
+    "started": "2021-09-03 00:00:00.000",
+    "originTaskId": 79704,
+    "dateCreated": "2021-09-06 09:35:25.000",
+    "dateUpdated": "2021-09-06 09:35:52.000",
+    "worker": "jdoe",
+    "updater": "jdoe",
+    "originId": 303309
+  }
+]
