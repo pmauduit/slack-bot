@@ -1,2 +1,4 @@
 env
-
+ansible/inventory.yaml
+ansible/venv
+ansible/ansible.log
