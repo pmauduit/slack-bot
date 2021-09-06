@@ -26,7 +26,7 @@ class KibanaJob implements Job
         def wb = new WebBrowser()
         def kibanaScreenshot = wb.visitKibanaDashboard()
 
-        if (kibanaScreenshot?.size() > 0) {
+        if (kibanaScreenshot != null) {
             def kibanaChannel = System.getenv("KIBANA_CHANNEL_TO_SEND_DASHBOARD")
             def chan = slackSession.findChannelByName(kibanaChannel)
             if (chan == null) {
