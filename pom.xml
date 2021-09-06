@@ -87,6 +87,28 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>com.github.webdriverextensions</groupId>
+                <artifactId>webdriverextensions-maven-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>install-drivers</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <drivers>
+                        <driver>
+                            <name>chromedriver</name>
+                            <platform>linux</platform>
+                            <bit>64</bit>
+                            <version>93.0.4577.15</version>
+                        </driver>
+                    </drivers>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <dependencies>

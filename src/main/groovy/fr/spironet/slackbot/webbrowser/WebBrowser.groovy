@@ -12,19 +12,31 @@ class WebBrowser {
 
     private final static Logger logger = LoggerFactory.getLogger(WebBrowser.class)
 
+    def kibanaUser     = System.getenv("KIBANA_USER")
+    def kibanaPassword = System.getenv("KIBANA_PASSWORD")
+    def kibanaUrl      = System.getenv("KIBANA_URL")
+    def dashboardPath  = System.getenv("KIBANA_DASHBOARD")
+
+    def grafanaUser = System.getenv("GRAFANA_USER")
+    def grafanaPassword = System.getenv("GRAFANA_PASSWORD")
+    def grafanaUrl = System.getenv("GRAFANA_URL")
+    def grafanaDashboard = System.getenv("GRAFANA_DASHBOARD_PATH")
+
     static {
         def chromeDriverPath = System.getenv("BROWSER_CHROMEDRIVER")
-        System.setProperty("webdriver.chrome.driver", chromeDriverPath)
+        if (chromeDriverPath != null) {
+            System.setProperty("webdriver.chrome.driver", chromeDriverPath)
+        }
     }
 
-    private def getDriver() throws Exception {
+    def getDriver() throws Exception {
         def options = new ChromeOptions()
         options.addArguments("headless")
         options.addArguments("window-size=1920,1080")
         return new ChromeDriver(options)
     }
 
-    public def visitKibanaDashboard() {
+    def visitKibanaDashboard() {
         def driver
         try {
             driver = getDriver()
@@ -33,10 +45,9 @@ class WebBrowser {
             return null
         }
         try {
-            def kibanaUser = System.getenv("KIBANA_USER")
-            def kibanaPassword = System.getenv("KIBANA_PASSWORD")
-            def kibanaUrl = System.getenv("KIBANA_URL")
-            def dashboardPath = System.getenv("KIBANA_DASHBOARD")
+            if ((kibanaUser == null) || (kibanaPassword == null) || (kibanaUrl == null)) {
+                return null
+            }
             // makes sure to cleanup cookies before accessing the page
             driver.manage().deleteAllCookies()
             driver.get("https://${kibanaUser}:${kibanaPassword}@${kibanaUrl}/")
@@ -63,7 +74,7 @@ class WebBrowser {
         }
     }
 
-    public def visitGrafanaMonitoringDashboard() {
+    def visitGrafanaMonitoringDashboard() {
         def driver
         try {
             driver = getDriver()
@@ -72,11 +83,6 @@ class WebBrowser {
             return null
         }
         try {
-            def grafanaUser = System.getenv("GRAFANA_USER")
-            def grafanaPassword = System.getenv("GRAFANA_PASSWORD")
-            def grafanaUrl = System.getenv("GRAFANA_URL")
-            def grafanaDashboard = System.getenv("GRAFANA_DASHBOARD_PATH")
-
             if (!grafanaUser || !grafanaPassword || !grafanaUrl || !grafanaDashboard) {
                 return null
             }
@@ -105,10 +111,5 @@ class WebBrowser {
             driver.close()
             driver.quit()
         }
-    }
-
-    public static void main(String[] args) {
-        def wb = new WebBrowser()
-        wb.visitKibanaDashboard()
     }
 }
