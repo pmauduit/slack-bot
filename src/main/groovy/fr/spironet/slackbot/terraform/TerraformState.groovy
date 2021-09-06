@@ -84,7 +84,7 @@ class TerraformState {
         def req = new ListVersionsRequest().withBucketName(this.bucket)
                 .withPrefix(key)
                 // limits to the last 3 versions (n & n-1 should be the same version anyway)
-                //.withMaxResults(3)
+                .withMaxResults(3)
         def result
         def ret = []
 

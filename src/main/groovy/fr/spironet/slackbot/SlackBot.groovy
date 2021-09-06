@@ -10,6 +10,7 @@ import fr.spironet.slackbot.scheduled.GithubScheduledService
 import fr.spironet.slackbot.scheduled.JiraRssScheduledService
 import fr.spironet.slackbot.scheduled.JiraScheduledService
 import fr.spironet.slackbot.scheduled.KibanaJob
+import fr.spironet.slackbot.scheduled.TerraformScheduledService
 import org.quartz.impl.StdSchedulerFactory
 import org.slf4j.LoggerFactory
 
@@ -45,6 +46,10 @@ ConfluenceRssScheduledService confluenceService = new ConfluenceRssScheduledServ
 confluenceService.startAsync()
 GithubScheduledService githubService = new GithubScheduledService(session)
 githubService.startAsync()
+TerraformScheduledService terraformService = new TerraformScheduledService(session)
+terraformService.startAsync()
+
+
 
 // Prepare "cron-like" services
 // kibana
