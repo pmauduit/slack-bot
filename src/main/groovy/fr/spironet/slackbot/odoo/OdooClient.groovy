@@ -15,12 +15,12 @@ import java.text.SimpleDateFormat
  *
  */
 class OdooClient {
-    private def odooHost     = System.getenv("ODOO_HOST")
-    private def odooPort     = System.getenv("ODOO_PORT")
-    private def odooScheme   = System.getenv("ODOO_SCHEME")
-    private def odooUser     = System.getenv("ODOO_USERNAME")
-    private def odooPassword = System.getenv("ODOO_PASSWORD")
-    private def odooDb       = System.getenv("ODOO_DB")
+    def odooHost     = System.getenv("ODOO_HOST")
+    def odooPort     = System.getenv("ODOO_PORT")
+    def odooScheme   = System.getenv("ODOO_SCHEME")
+    def odooUser     = System.getenv("ODOO_USERNAME")
+    def odooPassword = System.getenv("ODOO_PASSWORD")
+    def odooDb       = System.getenv("ODOO_DB")
 
     private def http
     private def isLoggedIn = false
@@ -70,7 +70,11 @@ class OdooClient {
                 requestContentType: ContentType.JSON,
                 headers: [Accept: "application/json"]
         )
-        return response.data.result.value
+        if (response.data.error?.message == "Odoo Session Expired") {
+            this.isLoggedIn = false
+            throw new DisconnectedFromOdooException();
+        }
+        return response.data.result
     }
 
     public def findUser(def user) {
@@ -143,13 +147,11 @@ class OdooClient {
     /**
      * Gets the coming accepted leave requests for the user given as argument.
      *
-     * @param user the user whose leave requests have to be fetched.
+     * @param userLogin the login of the user whose leave requests have to be fetched.
      * @return null if user is not found, else the accepted leave requests to come.
      * @throws RuntimeException if an error is returned by the Odoo server.
      */
-    public def getComingLeavesForUser(def user) {
-        def userId = findUser(user)["id"]
-
+    public def getComingLeavesForUser(def userLogin) {
         def odooSearchReadUrl = "${odooScheme}://${odooHost}:${odooPort}/web/dataset/search_read"
         def response = http.post(
                 uri: odooSearchReadUrl,
@@ -159,7 +161,7 @@ class OdooClient {
                         params: [
                                 model: "hr.leave",
                                 domain: [
-                                        ["user_id", "=", userId],
+                                        ["user_id.login", "=", userLogin],
                                         ["date_from", ">=", new SimpleDateFormat("yyyy-MM-dd").format(new Date()) ],
                                 ],
                                 fields: []
@@ -201,7 +203,7 @@ class OdooClient {
         )
         if (response.data.error?.message == "Odoo Session Expired") {
             this.isLoggedIn = false
-            throw new DisconnectedFromOdooException();
+            throw new DisconnectedFromOdooException()
         }
         return response.data.result.records
     }
