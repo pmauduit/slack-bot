@@ -65,11 +65,14 @@ class OdooListener implements SlackMessagePostedListener  {
             odooClient.login()
         }
         def message = ""
+        def inFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        def outFormat = new SimpleDateFormat("yyyy-MM-dd")
         if (plannedVacations.size() > 0) {
             message = ":desert_island: Here are your currently accepted leaves *(${plannedVacations.size()})*:\n"
             plannedVacations.each {
-                def from = Date.parse('yyyy-MM-dd HH:mm:ss', it.date_from).format("yyyy-MM-dd")
-                def to = Date.parse('yyyy-MM-dd HH:mm:ss', it.date_to).format("yyyy-MM-dd")
+                // Parses the date to discard the time, keeps only the 'yyyy-MM-dd' part
+                def from = outFormat.format(inFormat.parse(it.date_from))
+                def to   = outFormat.format(inFormat.parse(it.date_to))
                 message += "• *from* ${from} *to* ${to} - ${it.name} _(${it.number_of_days} days)_\n"
             }
         } else {
