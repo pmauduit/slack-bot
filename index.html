@@ -1,0 +1,237 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>slackbot</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/simple.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+      <div class="slides">
+
+				<section>
+					<h3>"Parle à mon bot"</h3>
+					<h4>Organizing my work at Camptocamp with a Slack bot</h4>
+					<p></p>
+				</section>
+
+				<section>
+					<h3>Are you able to name every tools / online services we use on a
+						day-to-day basis @ work ?</h3>
+				</section>
+
+				<section>
+					<h3>A few ones:</h3>
+					<ul>
+						<li>JIRA</li>
+						<li>Confluence</li>
+						<li>Github</li>
+						<li>docker-hub</li>
+						<li>Odoo</li>
+						<li>Google Workspace (mail, calendar, drive ...)</li>
+						<li>Amazon AWS (or any other cloud provider)</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>Wait ... I forgot a one ...</h3>
+					<p>Hint:</p>
+					<img src="images/compiling.png" />
+				</section>
+
+				<section>
+					<h3>Slack !</h3>
+					<p>Some of us formerly were using (or are still using):</p>
+					<ul>
+						<li>IRC (boring: no emojis, no images)</li>
+						<li>Gtalk (not really suited for chat rooms)</li>
+						<li>Hipchat (dead now)</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>Common point between the previously mentioned services ?</h3>
+					<h4>They all have an API !</h4>
+					<ul>
+						<li>Odoo has this JSON-RPC endpoint</li>
+						<li>Github: REST & GraphQL API</li>
+						<li>JIRA (+ plugins) & Confluence have some hidden APIs, and some RSS endpoints</li>
+						<li>Slack also has a one</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>So what ? ¯\_(ツ)_/¯</h3>
+					<p>Why not bridging all these services together around Slack ?</p>
+				</section>
+
+				<section>
+					<code>pmauduit/slack-bot</code>
+					<p>My pet project for an imaginary companion at work</p>
+					<p>More precisely: A slack bot which warns me about some events from ...
+					<ul>
+						<li>JIRA & Confluence (RSS & search endpoint)</li>
+						<li>Github ("my events" API endpoint)</li>
+						<li>AWS S3 (polling a bucket)</li>
+					</ul>
+				</p>
+			</section>
+
+			<section>
+				<p>A slack bot with which I can interact to:
+					<ul>
+						<li>Fill in my timesheet (Tempo API)</li>
+						<li>Look for resources on confluence</li>
+						<li>Find relevant repositories in the C2C org. on github</li>
+						<li>List opened Pull-Requests on some repositories</li>
+						<li>Give my current working time for the day, week ...</li>
+					</ul>
+				</p>
+			</section>
+
+			<section>
+				<code>pmauduit/slack-bot</code>
+				<p>More into the technical details:
+					<ul>
+						<li>a PoC that went (really) too far !</li>
+						<li>Implemented in Groovy</li>
+						<li>uses the Java <code>com.ullink.slack:simpleslackapi</code> library</li>
+						<li>API calls to external services are made using a simple HTTP client (no dedicated lib)</li>
+						<li>40/45% code coverage</li>
+					</ul>
+				</p>
+				<p>Let's see now some screenshots</p>
+		</section>
+		<section>
+			<h3>Ex: events coming from Jira (search endpoint)</h3>
+			<img src="images/jira-new-issue.png" />
+			<p><i><small>I am generally aware of coming issues before
+			the Project Management team has the time to affect them to me,
+			 they sometimes discover them once already fixed.</small></i></p>
+		</section>
+			<section>
+				<h3>Ex: events coming from Jira (RSS)</h3>
+				<img src="images/jira-rss.png" />
+			</section>
+			<section>
+				<h3>Ex: events coming from Confluence</h3>
+				<img src="images/confluence-rss.png" />
+			</section>
+			<section>
+				<h3>Ex: events coming from Github</h3>
+				<img src="images/github-events.png" />
+			</section>
+			<section>
+				<h3>Ex: Detected changes on S3</h3>
+				<img src="images/terraform.png" />
+			</section>
+
+			<section>
+				<h3>Ex: querying Github</h3>
+				<img src="images/github-find.png" />
+				<img src="images/github-opened-prs.png" />
+			</section>
+
+			<section>
+				<h3>Ex: Checking presence of a colleague</h3>
+				<p>(attendance_state field on res.users)</p>
+				<img src="images/odoo-presence.png" />
+				<p><i><small>Note: only works with people from the same company, does not
+					work with my account on swiss & german colleagues ?! Since we are no
+				longer required to signin/signout on Odoo anyway ...</small></i></p>
+			</section>
+
+			<section>
+				<h3>Ex: Filling my TS</h3>
+				<p>outside of Tempo !</p>
+				<img src="images/tempo.png" />
+				<p><i><small>Note: the Tempo UI being not that bad actually, I prefer
+				to use the official one ... I still use this feature from time to time though.</small></i></p>
+			</section>
+
+			<section>
+				<h3>Ex: working time in realtime</h3>
+				<img src="images/odoo-today.png" />
+				<p><i><small>Probably the command I use the most to track my worklog, I can also ask for the summary on the current week.</small></i></p>
+			</section>
+
+			<section>
+				<h3>Ex: getting a worklog from JIRA</h3>
+				<img src="images/jira-worklog.png" />
+				<p><i><small>Just to spy on the others' TS ... Or to give a rough idea on where we are on a specific issue.</small></i></p>
+			</section>
+
+			<section>
+				<h3>Ex: Visiting websites 1/2</h3>
+				<img src="images/grafana-monitoring.png" />
+				<p><i><small>Because I am too lazy to open a new tab in my browser ?</small></i></p>
+			</section>
+
+			<section>
+				<h3>Ex: Visiting websites 2/2</h3>
+				<img src="images/kibana-weather.png" />
+				<p><i><small>This command is triggered every monday morning at 10:15, and the
+				result is dumped onto the gs-georchestra slack channel.</small></i></p>
+			</section>
+
+			<section>
+				<h3>What I learned so far</h3>
+				<ul>
+					<li>Finding documentation on JIRA & Confluence is abominable</li>
+					<li>JIRA has the less coherent API compared to the other ones</li>
+					<li>GraphQL based APIs are puzzling, but the concepts behind are interesting</li>
+					<li>Please document the Odoo JSONRPC endpoint !</li>
+					<li>Sometimes you don't need a dedicated lib to interact with an API</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Conclusions</h3>
+				<small>
+				<ul>
+					<li>I was first willing to escape from Jira, I learned to use it more efficiently</li>
+					<li>I was not aware of the amount of data we were creating at work (35k issues on JIRA-C2C !)</li>
+					<li>People from the other dept. are also doing interesting stuff</li>
+					<li>We should take the time to deeply discover all these tools before even using them
+					(this project changed my way of using JIRA)</li>
+					<li>Camptocamp lacks guidelines at some point (what about an "administrator guide" for the github admins ?)</li>
+					<li>Next year, my bot will work for me, and I won't tell you about it.</li>
+				</ul>
+			</small>
+			</section>
+
+			<section>
+				<h3>Thanks for you attention !</h3>
+				<p><i>Questions ?</i></p>
+			</section>
+
+
+
+      </div>
+    </div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
