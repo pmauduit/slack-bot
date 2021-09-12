@@ -59,13 +59,15 @@ class WebBrowser {
             // makes sure to cleanup cookies before accessing the page
             driver.manage().deleteAllCookies()
             driver.get("https://${kibanaUser}:${kibanaPassword}@${kibanaUrl}/")
-
-            System.sleep(1000)
-            // ok, now we should have a cookie ?
+            // ok, page should fail (too many redirects), but now we should have a cookie ?
             def finalUrl = "https://${kibanaUrl}${dashboardPath}"
             driver.get(finalUrl)
             // wait for long enough to let the time to draw the page
-            System.sleep(15000)
+
+            new WebDriverWait(driver as WebDriver, 15).until {
+                        it.findElements(By.cssSelector("div[data-render-complete='true']")).size() > 5
+            }
+
             byte[] data = driver.getScreenshotAs(OutputType.BYTES)
             if (data == null) {
                 return null
