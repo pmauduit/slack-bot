@@ -5,7 +5,7 @@ After=syslog.target
 [Service]
 User={{ user_to_run_the_service }}
 EnvironmentFile=/opt/slackbot/slackbot.env
-ExecStart=/usr/bin/java -jar /opt/slackbot/slackbot.jar
+ExecStart=/usr/bin/java -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 -jar /opt/slackbot/slackbot.jar
 StandardOutput=append:/var/log/slackbot.log
 StandardError=append:/var/log/slackbot.log
 
