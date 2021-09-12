@@ -7,6 +7,8 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute
 import org.apache.lucene.util.Version
 
+import java.text.SimpleDateFormat
+
 /**
  * A convenient class to manage the interactions with different systems
  * (mainly JIRA) and being able to analyze a JIRA issue.
@@ -34,13 +36,17 @@ class IssueDetailsResolver {
         if (System.getenv("CONFLUENCE_SERVER_URL") == null) {
             throw new RuntimeException("expected CONFLUENCE_SERVER_URL env variable")
         }
-        this.IssueDetailsResolver(System.getenv("JIRA_CLIENT_PROPERTY_FILE"),
+        initialize(System.getenv("JIRA_CLIENT_PROPERTY_FILE"),
                 System.getenv("CONFLUENCE_SERVER_URL"),
                 System.getenv("GITHUB_TOKEN")
         )
     }
 
     public IssueDetailsResolver(def jiraPropsFile, def confluenceServerUrl, def ghToken) {
+        initialize(jiraPropsFile, confluenceServerUrl, ghToken)
+    }
+
+    private def initialize(def jiraPropsFile, def confluenceServerUrl, def ghToken) {
         File propertiesFile = new File(jiraPropsFile)
         def props = new Properties()
         propertiesFile.withInputStream {
@@ -55,6 +61,7 @@ class IssueDetailsResolver {
         this.confluenceUrl = confluenceServerUrl
         this.githubApi = new GithubApiClient(ghToken)
     }
+
     /**
      * Confluence search by tag.
      * Copy-pasted / inspired from the ConfluenceListener class.
@@ -190,15 +197,33 @@ class IssueDetailsResolver {
         return loadJira("/rest/api/2/project").collect { it.name }.sort(false)
 
     }
-    public def loadLabels() {
-        throw new RuntimeException("don't use me ! I'm resource intensive !")
+    /**
+     * Computes a list of labels used on JIRA.
+     *
+     * @param force indicates if we really need to perform the queries.
+     * @throws RuntimeException if force is not set to true.
+     *
+     * @return the list of labels. This would probably require a human qualification / validation.
+     */
+    public def loadLabels(def force = false) {
+        if (force == false)
+            throw new RuntimeException("don't use me ! I'm resource intensive !")
 
         def ret = []
-        ret << loadJira("/rest/api/2/search",
-                "jql=labels%20is%20not%20EMPTY%20and%20project%20%3D%20support-geospatial&maxResults=1000").
-                issues.fields.labels.flatten().unique()
-        ret << loadJira("/rest/api/2/search", "jql=labels%20is%20not%20EMPTY%20and%20project%20%3D%20support-geospatial&maxResults=1000&startAt=1000").
-                issues.fields.labels.flatten().unique()
+        def startAt = 0
+        // gets issues by batch of 1k records
+        while (true) {
+            def singleResult = loadJira("/rest/api/2/search",
+                    "jql=labels%20is%20not%20EMPTY%20and%20project%20%3D%20support-geospatial&maxResults=1000&startAt=${startAt}")
+
+            ret << singleResult.
+                    issues.fields.labels.flatten().unique()
+            startAt += 1000
+            if (singleResult.issues.size() == 0) {
+                break
+            }
+        }
+
         return ret.flatten().unique()
     }
 
@@ -234,6 +259,31 @@ class IssueDetailsResolver {
         keywords.sort{ a,b -> b.weight <=> a.weight }
         keywords = keywords.findAll { it.keyword in IssueDetails.knownLabels }.collect{ it.keyword }
         issue.possibleLabels = keywords.findAll { ! (it in issue.labels) }
+    }
+
+    private def analyzeWorklogs(def issue) {
+        def sdf = new SimpleDateFormat("yyyy-MM-dd")
+
+        issue.worklogs.worklogs.each {
+            def user = it.author.name
+            def parsedDate = sdf.parse(it.started)
+            def timeSpent = it.timeSpentSeconds
+
+            def wpu = issue.worklogsPerUser[user]
+
+            if (wpu == null) {
+                issue.worklogsPerUser[user] = [
+                        beginDate: parsedDate,
+                        endDate  : parsedDate,
+                        timeSpent: timeSpent
+                ]
+            } else {
+                wpu.beginDate = parsedDate < wpu.beginDate ? parsedDate : wpu.beginDate
+                wpu.endDate = parsedDate > wpu.endDate ? parsedDate : wpu.endDate
+                wpu.timeSpent += timeSpent
+                issue.worklogsPerUser[user] = wpu
+            }
+        }
     }
 
     /**
@@ -272,6 +322,7 @@ class IssueDetailsResolver {
         issue.githubPullRequests = loadGithubPullRequests(issue.issueId)
 
         this.computePossibleLabels(issue)
+        this.analyzeWorklogs(issue)
 
         return issue
     }

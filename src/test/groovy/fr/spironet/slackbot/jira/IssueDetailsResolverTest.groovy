@@ -49,6 +49,18 @@ class IssueDetailsResolverTest {
                 {
                     def ret = new File(this.getClass().getResource("ABC-316-issuedetail-gh-pr.json").toURI()).text
                     return [ data: new JsonSlurper().parseText(ret) ]
+                } else if (args.path == "/rest/api/2/project") {
+                    def ret = new File(this.getClass().getResource("list-projects.json").toURI()).text
+                    return [ data: new JsonSlurper().parseText(ret) ]
+                } else if ((args.path == "/rest/api/2/search") && (args.queryString.contains("startAt=0"))) {
+                    def ret = new File(this.getClass().getResource("compute-labels-1.json").toURI()).text
+                    return [ data: new JsonSlurper().parseText(ret) ]
+                } else if ((args.path == "/rest/api/2/search") && (args.queryString.contains("startAt=1000"))) {
+                    def ret = new File(this.getClass().getResource("compute-labels-2.json").toURI()).text
+                    return [ data: new JsonSlurper().parseText(ret) ]
+                } else if ((args.path == "/rest/api/2/search") && (args.queryString.contains("startAt=2000"))) {
+                    def ret = new File(this.getClass().getResource("compute-labels-3.json").toURI()).text
+                    return [ data: new JsonSlurper().parseText(ret) ]
                 }
                 return [:]
             }
@@ -68,22 +80,41 @@ class IssueDetailsResolverTest {
         )
     }
 
-        // Analyze the worklog per worker on an issue
-        // worklog.json issued from https://jira.camptocamp.com/rest/api/2/issue/AGFR-1/worklog
-        // Avoid loading the page, as it DoS a bit the jira instance ;-)
-        /*
-        def dudu = new File("/home/pmauduit/Documents/worklog.json").getText()
-        def jsonSlurper = new JsonSlurper()
-        def parsed = jsonSlurper.parseText(dudu)
-        def processed = [:]
-        parsed.worklogs.each {
-            if (processed[it.author.displayName] == null)
-                processed[it.author.displayName] = it.timeSpentSeconds
-            else {
-                processed[it.author.displayName] += it.timeSpentSeconds
-            }
-        }
-        processed.sort{ it.value }
-        print processed
-         */
+    @Test
+    void testAnalyzeWorklog() {
+        def issue = toTest.resolve("ABC-316")
+
+        assertTrue(issue.worklogsPerUser.size() == 1 &&
+        issue.worklogsPerUser["jdoe"].beginDate < issue.worklogsPerUser["jdoe"].endDate &&
+        issue.worklogsPerUser["jdoe"].timeSpent == 43200)
+    }
+
+    @Test
+    void testgetProjects() {
+        def ret = toTest.loadProjects()
+
+        assertTrue(ret.size() == 3 &&
+            "super_project_3" in ret)
+    }
+
+    @Test(expected = RuntimeException)
+    void testCtorNoEnvVariables() {
+        def toTest = new IssueDetailsResolver()
+    }
+
+    @Test(expected = RuntimeException)
+    void testLoadLabels() {
+        toTest.loadLabels()
+    }
+
+    @Test
+    void testLoadLabelsForceTrue() {
+        def ret = toTest.loadLabels(true)
+
+        assertTrue(ret.size == 5 &&
+                "worldcompany" in ret
+        )
+    }
+
+
 }

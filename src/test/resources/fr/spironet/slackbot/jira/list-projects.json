@@ -1,0 +1,50 @@
+[
+  {
+    "expand": "description,lead,url,projectKeys",
+    "self": "https://jira/rest/api/2/project/12730",
+    "id": "12730",
+    "key": "ABCDEF",
+    "name": "super_secret_project_1",
+    "avatarUrls": {
+      "48x48": "https://jira/secure/projectavatar?avatarId=10324",
+      "24x24": "https://jira/secure/projectavatar?size=small&avatarId=10324",
+      "16x16": "https://jira/secure/projectavatar?size=xsmall&avatarId=10324",
+      "32x32": "https://jira/secure/projectavatar?size=medium&avatarId=10324"
+    },
+    "projectTypeKey": "software"
+  },
+  {
+    "expand": "description,lead,url,projectKeys",
+    "self": "https://jira/rest/api/2/project/12918",
+    "id": "12918",
+    "key": "XYZDDD",
+    "name": "super_project_2",
+    "avatarUrls": {
+      "48x48": "https://jira/secure/projectavatar?pid=12918&avatarId=13315",
+      "24x24": "https://jira/secure/projectavatar?size=small&pid=12918&avatarId=13315",
+      "16x16": "https://jira/secure/projectavatar?size=xsmall&pid=12918&avatarId=13315",
+      "32x32": "https://jira/secure/projectavatar?size=medium&pid=12918&avatarId=13315"
+    },
+    "projectCategory": {
+      "self": "https://jira/rest/api/2/projectCategory/10100",
+      "id": "10100",
+      "name": "A Project from the WorldCompany Inc.",
+      "description": ""
+    },
+    "projectTypeKey": "software"
+  },
+  {
+    "expand": "description,lead,url,projectKeys",
+    "self": "https://jira/rest/api/2/project/12611",
+    "id": "12611",
+    "key": "KWCDL",
+    "name": "super_project_3",
+    "avatarUrls": {
+      "48x48": "https://jira/secure/projectavatar?avatarId=10324",
+      "24x24": "https://jira/secure/projectavatar?size=small&avatarId=10324",
+      "16x16": "https://jira/secure/projectavatar?size=xsmall&avatarId=10324",
+      "32x32": "https://jira/secure/projectavatar?size=medium&avatarId=10324"
+    },
+    "projectTypeKey": "software"
+  }
+]

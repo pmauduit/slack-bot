@@ -45,6 +45,14 @@ class IssueDetails {
     def possibleLabels
 
     /**
+     * The processed worklogs. We are interested in having the infos parsed to be able to produce
+     * something like:
+     *
+     * "- <user> worked on the issue from <date> to <date> for a total time of <time>"
+     * @See IssueDetailsResolver.analyzeWorklogs(def issue)
+     */
+    def worklogsPerUser = [:]
+    /**
      * The issue description
      */
     def description

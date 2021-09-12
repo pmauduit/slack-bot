@@ -1,0 +1,248 @@
+{
+  "expand": "names,schema",
+  "startAt": 0,
+  "maxResults": 1000,
+  "total": 1888,
+  "issues": [
+    {
+      "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+      "id": "11032",
+      "self": "https://jira/rest/api/2/issue/11032",
+      "key": "GEO-19",
+      "fields": {
+        "issuetype": {
+          "self": "https://jira/rest/api/2/issuetype/10201",
+          "id": "10201",
+          "description": "Created by JIRA Service Desk.",
+          "iconUrl": "https://jira/servicedesk/issue-type-icons?icon=service-request",
+          "name": "Service Request",
+          "subtask": false
+        },
+        "timespent": null,
+        "project": {
+          "self": "https://jira/rest/api/2/project/10204",
+          "id": "10204",
+          "key": "ABC",
+          "name": "super-project",
+          "projectTypeKey": "service_desk",
+          "avatarUrls": {
+            "48x48": "https://jira/secure/projectavatar?avatarId=10324",
+            "24x24": "https://jira/secure/projectavatar?size=small&avatarId=10324",
+            "16x16": "https://jira/secure/projectavatar?size=xsmall&avatarId=10324",
+            "32x32": "https://jira/secure/projectavatar?size=medium&avatarId=10324"
+          }
+        },
+        "customfield_11000": null,
+        "fixVersions": [ ],
+        "customfield_11001": null,
+        "customfield_11200": null,
+        "aggregatetimespent": null,
+        "resolution": {
+          "self": "https://jira/rest/api/2/resolution/10000",
+          "id": "10000",
+          "description": "Work has been completed on this issue.",
+          "name": "Done"
+        },
+        "customfield_10500": null,
+        "customfield_10305": null,
+        "customfield_10701": null,
+        "customfield_10306": null,
+        "customfield_10702": null,
+        "customfield_10900": [ ],
+        "customfield_10307": null,
+        "resolutiondate": "2017-01-18T14:28:24.000+0100",
+        "workratio": -1,
+        "lastViewed": null,
+        "watches": {
+          "self": "https://jira/rest/api/2/issue/GEO-19/watchers",
+          "watchCount": 4,
+          "isWatching": true
+        },
+        "created": "2016-06-15T14:18:21.000+0200",
+        "priority": {
+          "self": "https://jira/rest/api/2/priority/1",
+          "iconUrl": "https://jira/images/icons/priorities/highest.svg",
+          "name": "Highest",
+          "id": "1"
+        },
+        "customfield_10100": {
+          "id": "20",
+          "name": "Time to resolution",
+          "_links": {
+            "self": "https://jira/rest/servicedeskapi/request/11032/sla/20"
+          },
+          "completedCycles": [ ]
+        },
+        "customfield_10300": null,
+        "labels": [
+          "worldcompany"
+        ],
+        "customfield_10301": null,
+        "customfield_10610": null,
+        "customfield_10611": null,
+        "customfield_10612": null,
+        "customfield_10613": null,
+        "customfield_10614": null,
+        "timeestimate": null,
+        "aggregatetimeoriginalestimate": null,
+        "versions": [ ],
+        "customfield_10616": null,
+        "customfield_10617": null,
+        "customfield_10618": null,
+        "customfield_10619": null,
+        "issuelinks": [ ],
+        "assignee": {
+          "self": "https://jira/rest/api/2/user?username=jdoe",
+          "name": "jdoe",
+          "key": "jdoe",
+          "emailAddress": "john@doe.com",
+          "avatarUrls": {
+            "48x48": "https://gravatar?d=mm&s=48",
+            "24x24": "https://gravatar?d=mm&s=24",
+            "16x16": "https://gravatar?d=mm&s=16",
+            "32x32": "https://gravatar?d=mm&s=32"
+          },
+          "displayName": "John Doe",
+          "active": true,
+          "timeZone": "Europe/Zurich"
+        },
+        "updated": "2017-01-18T14:28:24.000+0100",
+        "status": {
+          "self": "https://jira/rest/api/2/status/5",
+          "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+          "iconUrl": "https://jira/images/icons/statuses/resolved.png",
+          "name": "Resolved",
+          "id": "5",
+          "statusCategory": {
+            "self": "https://jira/rest/api/2/statuscategory/3",
+            "id": 3,
+            "key": "done",
+            "colorName": "green",
+            "name": "Done"
+          }
+        },
+        "components": [ ],
+        "timeoriginalestimate": null,
+        "description": "Nous avons cherché un moyen de transférer des données + méta-données d’une instance à une autre.",
+        "customfield_10010": null,
+        "customfield_11100": null,
+        "customfield_11300": null,
+        "customfield_10401": null,
+        "customfield_10402": null,
+        "customfield_10007": {
+          "_links": {
+            "jiraRest": "https://jira/rest/api/2/issue/11032",
+            "web": "https://jira/servicedesk/customer/portal/6/GEO-19",
+            "self": "https://jira/rest/servicedeskapi/request/11032"
+          },
+          "requestType": {
+            "id": "48",
+            "_links": {
+              "self": "https://jira/rest/servicedeskapi/servicedesk/6/requesttype/48"
+            },
+            "name": "Get help",
+            "description": "Get assistance for general WCompany problems and questions.",
+            "helpText": "",
+            "serviceDeskId": "6",
+            "groupIds": [
+              "18"
+            ],
+            "icon": {
+              "id": "11027",
+              "_links": {
+                "iconUrls": {
+                  "48x48": "https://jira/secure/viewavatar?avatarType=SD_REQTYPE&size=large&avatarId=11027",
+                  "24x24": "https://jira/secure/viewavatar?avatarType=SD_REQTYPE&size=small&avatarId=11027",
+                  "16x16": "https://jira/secure/viewavatar?avatarType=SD_REQTYPE&size=xsmall&avatarId=11027",
+                  "32x32": "https://jira/secure/viewavatar?avatarType=SD_REQTYPE&size=medium&avatarId=11027"
+                }
+              }
+            }
+          },
+          "currentStatus": {
+            "status": "Resolved",
+            "statusDate": {
+              "iso8601": "2017-01-18T14:28:24+0100",
+              "jira": "2017-01-18T14:28:24.876+0100",
+              "friendly": "18 Jan 2017 14:28",
+              "epochMillis": 1484746104876
+            }
+          }
+        },
+        "customfield_10601": null,
+        "customfield_10008": [ ],
+        "customfield_10602": null,
+        "customfield_10800": {
+          "errorMessage": "metric not found"
+        },
+        "customfield_10009": null,
+        "customfield_10603": null,
+        "aggregatetimeestimate": null,
+        "customfield_10604": null,
+        "customfield_10605": null,
+        "customfield_10607": null,
+        "customfield_10608": null,
+        "customfield_10609": null,
+        "summary": "short summary",
+        "creator": {
+          "self": "https://jira/rest/api/2/user?username=user2",
+          "name": "user2",
+          "key": "user2@dudu.com",
+          "emailAddress": "user2@dudu.com",
+          "avatarUrls": {
+            "48x48": "https://gragatar?d=mm&s=48",
+            "24x24": "https://gragatar?d=mm&s=24",
+            "16x16": "https://gragatar?d=mm&s=16",
+            "32x32": "https://gragatar?d=mm&s=32"
+          },
+          "displayName": "user2",
+          "active": true,
+          "timeZone": "Europe/Zurich"
+        },
+        "subtasks": [ ],
+        "reporter": {
+          "self": "https://jira/rest/api/2/user?username=user2",
+          "name": "user2",
+          "key": "user2@johndoe.com",
+          "emailAddress": "user2@johndoe.com",
+          "avatarUrls": {
+            "48x48": "https://gragatar?d=mm&s=48",
+            "24x24": "https://gragatar?d=mm&s=24",
+            "16x16": "https://gragatar?d=mm&s=16",
+            "32x32": "https://gragatar?d=mm&s=32"
+          },
+          "displayName": "user2",
+          "active": true,
+          "timeZone": "Europe/Zurich"
+        },
+        "customfield_10000": "0|i003vb:",
+        "aggregateprogress": {
+          "progress": 0,
+          "total": 0
+        },
+        "customfield_10001": null,
+        "customfield_10200": {
+          "id": "18",
+          "name": "Time to first response",
+          "_links": {
+            "self": "https://jira/rest/servicedeskapi/request/11032/sla/18"
+          },
+          "completedCycles": [ ]
+        },
+        "customfield_10002": null,
+        "customfield_10400": null,
+        "environment": null,
+        "duedate": null,
+        "progress": {
+          "progress": 0,
+          "total": 0
+        },
+        "votes": {
+          "self": "https://jira/rest/api/2/issue/GEO-19/votes",
+          "votes": 0,
+          "hasVoted": false
+        }
+      }
+    }
+  ]
+}
