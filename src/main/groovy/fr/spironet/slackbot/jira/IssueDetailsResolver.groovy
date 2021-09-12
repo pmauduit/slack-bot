@@ -34,13 +34,16 @@ class IssueDetailsResolver {
         if (System.getenv("CONFLUENCE_SERVER_URL") == null) {
             throw new RuntimeException("expected CONFLUENCE_SERVER_URL env variable")
         }
-        this.IssueDetailsResolver(System.getenv("JIRA_CLIENT_PROPERTY_FILE"),
-                System.getenv("CONFLUENCE_SERVER_URL"),
-                System.getenv("GITHUB_TOKEN")
-        )
+        initialize(System.getenv("JIRA_CLIENT_PROPERTY_FILE"),
+                   System.getenv("CONFLUENCE_SERVER_URL"),
+                   System.getenv("GITHUB_TOKEN"))
     }
 
     public IssueDetailsResolver(def jiraPropsFile, def confluenceServerUrl, def ghToken) {
+        initialize(jiraPropsFile, confluenceServerUrl, ghToken)
+    }
+
+    private void initialize(def jiraPropsFile, def confluenceServerUrl, def ghToken) {
         File propertiesFile = new File(jiraPropsFile)
         def props = new Properties()
         propertiesFile.withInputStream {
@@ -238,9 +241,9 @@ class IssueDetailsResolver {
 
     /**
      * Actually does the work of gathering all the infos from everywhere.
-     * @param issueKey
+     * @param issueKey the issue key as a string, e.g. "ABC-456"
      */
-    public def resolve(def issueKey) {
+    public def resolve(String issueKey) {
         def issue = new IssueDetails(issueKey)
         issue.rawIssueInfo = loadIssue(issueKey)
 
