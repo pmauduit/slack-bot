@@ -1,0 +1,1280 @@
+[
+  {
+    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+    "id": "81837",
+    "self": "https://jira/rest/api/2/issue/81837",
+    "key": "ABC-4739",
+    "fields": {
+      "issuetype": {
+        "self": "https://jira/rest/api/2/issuetype/10202",
+        "id": "10202",
+        "description": "Created by JIRA Service Desk.",
+        "iconUrl": "https://jira/servicedesk/issue-type-icons?icon=change",
+        "name": "Change",
+        "subtask": false
+      },
+      "timespent": null,
+      "project": {
+        "self": "https://jira/rest/api/2/project/10204",
+        "id": "10204",
+        "key": "ABC",
+        "name": "support-worldcompany",
+        "projectTypeKey": "service_desk",
+        "avatarUrls": {
+          "48x48": "https://jira/secure/projectavatar?avatarId=10324",
+          "24x24": "https://jira/secure/projectavatar?size=small&avatarId=10324",
+          "16x16": "https://jira/secure/projectavatar?size=xsmall&avatarId=10324",
+          "32x32": "https://jira/secure/projectavatar?size=medium&avatarId=10324"
+        }
+      },
+      "customfield_11000": null,
+      "fixVersions": [],
+      "customfield_11001": null,
+      "customfield_11200": null,
+      "aggregatetimespent": null,
+      "resolution": {
+        "self": "https://jira/rest/api/2/resolution/10000",
+        "id": "10000",
+        "description": "Work has been completed on this issue.",
+        "name": "Done"
+      },
+      "customfield_10500": null,
+      "customfield_10305": null,
+      "customfield_10701": null,
+      "customfield_10306": null,
+      "customfield_10702": null,
+      "customfield_10900": [
+        {
+          "id": "95",
+          "name": "org-chambery",
+          "_links": {
+            "self": "https://jira/rest/servicedeskapi/organization/95"
+          }
+        }
+      ],
+      "customfield_10307": null,
+      "resolutiondate": "2021-09-06T17:37:24.000+0200",
+      "workratio": -1,
+      "lastViewed": "2021-09-06T17:37:25.107+0200",
+      "watches": {
+        "self": "https://jira/rest/api/2/issue/ABC-4739/watchers",
+        "watchCount": 2,
+        "isWatching": true
+      },
+      "created": "2021-09-06T15:33:03.000+0200",
+      "priority": {
+        "self": "https://jira/rest/api/2/priority/1",
+        "iconUrl": "https://jira/images/icons/priorities/highest.svg",
+        "name": "Highest",
+        "id": "1"
+      },
+      "customfield_10100": {
+        "id": "20",
+        "name": "Time to resolution",
+        "_links": {
+          "self": "https://jira/rest/servicedeskapi/request/81837/sla/20"
+        },
+        "completedCycles": []
+      },
+      "customfield_10300": null,
+      "labels": [
+        "cms",
+        "sftp",
+        "ssh"
+      ],
+      "customfield_10301": null,
+      "customfield_10610": null,
+      "customfield_10611": null,
+      "customfield_10612": null,
+      "customfield_10613": null,
+      "customfield_10614": null,
+      "timeestimate": null,
+      "aggregatetimeoriginalestimate": null,
+      "versions": [],
+      "customfield_10616": null,
+      "customfield_10617": null,
+      "customfield_10618": null,
+      "customfield_10619": null,
+      "issuelinks": [],
+      "assignee": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john@doe.edu",
+        "avatarUrls": {
+          "48x48": "https://gravatar/d=mm&s=48",
+          "24x24": "https://gravatar/d=mm&s=24",
+          "16x16": "https://gravatar/d=mm&s=16",
+          "32x32": "https://gravatar/d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "updated": "2021-09-06T17:37:24.000+0200",
+      "status": {
+        "self": "https://jira/rest/api/2/status/5",
+        "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+        "iconUrl": "https://jira/images/icons/statuses/resolved.png",
+        "name": "Resolved",
+        "id": "5",
+        "statusCategory": {
+          "self": "https://jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      },
+      "components": [
+        {
+          "self": "https://jira/rest/api/2/component/10800",
+          "id": "10800",
+          "name": "wonderProject"
+        }
+      ],
+      "timeoriginalestimate": null,
+      "description": "description of my issue",
+      "customfield_10010": null,
+      "customfield_11100": null,
+      "customfield_11300": null,
+      "customfield_10401": null,
+      "customfield_10006": null,
+      "customfield_10402": null,
+      "customfield_10007": {
+        "_links": {
+          "jiraRest": "https://jira/rest/api/2/issue/81837",
+          "web": "https://jira/servicedesk/customer/portal/6/ABC-4739",
+          "self": "https://jira/rest/servicedeskapi/request/81837"
+        },
+        "requestType": {
+          "id": "122",
+          "_links": {
+            "self": "https://jira/rest/servicedeskapi/servicedesk/6/requesttype/122"
+          },
+          "name": "worldcompany change request",
+          "description": "General change type",
+          "helpText": "",
+          "serviceDeskId": "6",
+          "groupIds": [],
+          "icon": {
+            "id": "11032",
+            "_links": {
+              "iconUrls": {
+                "48x48": "https://jira/secure/viewavatar?avatarType=SD_REQTYPE&size=large&avatarId=11032",
+                "24x24": "https://jira/secure/viewavatar?avatarType=SD_REQTYPE&size=small&avatarId=11032",
+                "16x16": "https://jira/secure/viewavatar?avatarType=SD_REQTYPE&size=xsmall&avatarId=11032",
+                "32x32": "https://jira/secure/viewavatar?avatarType=SD_REQTYPE&size=medium&avatarId=11032"
+              }
+            }
+          }
+        },
+        "currentStatus": {
+          "status": "Resolved",
+          "statusDate": {
+            "iso8601": "2021-09-06T17:37:24+0200",
+            "jira": "2021-09-06T17:37:24.889+0200",
+            "friendly": "06 Sep 2021 17:37",
+            "epochMillis": 1630942644889
+          }
+        }
+      },
+      "customfield_10601": null,
+      "customfield_10008": [],
+      "customfield_10602": null,
+      "customfield_10800": null,
+      "customfield_10009": null,
+      "customfield_10603": null,
+      "aggregatetimeestimate": null,
+      "customfield_10604": null,
+      "customfield_10605": null,
+      "customfield_10607": null,
+      "customfield_10608": null,
+      "customfield_10609": null,
+      "summary": "Add Jane to the SSH env",
+      "creator": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john@doe.edu",
+        "avatarUrls": {
+          "48x48": "https://gravatar/d=mm&s=48",
+          "24x24": "https://gravatar/d=mm&s=24",
+          "16x16": "https://gravatar/d=mm&s=16",
+          "32x32": "https://gravatar/d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "subtasks": [],
+      "reporter": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john@doe.edu",
+        "avatarUrls": {
+          "48x48": "https://gravatar/d=mm&s=48",
+          "24x24": "https://gravatar/d=mm&s=24",
+          "16x16": "https://gravatar/d=mm&s=16",
+          "32x32": "https://gravatar/d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "customfield_10000": "0|zc7uas:",
+      "aggregateprogress": {
+        "progress": 0,
+        "total": 0
+      },
+      "customfield_10001": null,
+      "customfield_10200": {
+        "id": "18",
+        "name": "Time to first response",
+        "_links": {
+          "self": "https://jira/rest/servicedeskapi/request/81837/sla/18"
+        },
+        "completedCycles": [
+          {
+            "startTime": {
+              "iso8601": "2021-09-06T15:33:03+0200",
+              "jira": "2021-09-06T15:33:03.683+0200",
+              "friendly": "06 Sep 2021 15:33",
+              "epochMillis": 1630935183683
+            },
+            "stopTime": {
+              "iso8601": "2021-09-06T15:42:45+0200",
+              "jira": "2021-09-06T15:42:45.975+0200",
+              "friendly": "06 Sep 2021 15:42",
+              "epochMillis": 1630935765975
+            },
+            "breached": false,
+            "goalDuration": {
+              "millis": 172800000,
+              "friendly": "48h"
+            },
+            "elapsedTime": {
+              "millis": 582292,
+              "friendly": "9m"
+            },
+            "remainingTime": {
+              "millis": 172217708,
+              "friendly": "47h 50m"
+            }
+          }
+        ]
+      },
+      "customfield_10002": null,
+      "customfield_10400": null,
+      "environment": null,
+      "duedate": null,
+      "progress": {
+        "progress": 0,
+        "total": 0
+      },
+      "votes": {
+        "self": "https://jira/rest/api/2/issue/ABC-4739/votes",
+        "votes": 0,
+        "hasVoted": false
+      }
+    }
+  },
+  {
+    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+    "id": "81782",
+    "self": "https://jira/rest/api/2/issue/81782",
+    "key": "ABC-4734",
+    "fields": {
+      "issuetype": {
+        "self": "https://jira/rest/api/2/issuetype/10200",
+        "id": "10200",
+        "description": "For system outages or incidents. Created by JIRA Service Desk.",
+        "iconUrl": "https://jira/servicedesk/issue-type-icons?icon=incident",
+        "name": "Incident",
+        "subtask": false
+      },
+      "timespent": 1800,
+      "project": {
+        "self": "https://jira/rest/api/2/project/10204",
+        "id": "10204",
+        "key": "ABC",
+        "name": "support-worldcompany",
+        "projectTypeKey": "service_desk",
+        "avatarUrls": {
+          "48x48": "https://jira/secure/projectavatar?avatarId=10324",
+          "24x24": "https://jira/secure/projectavatar?size=small&avatarId=10324",
+          "16x16": "https://jira/secure/projectavatar?size=xsmall&avatarId=10324",
+          "32x32": "https://jira/secure/projectavatar?size=medium&avatarId=10324"
+        }
+      },
+      "customfield_11000": null,
+      "fixVersions": [],
+      "customfield_11001": null,
+      "customfield_11200": null,
+      "aggregatetimespent": 1800,
+      "resolution": {
+        "self": "https://jira/rest/api/2/resolution/10000",
+        "id": "10000",
+        "description": "Work has been completed on this issue.",
+        "name": "Done"
+      },
+      "customfield_10500": null,
+      "customfield_10305": null,
+      "customfield_10701": null,
+      "customfield_10306": null,
+      "customfield_10702": null,
+      "customfield_10900": [
+        {
+          "id": "124",
+          "name": "org-chambery",
+          "_links": {
+            "self": "https://jira/rest/servicedeskapi/organization/124"
+          }
+        }
+      ],
+      "customfield_10307": null,
+      "resolutiondate": "2021-09-03T14:53:03.000+0200",
+      "workratio": -1,
+      "lastViewed": "2021-09-06T11:55:22.701+0200",
+      "watches": {
+        "self": "https://jira/rest/api/2/issue/ABC-4734/watchers",
+        "watchCount": 1,
+        "isWatching": true
+      },
+      "created": "2021-09-03T09:45:26.000+0200",
+      "priority": {
+        "self": "https://jira/rest/api/2/priority/1",
+        "iconUrl": "https://jira/images/icons/priorities/highest.svg",
+        "name": "Highest",
+        "id": "1"
+      },
+      "customfield_10100": {
+        "id": "20",
+        "name": "Time to resolution",
+        "_links": {
+          "self": "https://jira/rest/servicedeskapi/request/81782/sla/20"
+        },
+        "completedCycles": [
+          {
+            "startTime": {
+              "iso8601": "2021-09-03T09:45:27+0200",
+              "jira": "2021-09-03T09:45:27.038+0200",
+              "friendly": "03 Sep 2021 09:45",
+              "epochMillis": 1630655127038
+            },
+            "stopTime": {
+              "iso8601": "2021-09-03T10:19:56+0200",
+              "jira": "2021-09-03T10:19:56.722+0200",
+              "friendly": "03 Sep 2021 10:19",
+              "epochMillis": 1630657196722
+            },
+            "breached": false,
+            "goalDuration": {
+              "millis": 162000000,
+              "friendly": "45h"
+            },
+            "elapsedTime": {
+              "millis": 2069684,
+              "friendly": "34m"
+            },
+            "remainingTime": {
+              "millis": 159930316,
+              "friendly": "44h 25m"
+            }
+          }
+        ]
+      },
+      "customfield_10300": null,
+      "labels": [
+        "<0.5j",
+        "infrastructure",
+        "logging",
+        "monitoring",
+        "performance",
+        "support"
+      ],
+      "customfield_10301": null,
+      "customfield_10610": null,
+      "customfield_10611": null,
+      "customfield_10612": null,
+      "customfield_10613": null,
+      "customfield_10614": null,
+      "timeestimate": null,
+      "aggregatetimeoriginalestimate": null,
+      "versions": [],
+      "customfield_10616": null,
+      "customfield_10617": null,
+      "customfield_10618": null,
+      "customfield_10619": null,
+      "issuelinks": [],
+      "assignee": {
+        "self": "https://jira/rest/api/2/user?username=lluthor",
+        "name": "lluthor",
+        "key": "lluthor",
+        "emailAddress": "lex.luthor@world-company.com",
+        "avatarUrls": {
+          "48x48": "https://gravatar/?d=mm&s=48",
+          "24x24": "https://gravatar/?d=mm&s=24",
+          "16x16": "https://gravatar/?d=mm&s=16",
+          "32x32": "https://gravatar/?d=mm&s=32"
+        },
+        "displayName": "Lex Luthor",
+        "active": true,
+        "timeZone": "Europe/Paris"
+      },
+      "updated": "2021-09-06T09:33:12.000+0200",
+      "status": {
+        "self": "https://jira/rest/api/2/status/5",
+        "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+        "iconUrl": "https://jira/images/icons/statuses/resolved.png",
+        "name": "Resolved",
+        "id": "5",
+        "statusCategory": {
+          "self": "https://jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      },
+      "components": [
+        {
+          "self": "https://jira/rest/api/2/component/10800",
+          "id": "10800",
+          "name": "wonderProject"
+        }
+      ],
+      "timeoriginalestimate": null,
+      "description": "Bonjour,\r\nNous avons de gros probl\u00e8mes de lenteur sur le portail ce matin.\r\nPouvez vous en identifier la cause, s'il vous plait ?\r\nC'est urgent nous sommes bloqu\u00e9s.\r\n",
+      "customfield_10010": null,
+      "customfield_11100": null,
+      "customfield_11300": null,
+      "customfield_10401": null,
+      "customfield_10402": null,
+      "customfield_10007": {
+        "_links": {
+          "jiraRest": "https://jira/rest/api/2/issue/81782",
+          "web": "https://jira/servicedesk/customer/portal/6/ABC-4734",
+          "self": "https://jira/rest/servicedeskapi/request/81782"
+        },
+        "requestType": {
+          "id": "117",
+          "_links": {
+            "self": "https://jira/rest/servicedeskapi/servicedesk/6/requesttype/117"
+          },
+          "name": "High priority incident on wonderProject",
+          "description": "Get assistance for wonderProject with high priority (for example the server is down)",
+          "helpText": "",
+          "serviceDeskId": "6",
+          "groupIds": [
+            "41"
+          ],
+          "icon": {
+            "id": "11034",
+            "_links": {
+              "iconUrls": {
+                "48x48": "https://jira/secure/viewavatar?avatarType=SD_REQTYPE&size=large&avatarId=11034",
+                "24x24": "https://jira/secure/viewavatar?avatarType=SD_REQTYPE&size=small&avatarId=11034",
+                "16x16": "https://jira/secure/viewavatar?avatarType=SD_REQTYPE&size=xsmall&avatarId=11034",
+                "32x32": "https://jira/secure/viewavatar?avatarType=SD_REQTYPE&size=medium&avatarId=11034"
+              }
+            }
+          }
+        },
+        "currentStatus": {
+          "status": "Resolved",
+          "statusDate": {
+            "iso8601": "2021-09-03T14:53:03+0200",
+            "jira": "2021-09-03T14:53:03.762+0200",
+            "friendly": "03 Sep 2021 14:53",
+            "epochMillis": 1630673583762
+          }
+        }
+      },
+      "customfield_10601": null,
+      "customfield_10008": [],
+      "customfield_10602": null,
+      "customfield_10800": null,
+      "customfield_10009": null,
+      "customfield_10603": null,
+      "aggregatetimeestimate": null,
+      "customfield_10604": null,
+      "customfield_10605": null,
+      "customfield_10607": null,
+      "customfield_10608": null,
+      "customfield_10609": null,
+      "summary": "G\u00e9n\u00e9ral - Gros probl\u00e8me de lenteur - utilisation quasi impossible",
+      "creator": {
+        "self": "https://jira/rest/api/2/user?username=jdudu",
+        "name": "jdudu",
+        "key": "jdudu",
+        "emailAddress": "jane.dudu@mairiechambery.fr",
+        "avatarUrls": {
+          "48x48": "https://jira/secure/useravatar?ownerId=jdudu&avatarId=13121",
+          "24x24": "https://jira/secure/useravatar?size=small&ownerId=jdudu&avatarId=13121",
+          "16x16": "https://jira/secure/useravatar?size=xsmall&ownerId=jdudu&avatarId=13121",
+          "32x32": "https://jira/secure/useravatar?size=medium&ownerId=jdudu&avatarId=13121"
+        },
+        "displayName": "Jane DUDU",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "subtasks": [],
+      "reporter": {
+        "self": "https://jira/rest/api/2/user?username=jdudu",
+        "name": "jdudu",
+        "key": "jdudu",
+        "emailAddress": "jane.dudu@mairiechambery.fr",
+        "avatarUrls": {
+          "48x48": "https://jira/secure/useravatar?ownerId=jdudu&avatarId=13121",
+          "24x24": "https://jira/secure/useravatar?size=small&ownerId=jdudu&avatarId=13121",
+          "16x16": "https://jira/secure/useravatar?size=xsmall&ownerId=jdudu&avatarId=13121",
+          "32x32": "https://jira/secure/useravatar?size=medium&ownerId=jdudu&avatarId=13121"
+        },
+        "displayName": "Jane DUDU",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "customfield_10000": "0|zc7tzg:",
+      "aggregateprogress": {
+        "progress": 1800,
+        "total": 1800,
+        "percent": 100
+      },
+      "customfield_10001": null,
+      "customfield_10200": {
+        "id": "18",
+        "name": "Time to first response",
+        "_links": {
+          "self": "https://jira/rest/servicedeskapi/request/81782/sla/18"
+        },
+        "completedCycles": [
+          {
+            "startTime": {
+              "iso8601": "2021-09-03T09:45:27+0200",
+              "jira": "2021-09-03T09:45:27.038+0200",
+              "friendly": "03 Sep 2021 09:45",
+              "epochMillis": 1630655127038
+            },
+            "stopTime": {
+              "iso8601": "2021-09-03T09:50:44+0200",
+              "jira": "2021-09-03T09:50:44.914+0200",
+              "friendly": "03 Sep 2021 09:50",
+              "epochMillis": 1630655444914
+            },
+            "breached": false,
+            "goalDuration": {
+              "millis": 86400000,
+              "friendly": "24h"
+            },
+            "elapsedTime": {
+              "millis": 317876,
+              "friendly": "5m"
+            },
+            "remainingTime": {
+              "millis": 86082124,
+              "friendly": "23h 54m"
+            }
+          }
+        ]
+      },
+      "customfield_10002": null,
+      "customfield_10400": null,
+      "environment": null,
+      "duedate": null,
+      "progress": {
+        "progress": 1800,
+        "total": 1800,
+        "percent": 100
+      },
+      "votes": {
+        "self": "https://jira/rest/api/2/issue/ABC-4734/votes",
+        "votes": 0,
+        "hasVoted": false
+      }
+    }
+  },
+  {
+    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+    "id": "81311",
+    "self": "https://jira/rest/api/2/issue/81311",
+    "key": "ABC-4698",
+    "fields": {
+      "issuetype": {
+        "self": "https://jira/rest/api/2/issuetype/10200",
+        "id": "10200",
+        "description": "For system outages or incidents. Created by JIRA Service Desk.",
+        "iconUrl": "https://jira/servicedesk/issue-type-icons?icon=incident",
+        "name": "Incident",
+        "subtask": false
+      },
+      "timespent": 1800,
+      "project": {
+        "self": "https://jira/rest/api/2/project/10204",
+        "id": "10204",
+        "key": "ABC",
+        "name": "support-worldcompany",
+        "projectTypeKey": "service_desk",
+        "avatarUrls": {
+          "48x48": "https://jira/secure/projectavatar?avatarId=10324",
+          "24x24": "https://jira/secure/projectavatar?size=small&avatarId=10324",
+          "16x16": "https://jira/secure/projectavatar?size=xsmall&avatarId=10324",
+          "32x32": "https://jira/secure/projectavatar?size=medium&avatarId=10324"
+        }
+      },
+      "customfield_11000": null,
+      "fixVersions": [],
+      "customfield_11001": null,
+      "customfield_11200": null,
+      "aggregatetimespent": 1800,
+      "resolution": {
+        "self": "https://jira/rest/api/2/resolution/10000",
+        "id": "10000",
+        "description": "Work has been completed on this issue.",
+        "name": "Done"
+      },
+      "customfield_10500": null,
+      "customfield_10305": null,
+      "customfield_10701": null,
+      "customfield_10306": null,
+      "customfield_10702": null,
+      "customfield_10900": [
+        {
+          "id": "124",
+          "name": "org-chambery",
+          "_links": {
+            "self": "https://jira/rest/servicedeskapi/organization/124"
+          }
+        }
+      ],
+      "customfield_10307": null,
+      "resolutiondate": "2021-08-23T13:41:21.000+0200",
+      "workratio": -1,
+      "lastViewed": null,
+      "watches": {
+        "self": "https://jira/rest/api/2/issue/ABC-4698/watchers",
+        "watchCount": 2,
+        "isWatching": true
+      },
+      "created": "2021-08-23T12:01:51.000+0200",
+      "priority": {
+        "self": "https://jira/rest/api/2/priority/1",
+        "iconUrl": "https://jira/images/icons/priorities/highest.svg",
+        "name": "Highest",
+        "id": "1"
+      },
+      "customfield_10100": {
+        "id": "20",
+        "name": "Time to resolution",
+        "_links": {
+          "self": "https://jira/rest/servicedeskapi/request/81311/sla/20"
+        },
+        "completedCycles": [
+          {
+            "startTime": {
+              "iso8601": "2021-08-23T12:01:51+0200",
+              "jira": "2021-08-23T12:01:51.434+0200",
+              "friendly": "23 Aug 2021 12:01",
+              "epochMillis": 1629712911434
+            },
+            "stopTime": {
+              "iso8601": "2021-08-23T13:41:21+0200",
+              "jira": "2021-08-23T13:41:21.210+0200",
+              "friendly": "23 Aug 2021 13:41",
+              "epochMillis": 1629718881210
+            },
+            "breached": false,
+            "goalDuration": {
+              "millis": 162000000,
+              "friendly": "45h"
+            },
+            "elapsedTime": {
+              "millis": 5969776,
+              "friendly": "1h 39m"
+            },
+            "remainingTime": {
+              "millis": 156030224,
+              "friendly": "43h 20m"
+            }
+          }
+        ]
+      },
+      "customfield_10300": null,
+      "labels": [
+        "<0.5j",
+        "sftp"
+      ],
+      "customfield_10301": null,
+      "customfield_10610": null,
+      "customfield_10611": null,
+      "customfield_10612": null,
+      "customfield_10613": null,
+      "customfield_10614": null,
+      "timeestimate": null,
+      "aggregatetimeoriginalestimate": null,
+      "versions": [],
+      "customfield_10616": null,
+      "customfield_10617": null,
+      "customfield_10618": null,
+      "customfield_10619": null,
+      "issuelinks": [],
+      "assignee": {
+        "self": "https://jira/rest/api/2/user?username=jdoe",
+        "name": "jdoe",
+        "key": "jdoe",
+        "emailAddress": "john@doe.edu",
+        "avatarUrls": {
+          "48x48": "https://gravatar/d=mm&s=48",
+          "24x24": "https://gravatar/d=mm&s=24",
+          "16x16": "https://gravatar/d=mm&s=16",
+          "32x32": "https://gravatar/d=mm&s=32"
+        },
+        "displayName": "John Doe",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "updated": "2021-08-30T09:16:02.000+0200",
+      "status": {
+        "self": "https://jira/rest/api/2/status/5",
+        "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+        "iconUrl": "https://jira/images/icons/statuses/resolved.png",
+        "name": "Resolved",
+        "id": "5",
+        "statusCategory": {
+          "self": "https://jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      },
+      "components": [
+        {
+          "self": "https://jira/rest/api/2/component/10800",
+          "id": "10800",
+          "name": "wonderProject"
+        }
+      ],
+      "timeoriginalestimate": null,
+      "description": "Bonjour, la clé RSA ne fonctionne plus. Poutoux à vous.",
+      "customfield_10010": null,
+      "customfield_11100": null,
+      "customfield_11300": null,
+      "customfield_10401": null,
+      "customfield_10402": null,
+      "customfield_10007": {
+        "_links": {
+          "jiraRest": "https://jira/rest/api/2/issue/81311",
+          "web": "https://jira/servicedesk/customer/portal/6/ABC-4698",
+          "self": "https://jira/rest/servicedeskapi/request/81311"
+        },
+        "requestType": {
+          "id": "117",
+          "_links": {
+            "self": "https://jira/rest/servicedeskapi/servicedesk/6/requesttype/117"
+          },
+          "name": "High priority incident on wonderProject",
+          "description": "Get assistance for wonderProject with high priority (for example the server is down)",
+          "helpText": "",
+          "serviceDeskId": "6",
+          "groupIds": [
+            "41"
+          ],
+          "icon": {
+            "id": "11034",
+            "_links": {
+              "iconUrls": {
+                "48x48": "https://jira/secure/viewavatar?avatarType=SD_REQTYPE&size=large&avatarId=11034",
+                "24x24": "https://jira/secure/viewavatar?avatarType=SD_REQTYPE&size=small&avatarId=11034",
+                "16x16": "https://jira/secure/viewavatar?avatarType=SD_REQTYPE&size=xsmall&avatarId=11034",
+                "32x32": "https://jira/secure/viewavatar?avatarType=SD_REQTYPE&size=medium&avatarId=11034"
+              }
+            }
+          }
+        },
+        "currentStatus": {
+          "status": "Resolved",
+          "statusDate": {
+            "iso8601": "2021-08-23T13:41:21+0200",
+            "jira": "2021-08-23T13:41:21.210+0200",
+            "friendly": "23 Aug 2021 13:41",
+            "epochMillis": 1629718881210
+          }
+        }
+      },
+      "customfield_10601": null,
+      "customfield_10008": [],
+      "customfield_10602": null,
+      "customfield_10800": null,
+      "customfield_10009": null,
+      "customfield_10603": null,
+      "aggregatetimeestimate": null,
+      "customfield_10604": null,
+      "customfield_10605": null,
+      "customfield_10607": null,
+      "customfield_10608": null,
+      "customfield_10609": null,
+      "summary": "Le sftp ne semble plus reconnaitre notre cle ssh",
+      "creator": {
+        "self": "https://jira/rest/api/2/user?username=pfonce",
+        "name": "pfonce",
+        "key": "pfonce",
+        "emailAddress": "pascal.fonce@mairie-paris.fr",
+        "avatarUrls": {
+          "48x48": "https://www.gravatar.com/avatar/8514b10f51b5e511a28bc8a4a22702d3?d=mm&s=48",
+          "24x24": "https://www.gravatar.com/avatar/8514b10f51b5e511a28bc8a4a22702d3?d=mm&s=24",
+          "16x16": "https://www.gravatar.com/avatar/8514b10f51b5e511a28bc8a4a22702d3?d=mm&s=16",
+          "32x32": "https://www.gravatar.com/avatar/8514b10f51b5e511a28bc8a4a22702d3?d=mm&s=32"
+        },
+        "displayName": "Pascale Foncé",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "subtasks": [],
+      "reporter": {
+        "self": "https://jira/rest/api/2/user?username=pfonce",
+        "name": "pfonce",
+        "key": "pfonce",
+        "emailAddress": "pascal.fonce@mairie-paris.fr",
+        "avatarUrls": {
+          "48x48": "https://www.gravatar.com/avatar/8514b10f51b5e511a28bc8a4a22702d3?d=mm&s=48",
+          "24x24": "https://www.gravatar.com/avatar/8514b10f51b5e511a28bc8a4a22702d3?d=mm&s=24",
+          "16x16": "https://www.gravatar.com/avatar/8514b10f51b5e511a28bc8a4a22702d3?d=mm&s=16",
+          "32x32": "https://www.gravatar.com/avatar/8514b10f51b5e511a28bc8a4a22702d3?d=mm&s=32"
+        },
+        "displayName": "Pascal Foncé",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "customfield_10000": "0|zc7rbg:",
+      "aggregateprogress": {
+        "progress": 1800,
+        "total": 1800,
+        "percent": 100
+      },
+      "customfield_10001": null,
+      "customfield_10200": {
+        "id": "18",
+        "name": "Time to first response",
+        "_links": {
+          "self": "https://jira/rest/servicedeskapi/request/81311/sla/18"
+        },
+        "completedCycles": [
+          {
+            "startTime": {
+              "iso8601": "2021-08-23T12:01:51+0200",
+              "jira": "2021-08-23T12:01:51.434+0200",
+              "friendly": "23 Aug 2021 12:01",
+              "epochMillis": 1629712911434
+            },
+            "stopTime": {
+              "iso8601": "2021-08-23T12:08:23+0200",
+              "jira": "2021-08-23T12:08:23.800+0200",
+              "friendly": "23 Aug 2021 12:08",
+              "epochMillis": 1629713303800
+            },
+            "breached": false,
+            "goalDuration": {
+              "millis": 86400000,
+              "friendly": "24h"
+            },
+            "elapsedTime": {
+              "millis": 392366,
+              "friendly": "6m"
+            },
+            "remainingTime": {
+              "millis": 86007634,
+              "friendly": "23h 53m"
+            }
+          }
+        ]
+      },
+      "customfield_10002": null,
+      "customfield_10400": null,
+      "environment": null,
+      "duedate": null,
+      "progress": {
+        "progress": 1800,
+        "total": 1800,
+        "percent": 100
+      },
+      "votes": {
+        "self": "https://jira/rest/api/2/issue/ABC-4698/votes",
+        "votes": 0,
+        "hasVoted": false
+      }
+    }
+  },
+  {
+    "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+    "id": "80767",
+    "self": "https://jira/rest/api/2/issue/80767",
+    "key": "ABC-4674",
+    "fields": {
+      "issuetype": {
+        "self": "https://jira/rest/api/2/issuetype/10200",
+        "id": "10200",
+        "description": "For system outages or incidents. Created by JIRA Service Desk.",
+        "iconUrl": "https://jira/servicedesk/issue-type-icons?icon=incident",
+        "name": "Incident",
+        "subtask": false
+      },
+      "timespent": 1200,
+      "project": {
+        "self": "https://jira/rest/api/2/project/10204",
+        "id": "10204",
+        "key": "ABC",
+        "name": "support-worldcompany",
+        "projectTypeKey": "service_desk",
+        "avatarUrls": {
+          "48x48": "https://jira/secure/projectavatar?avatarId=10324",
+          "24x24": "https://jira/secure/projectavatar?size=small&avatarId=10324",
+          "16x16": "https://jira/secure/projectavatar?size=xsmall&avatarId=10324",
+          "32x32": "https://jira/secure/projectavatar?size=medium&avatarId=10324"
+        }
+      },
+      "customfield_11000": null,
+      "fixVersions": [],
+      "customfield_11001": null,
+      "customfield_11200": null,
+      "aggregatetimespent": 1200,
+      "resolution": {
+        "self": "https://jira/rest/api/2/resolution/10000",
+        "id": "10000",
+        "description": "Work has been completed on this issue.",
+        "name": "Done"
+      },
+      "customfield_10500": null,
+      "customfield_10305": null,
+      "customfield_10701": null,
+      "customfield_10306": null,
+      "customfield_10702": null,
+      "customfield_10900": [
+        {
+          "id": "95",
+          "name": "org-chambery",
+          "_links": {
+            "self": "https://jira/rest/servicedeskapi/organization/95"
+          }
+        }
+      ],
+      "customfield_10307": null,
+      "resolutiondate": "2021-08-04T16:51:54.000+0200",
+      "workratio": -1,
+      "lastViewed": null,
+      "watches": {
+        "self": "https://jira/rest/api/2/issue/ABC-4674/watchers",
+        "watchCount": 1,
+        "isWatching": false
+      },
+      "created": "2021-08-04T16:26:36.000+0200",
+      "priority": {
+        "self": "https://jira/rest/api/2/priority/1",
+        "iconUrl": "https://jira/images/icons/priorities/highest.svg",
+        "name": "Highest",
+        "id": "1"
+      },
+      "customfield_10100": {
+        "id": "20",
+        "name": "Time to resolution",
+        "_links": {
+          "self": "https://jira/rest/servicedeskapi/request/80767/sla/20"
+        },
+        "completedCycles": [
+          {
+            "startTime": {
+              "iso8601": "2021-08-04T16:26:36+0200",
+              "jira": "2021-08-04T16:26:36.438+0200",
+              "friendly": "04 Aug 2021 16:26",
+              "epochMillis": 1628087196438
+            },
+            "stopTime": {
+              "iso8601": "2021-08-04T16:51:54+0200",
+              "jira": "2021-08-04T16:51:54.471+0200",
+              "friendly": "04 Aug 2021 16:51",
+              "epochMillis": 1628088714471
+            },
+            "breached": false,
+            "goalDuration": {
+              "millis": 162000000,
+              "friendly": "45h"
+            },
+            "elapsedTime": {
+              "millis": 1518033,
+              "friendly": "25m"
+            },
+            "remainingTime": {
+              "millis": 160481967,
+              "friendly": "44h 34m"
+            }
+          }
+        ]
+      },
+      "customfield_10300": null,
+      "labels": [
+        "<0.5j"
+      ],
+      "customfield_10301": null,
+      "customfield_10610": null,
+      "customfield_10611": null,
+      "customfield_10612": null,
+      "customfield_10613": null,
+      "customfield_10614": null,
+      "timeestimate": null,
+      "aggregatetimeoriginalestimate": null,
+      "versions": [],
+      "customfield_10616": null,
+      "customfield_10617": null,
+      "customfield_10618": null,
+      "customfield_10619": null,
+      "issuelinks": [],
+      "assignee": {
+        "self": "https://jira/rest/api/2/user?username=mbouchard",
+        "name": "mbouchard",
+        "key": "JIRAUSER20253",
+        "emailAddress": "michel.bouchard@grandfrais.fr",
+        "avatarUrls": {
+          "48x48": "https://jira/secure/useravatar?ownerId=JIRAUSER20253&avatarId=13413",
+          "24x24": "https://jira/secure/useravatar?size=small&ownerId=JIRAUSER20253&avatarId=13413",
+          "16x16": "https://jira/secure/useravatar?size=xsmall&ownerId=JIRAUSER20253&avatarId=13413",
+          "32x32": "https://jira/secure/useravatar?size=medium&ownerId=JIRAUSER20253&avatarId=13413"
+        },
+        "displayName": "Michel Bouchard",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "updated": "2021-08-04T16:52:05.000+0200",
+      "status": {
+        "self": "https://jira/rest/api/2/status/5",
+        "description": "A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",
+        "iconUrl": "https://jira/images/icons/statuses/resolved.png",
+        "name": "Resolved",
+        "id": "5",
+        "statusCategory": {
+          "self": "https://jira/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Done"
+        }
+      },
+      "components": [
+        {
+          "self": "https://jira/rest/api/2/component/10800",
+          "id": "10800",
+          "name": "wonderProject"
+        }
+      ],
+      "timeoriginalestimate": null,
+      "description": "Bonjour, \r\nLe serveur de DEV ne r\u00e9pond plus (cf. https://dev.grandfrais.fr/portail/fr).\r\nOn est bloqu\u00e9 sur la page de maintenance.\r\nJean-Marc.",
+      "customfield_10010": null,
+      "customfield_11100": null,
+      "customfield_11300": null,
+      "customfield_10401": null,
+      "customfield_10402": null,
+      "customfield_10007": {
+        "_links": {
+          "jiraRest": "https://jira/rest/api/2/issue/80767",
+          "web": "https://jira/servicedesk/customer/portal/6/ABC-4674",
+          "self": "https://jira/rest/servicedeskapi/request/80767"
+        },
+        "requestType": {
+          "id": "123",
+          "_links": {
+            "self": "https://jira/rest/servicedeskapi/servicedesk/6/requesttype/123"
+          },
+          "name": "Medium priority assistance on wonderProject",
+          "description": "Get assistance for wonderProject with medium priority (for example can't upload a file)",
+          "helpText": "",
+          "serviceDeskId": "6",
+          "groupIds": [
+            "41"
+          ],
+          "icon": {
+            "id": "11030",
+            "_links": {
+              "iconUrls": {
+                "48x48": "https://jira/secure/viewavatar?avatarType=SD_REQTYPE&size=large&avatarId=11030",
+                "24x24": "https://jira/secure/viewavatar?avatarType=SD_REQTYPE&size=small&avatarId=11030",
+                "16x16": "https://jira/secure/viewavatar?avatarType=SD_REQTYPE&size=xsmall&avatarId=11030",
+                "32x32": "https://jira/secure/viewavatar?avatarType=SD_REQTYPE&size=medium&avatarId=11030"
+              }
+            }
+          }
+        },
+        "currentStatus": {
+          "status": "Resolved",
+          "statusDate": {
+            "iso8601": "2021-08-04T16:51:54+0200",
+            "jira": "2021-08-04T16:51:54.471+0200",
+            "friendly": "04 Aug 2021 16:51",
+            "epochMillis": 1628088714471
+          }
+        }
+      },
+      "customfield_10601": null,
+      "customfield_10008": [
+        {
+          "self": "https://jira/rest/api/2/user?username=pjarre",
+          "name": "pjarre",
+          "key": "pjarre",
+          "emailAddress": "patrick.jarre@mairie-paris.fr",
+          "avatarUrls": {
+            "48x48": "https://jira/secure/useravatar?avatarId=10349",
+            "24x24": "https://jira/secure/useravatar?size=small&avatarId=10349",
+            "16x16": "https://jira/secure/useravatar?size=xsmall&avatarId=10349",
+            "32x32": "https://jira/secure/useravatar?size=medium&avatarId=10349"
+          },
+          "displayName": "Patrick Jarre",
+          "active": true,
+          "timeZone": "Europe/Zurich"
+        },
+        {
+          "self": "https://jira/rest/api/2/user?username=liacopelli",
+          "name": "liacopelli",
+          "key": "JIRAUSER20371",
+          "emailAddress": "leonardo.iacopelli@pizza.com",
+          "avatarUrls": {
+            "48x48": "https://gravatar/?d=mm&s=48",
+            "24x24": "https://gravatar/?d=mm&s=24",
+            "16x16": "https://gravatar/?d=mm&s=16",
+            "32x32": "https://gravatar/?d=mm&s=32"
+          },
+          "displayName": "Leonardo Iacopelli",
+          "active": true,
+          "timeZone": "Europe/Zurich"
+        },
+        {
+          "self": "https://jira/rest/api/2/user?username=mpayne",
+          "name": "mpayne",
+          "key": "mpayne",
+          "emailAddress": "max.payne@preferecturepolice.fr",
+          "avatarUrls": {
+            "48x48": "https://jira/secure/useravatar?ownerId=mpayne&avatarId=12901",
+            "24x24": "https://jira/secure/useravatar?size=small&ownerId=mpayne&avatarId=12901",
+            "16x16": "https://jira/secure/useravatar?size=xsmall&ownerId=mpayne&avatarId=12901",
+            "32x32": "https://jira/secure/useravatar?size=medium&ownerId=mpayne&avatarId=12901"
+          },
+          "displayName": "Max Payne",
+          "active": true,
+          "timeZone": "Europe/Zurich"
+        },
+        {
+          "self": "https://jira/rest/api/2/user?username=jmplanche",
+          "name": "jmplanche",
+          "key": "JIRAUSER19849",
+          "emailAddress": "jean-marie.planche@grandfrais.fr",
+          "avatarUrls": {
+            "48x48": "https://jira/secure/useravatar?avatarId=10346",
+            "24x24": "https://jira/secure/useravatar?size=small&avatarId=10346",
+            "16x16": "https://jira/secure/useravatar?size=xsmall&avatarId=10346",
+            "32x32": "https://jira/secure/useravatar?size=medium&avatarId=10346"
+          },
+          "displayName": "Jean-Marie Planche",
+          "active": true,
+          "timeZone": "Europe/Zurich"
+        }
+      ],
+      "customfield_10602": null,
+      "customfield_10800": null,
+      "customfield_10009": null,
+      "customfield_10603": null,
+      "aggregatetimeestimate": null,
+      "customfield_10604": null,
+      "customfield_10605": null,
+      "customfield_10607": null,
+      "customfield_10608": null,
+      "customfield_10609": null,
+      "summary": "URGENT: le serveur de DEV ne r\u00e9pond plus",
+      "creator": {
+        "self": "https://jira/rest/api/2/user?username=psoleil",
+        "name": "psoleil",
+        "key": "psoleil",
+        "emailAddress": "pascal.soleil@grandfrais.fr",
+        "avatarUrls": {
+          "48x48": "https://jira/secure/useravatar?ownerId=psoleil&avatarId=12102",
+          "24x24": "https://jira/secure/useravatar?size=small&ownerId=psoleil&avatarId=12102",
+          "16x16": "https://jira/secure/useravatar?size=xsmall&ownerId=psoleil&avatarId=12102",
+          "32x32": "https://jira/secure/useravatar?size=medium&ownerId=psoleil&avatarId=12102"
+        },
+        "displayName": "Guillaume RYCKELYNCK",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "subtasks": [],
+      "reporter": {
+        "self": "https://jira/rest/api/2/user?username=psoleil",
+        "name": "psoleil",
+        "key": "psoleil",
+        "emailAddress": "pascal.soleil@grandfrais.fr",
+        "avatarUrls": {
+          "48x48": "https://jira/secure/useravatar?ownerId=psoleil&avatarId=12102",
+          "24x24": "https://jira/secure/useravatar?size=small&ownerId=psoleil&avatarId=12102",
+          "16x16": "https://jira/secure/useravatar?size=xsmall&ownerId=psoleil&avatarId=12102",
+          "32x32": "https://jira/secure/useravatar?size=medium&ownerId=psoleil&avatarId=12102"
+        },
+        "displayName": "Pascal Soleil",
+        "active": true,
+        "timeZone": "Europe/Zurich"
+      },
+      "customfield_10000": "0|zc7o2c:",
+      "aggregateprogress": {
+        "progress": 1200,
+        "total": 1200,
+        "percent": 100
+      },
+      "customfield_10001": null,
+      "customfield_10200": {
+        "id": "18",
+        "name": "Time to first response",
+        "_links": {
+          "self": "https://jira/rest/servicedeskapi/request/80767/sla/18"
+        },
+        "completedCycles": [
+          {
+            "startTime": {
+              "iso8601": "2021-08-04T16:26:36+0200",
+              "jira": "2021-08-04T16:26:36.438+0200",
+              "friendly": "04 Aug 2021 16:26",
+              "epochMillis": 1628087196438
+            },
+            "stopTime": {
+              "iso8601": "2021-08-04T16:44:23+0200",
+              "jira": "2021-08-04T16:44:23.079+0200",
+              "friendly": "04 Aug 2021 16:44",
+              "epochMillis": 1628088263079
+            },
+            "breached": false,
+            "goalDuration": {
+              "millis": 86400000,
+              "friendly": "24h"
+            },
+            "elapsedTime": {
+              "millis": 1066641,
+              "friendly": "17m"
+            },
+            "remainingTime": {
+              "millis": 85333359,
+              "friendly": "23h 42m"
+            }
+          }
+        ]
+      },
+      "customfield_10002": null,
+      "customfield_10400": null,
+      "environment": null,
+      "duedate": null,
+      "progress": {
+        "progress": 1200,
+        "total": 1200,
+        "percent": 100
+      },
+      "votes": {
+        "self": "https://jira/rest/api/2/issue/ABC-4674/votes",
+        "votes": 0,
+        "hasVoted": false
+      }
+    }
+  }
+]

@@ -1,28 +1,20 @@
 package fr.spironet.slackbot.listeners
 
 import com.ullink.slack.simpleslackapi.SlackChannel
+import com.ullink.slack.simpleslackapi.SlackPreparedMessage
 import com.ullink.slack.simpleslackapi.SlackSession
-import com.ullink.slack.simpleslackapi.impl.SlackSessionFactory
 import com.ullink.slack.simpleslackapi.SlackUser
 import com.ullink.slack.simpleslackapi.events.SlackMessagePosted
-import com.ullink.slack.simpleslackapi.SlackPreparedMessage
 import com.ullink.slack.simpleslackapi.listeners.SlackMessagePostedListener
-
-import com.lesstif.jira.services.ProjectService
-import com.lesstif.jira.project.Project
-import com.lesstif.jira.services.IssueService
-
-import com.ullink.slack.simpleslackapi.listeners.SlackMessagePostedListener
-import groovyx.net.http.HTTPBuilder
-import org.slf4j.LoggerFactory
+import fr.spironet.slackbot.jira.IssueDetailsResolver
 import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 class JiraListener implements SlackMessagePostedListener  {
 
   private final static Logger logger = LoggerFactory.getLogger(JiraListener.class)
 
-    // Jira issue service, needed to query Jira
-    def issueService
+    def issueResolver
 
     def jiraUser
     def jiraPassword
@@ -40,28 +32,11 @@ class JiraListener implements SlackMessagePostedListener  {
     """
 
     public JiraListener() {
-      // This class expects a JIRA_CLIENT_PROPERTY_FILE env variable to be set
-      // see env.dist at the root of the repository.
-      System.setProperty("jira.client.property",System.getenv("JIRA_CLIENT_PROPERTY_FILE"))
-      def props = new Properties()
-      // ... but we actually also need to do requests by ourselves
-      // outside of the JIRA Java library used here.
-      File propertiesFile = new File(System.getenv("JIRA_CLIENT_PROPERTY_FILE"))
-      propertiesFile.withInputStream {
-        props.load(it)
-      }
-      this.jiraUrl      = props.getProperty("jira.server.url")
-      this.jiraUser     = props.getProperty("jira.user.id")
-      this.jiraPassword = props.getProperty("jira.user.pwd")
-      issueService = new IssueService()
+      this.issueResolver = new IssueDetailsResolver()
     }
 
-    private def getRelatedOrg(def issue) {
-      try {
-        issue.getFields().getCustomfield()["customfield_10900"]["name"][0]
-      } catch (def _) {
-        return null
-      }
+    public JiraListener(def jiraPropsFile, def confluenceServerUrl, def ghToken) {
+      this.issueResolver = new IssueDetailsResolver(jiraPropsFile, confluenceServerUrl, ghToken)
     }
 
     /**
@@ -79,7 +54,9 @@ class JiraListener implements SlackMessagePostedListener  {
       def numberOfMinutes = ((totalSeconds - (numberOfHours * 3600)) / 60) as int
       def numberOfSeconds = totalSeconds % 60
 
-      return "${numberOfHours}:${numberOfMinutes.toString().padLeft(2,"0")}:${numberOfSeconds.toString().padLeft(2, "0")}"
+      def ppMin = numberOfMinutes.toString().padLeft(2,"0")
+      def ppSec = numberOfSeconds.toString().padLeft(2, "0")
+      return "${numberOfHours}:${ppMin}:${ppSec}"
     }
 
   /**
@@ -88,16 +65,16 @@ class JiraListener implements SlackMessagePostedListener  {
    * @param slackUserMail the user's email who one want the issues for.
    * @return a slack message with the issues (or a message telling that no issues are opened so far).
    */
-    private SlackPreparedMessage myIssues(def slackUserMail) {
+    private SlackPreparedMessage issuesForUser(def slackUserMail) {
       def jql = "resolution = Unresolved AND assignee = '${slackUserMail}' ORDER BY priority DESC, updated DESC"
-      def issues = issueService.getIssuesFromQuery(jql)
-      if (issues.issues.size() == 0) {
+      def issues = issueResolver.searchJiraIssues(jql)
+      if (issues.size() == 0) {
           return SlackPreparedMessage.builder().message("No issues for this user").build()
       }
-      def ret = ":warning: Unresolved issues *(${issues.issues.size()})*:\n"
-      issues.issues.each {
-        def currentOrg = getRelatedOrg(it)
-        ret += "• *<${this.jiraUrl}/browse/${it.key}|${it.key}>*"
+      def ret = ":warning: Unresolved issues *(${issues.size()})*:\n"
+      issues.each {
+        def currentOrg = this.issueResolver.computeOrganization(it)
+        ret += "• *<${this.issueResolver.jiraUrl}/browse/${it.key}|${it.key}>*"
         if (currentOrg != null) {
           ret += " - :office: *${currentOrg}*"
         }
@@ -115,14 +92,14 @@ class JiraListener implements SlackMessagePostedListener  {
   private SlackPreparedMessage issuesMonitoring() {
       // Same as filter here: https://jira.camptocamp.com/issues/?filter=12612
       def jql = "project = GEO AND priority = Highest AND created >= -24h AND NOT status = Resolved"
-      def issues = issueService.getIssuesFromQuery(jql)
-      if (issues.issues.size() == 0)
+      def issues = this.issueResolver.searchJiraIssues(jql)
+      if (issues.size() == 0)
         return SlackPreparedMessage.builder().
                 message(":warning: _There are no issue on the monitoring screen currently._").build()
-      def ret = ":warning: Issues currently reported on the monitoring screen *(${issues.issues.size()})*:\n"
-      issues.issues.each {
-        def currentOrg = getRelatedOrg(it)
-        ret += "• *<${this.jiraUrl}/browse/${it.key}|${it.key}>*"
+      def ret = ":warning: Issues currently reported on the monitoring screen *(${issues.size()})*:\n"
+      issues.each {
+        def currentOrg = issueResolver.computeOrganization(it)
+        ret += "• *<${this.issueResolver.jiraUrl}/browse/${it.key}|${it.key}>*"
         if (currentOrg != null) {
           ret += " - :office: ${currentOrg}"
         }
@@ -138,12 +115,12 @@ class JiraListener implements SlackMessagePostedListener  {
      * @return a slack message with the issues (or with no issue if there are not).
      */
     private SlackPreparedMessage issuesSupport() {
-      def jql = "project = GEO and created <= now() and created  >= startOfWeek()"
-      def issues = issueService.getIssuesFromQuery(jql)
-      def ret = ":warning: Issues currently opened in GEO support *(${issues.issues.size()})*:\n"
-      issues.issues.each {
-        def currentOrg = getRelatedOrg(it)
-        ret += "• *<${this.jiraUrl}/browse/${it.key}|${it.key}>*"
+      def jql = "project = GEO AND NOT status = Resolved AND created >= startOfWeek()"
+      def issues = this.issueResolver.searchJiraIssues(jql)
+      def ret = ":warning: Unresolved issues in the GEO support project since the begining of the week *(${issues.size()})*:\n"
+      issues.each {
+        def currentOrg = this.issueResolver.computeOrganization(it)
+        ret += "• *<${this.issueResolver.jiraUrl}/browse/${it.key}|${it.key}>*"
         if (currentOrg != null) {
           ret += " - :office: ${currentOrg}"
         }
@@ -155,43 +132,6 @@ class JiraListener implements SlackMessagePostedListener  {
       return SlackPreparedMessage.builder().message(ret).build()
     }
 
-  /**
-   * Gets the worklog entries for the issue given as argument.
-   *
-   * Note: C2C JIRA instance is using v2 of the JIRA API, a parameter "startedAfter"
-   * is documented but in the v3.
-   *
-   * The same parameter does not seem to work on v2. We have no better option to grab
-   * every worklog entries and filter the result from our side ...
-   *
-   * @param jiraIssue the JIRA issue key (or id) to get the worklog from.
-   * @return the worklog entries.
-   */
-    private def getWorklog(def jiraIssue) {
-        try {
-            // lol: https://jira.atlassian.com/browse/JRACLOUD-73630
-            def fourWeeksAgo = use (groovy.time.TimeCategory) {
-                4.weeks.ago
-            }
-
-          def wl = new HTTPBuilder(this.jiraUrl).get(path: "/rest/api/latest/issue/${jiraIssue}/worklog",
-                    query: [
-                            startedAfter: fourWeeksAgo
-                    ],
-                    headers: [
-                            Authorization: "Basic " + "${this.jiraUser}:${this.jiraPassword}".bytes.encodeBase64(),
-                            Accept       : "application/json"
-                    ])
-
-            return wl.worklogs.findAll {
-              new java.text.SimpleDateFormat("yyyy-MM-dd").parse(it.started) > fourWeeksAgo
-            }
-        } catch (groovyx.net.http.HttpResponseException e) {
-            return null
-        }
-
-    }
-
     /**
      * Prepares a slack message with the worklog entries summarized by users, over the last 4 weeks.
      *
@@ -199,7 +139,7 @@ class JiraListener implements SlackMessagePostedListener  {
      * @return a slack message with the worklog summary.
      */
     private SlackPreparedMessage issueWorklog(def jiraIssue) {
-        def wl = getWorklog(jiraIssue)
+        def wl = this.issueResolver.loadIssueWorklog(jiraIssue, 4)
         def timeByUsers = []
         wl.each {
           def author = it.author.displayName
@@ -211,15 +151,22 @@ class JiraListener implements SlackMessagePostedListener  {
           }
         }
         timeByUsers.sort { a,b -> a.timeSpent <=> b.timeSpent }
-        def ret = "*:spiral_note_pad: Worklog for <${this.jiraUrl}/browse/${jiraIssue}|${jiraIssue}>* _(over the last 4 weeks)_:\n"
+        def ret = "*:spiral_note_pad: Worklog for <${this.issueResolver.jiraUrl}/browse/${jiraIssue}|${jiraIssue}>* _(over the last 4 weeks)_:\n"
         timeByUsers.each {
           ret += "• ${it.name}: ${prettyPrintSeconds(it.timeSpent)}\n"
         }
         return SlackPreparedMessage.builder().message(ret).build()
     }
 
-    @Override
-    public void onEvent(SlackMessagePosted event, SlackSession session) {
+    /**
+     * Untyped version of the `onEvent()` call to allow testing.
+     *
+     * @param event the event object, normally of type SlackMessagePosted
+     * @param session the session object, of type SlackSession
+     *
+     * @return void
+     */
+    def doOnEvent(def event, def session) {
       SlackChannel channelOnWhichMessageWasPosted = event.getChannel()
       String messageContent = event.getMessageContent()
       SlackUser messageSender = event.getSender()
@@ -235,25 +182,25 @@ class JiraListener implements SlackMessagePostedListener  {
           // Listing my issues
           if (issueKey == "mine") {
             session.sendMessage(channelOnWhichMessageWasPosted,
-              myIssues(messageSender.getUserMail())
+                    issuesForUser(messageSender.getUserMail())
             )
             return
           }
           if (issueKey == "user") {
-             def userName = messageContent =~ /\!jira \S+ (\S+)/
-             userName = userName[0][1]
-             session.sendMessage(channelOnWhichMessageWasPosted, myIssues(userName))
+            def userName = messageContent =~ /\!jira \S+ (\S+)/
+            userName = userName[0][1]
+            session.sendMessage(channelOnWhichMessageWasPosted, issuesForUser(userName))
             return
           }
           if (issueKey == "monitoring") {
             session.sendMessage(channelOnWhichMessageWasPosted,
-              issuesMonitoring()
+                    issuesMonitoring()
             )
             return
           }
           if (issueKey == "support") {
             session.sendMessage(channelOnWhichMessageWasPosted,
-              issuesSupport()
+                    issuesSupport()
             )
             return
           }
@@ -261,25 +208,30 @@ class JiraListener implements SlackMessagePostedListener  {
             def issueKey2 = messageContent =~ /\!jira \S+ (\S+)/
             issueKey2 = issueKey2[0][1]
             session.sendMessage(channelOnWhichMessageWasPosted,
-              issueWorklog(issueKey2)
+                    issueWorklog(issueKey2)
             )
             return
           }
           // Describe a specific issue
-          def issue = issueService.getIssue(issueKey)
-          String jiraIssueMessage = "*Issue <${this.jiraUrl}/browse/${issueKey}|${issueKey}>*: ${issue.getFields().getSummary()}\n\n"+
-          "${issue.getFields().getDescription()}\n\n"+
-          "Reported by: ${issue.getFields().getReporter().getName()}"
+          def issue = issueResolver.loadIssue(issueKey)
+          String jiraIssueMessage = "*Issue <${this.jiraUrl}/browse/${issueKey}|${issueKey}>*: ${issue.fields.summary}\n\n"+
+                  "${issue.fields.description}\n\n"+
+                  "Reported by: ${issue.fields.reporter.name}"
           session.sendMessage(channelOnWhichMessageWasPosted,
-            SlackPreparedMessage.builder().message(jiraIssueMessage).build()
+                  SlackPreparedMessage.builder().message(jiraIssueMessage).build()
           )
         } catch (Exception e) {
           logger.error("Error occured", e)
           session.sendMessage(channelOnWhichMessageWasPosted,
-            SlackPreparedMessage.builder().message(usage).build()
+                  SlackPreparedMessage.builder().message(usage).build()
           )
         }
       }
+    }
+
+    @Override
+    void onEvent(SlackMessagePosted event, SlackSession session) {
+      this.doOnEvent(event, session)
     }
 
 }

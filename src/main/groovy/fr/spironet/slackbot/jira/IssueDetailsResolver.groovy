@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat
  */
 class IssueDetailsResolver {
 
-    private def jiraUrl
+    def jiraUrl
     private def jiraUser
     private def jiraPassword
 
@@ -70,7 +70,7 @@ class IssueDetailsResolver {
      *
      * @See ConfluenceListener.search().
      */
-    public def confluenceSearch(def tags) {
+    def confluenceSearch(def tags) {
         def topicsFilter = "label = " + tags.collect{ "\"${it}\""}.join(" AND label = ")
 
         def cql = "${topicsFilter}"
@@ -104,30 +104,54 @@ class IssueDetailsResolver {
     }
 
     /**
+     * Searches for JIRA issues, using the search API endpoint.
+     *
+     * @param jql the query, following Jira Query Language (JQL) syntax.
+     *
+     * @return a Groovy list, corresponding to the JSON deserialization of the API call's response.
+     */
+    def searchJiraIssues(def jql) {
+        def jqlEncoded = java.net.URLEncoder.encode(jql, "UTF-8")
+        return loadJira("/rest/api/2/search", "jql=${jqlEncoded}").issues
+    }
+    /**
      * Loads the general infos for an issue.
      * @param key either the issue key (GEO-1234) or its internal numeric identifier.
      *
      * @return the resulting object.
      */
-    private def loadIssue(def key) {
+    def loadIssue(def key) {
         return loadJira("/rest/api/2/issue/${key}")
     }
 
     /**
      * Loads the worklog for an issue.
      *
-     * Be aware that we are using api v2 of JIRA, where we cannot filter on the date,
-     * so we are receiving the whole worklog since epoch ... On widely used issues (like
-     * AGFR-1), this returns a 12MB JSON document.
+     * Note: the C2C JIRA instance is using v2 of the JIRA API, a parameter "startedAfter"
+     * is documented but in the v3.
      *
-     * The code here does not filter anyway.
+     * The same parameter does not seem to work on v2. We have no better option than to grab
+     * every worklog entries and filter the result from our side ... On widely used issues (like
+     * "AGFR-1"), this represents a > 12MB JSON document.
      *
      * @param key either the issue key (GEO-1234) or its internal numeric identifier.
+     * @param nthofweek the last number of week to return the worklogs from, -1
+     * for considering every worklogs of the issue (e.g. no filtering).
      *
      * @return the resulting object.
      */
-    private def loadIssueWorklog(def key) {
-        return loadJira("/rest/api/2/issue/${key}/worklog")
+    def loadIssueWorklog(def key, def nthofweek = -1) {
+        def ret = loadJira("/rest/api/2/issue/${key}/worklog")
+        if (nthofweek == -1) {
+            return ret
+        }
+        def nWeeksBefore = use (groovy.time.TimeCategory) {
+            nthofweek.weeks.ago
+        }
+        def sdf = new java.text.SimpleDateFormat("yyyy-MM-dd")
+        return ret.worklogs.findAll {
+            sdf.parse(it.started) > nWeeksBefore
+        }
     }
 
     /**
@@ -261,6 +285,13 @@ class IssueDetailsResolver {
         issue.possibleLabels = keywords.findAll { ! (it in issue.labels) }
     }
 
+    /**
+     * Analyzes the worklog, and computes a summary per user, onto the
+     * issue.worklogsPerUser field of the issue passed as argument.
+     *
+     * @param issue the issue to analyze the worklog for.
+     *
+     */
     private def analyzeWorklogs(def issue) {
         def sdf = new SimpleDateFormat("yyyy-MM-dd")
 
@@ -287,10 +318,37 @@ class IssueDetailsResolver {
     }
 
     /**
+     * Given the organization field of an issue, computes the "real" organization.
+     *
+     * For support issues at C2C, the organization is in the form "org-<customer>".
+     * Else, the organization can be guessed from the project name, but we have
+     * to remove a suffix ("_geomaintenance", "_assistance" ...).
+     * See @IssueDetails.meaninglessSuffixes field for a list.
+     *
+     * @param issue the issue coming from the API.
+     * @return the "sanitized" organization.
+     */
+    def computeOrganization(def issue) {
+        def org = issue.fields.customfield_10900?[0]?.name ?:
+                issue.fields.project.name
+        // coming from the customfield / this is probably a GEO-* support issue
+        if (org.startsWith("org-")) {
+            org -= "org-"
+        }
+        // coming without a customfield, we have to guess the org from the project name
+        else {
+            IssueDetails.meaninglessSuffixes.each {
+                org -= it
+            }
+        }
+        return org
+    }
+
+    /**
      * Actually does the work of gathering all the infos from everywhere.
      * @param issueKey
      */
-    public def resolve(def issueKey) {
+    def resolve(def issueKey) {
         def issue = new IssueDetails(issueKey)
         issue.rawIssueInfo = loadIssue(issueKey)
 
@@ -299,19 +357,7 @@ class IssueDetailsResolver {
         issue.assignee     = issue.rawIssueInfo.fields.assignee
         issue.labels       = issue.rawIssueInfo.fields.labels
         issue.description  = issue.rawIssueInfo.fields.description
-        issue.organization = issue.rawIssueInfo.fields.customfield_10900?[0]?.name ?:
-                issue.rawIssueInfo.fields.project.name
-
-        // coming from the customfield / this is probably a GEO-* support issue
-        if (issue.organization.startsWith("org-")) {
-            issue.organization -= "org-"
-        }
-        // coming without a customfield, we have to guess the org from the project name
-        else {
-            IssueDetails.meaninglessSuffixes.each {
-                issue.organization -= it
-            }
-        }
+        issue.organization = this.computeOrganization(issue.rawIssueInfo)
 
         issue.worklogs    = loadIssueWorklog(issueKey)
         issue.watchers    = loadIssueWatchers(issueKey)

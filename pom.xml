@@ -143,11 +143,6 @@
             <version>1.3.0</version>
         </dependency>
         <dependency>
-            <groupId>com.lesstif</groupId>
-            <artifactId>jira-rest-api</artifactId>
-            <version>0.8.3</version>
-        </dependency>
-        <dependency>
             <groupId>com.offbytwo.jenkins</groupId>
             <artifactId>jenkins-client</artifactId>
             <version>0.3.8</version>
