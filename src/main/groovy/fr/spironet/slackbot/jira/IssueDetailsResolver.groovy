@@ -15,12 +15,14 @@ import java.text.SimpleDateFormat
  */
 class IssueDetailsResolver {
 
+    // both following fields are public because of external access in the listeners
     def jiraUrl
+    def confluenceUrl
+    // it is assumed that we are reusing the same credentials as on JIRA
+
     private def jiraUser
     private def jiraPassword
 
-    private def confluenceUrl
-    // reusing the same credentials as on JIRA
 
     def githubApi
 
@@ -63,25 +65,32 @@ class IssueDetailsResolver {
     }
 
     /**
-     * Confluence search by tag.
+     * Confluence search by tags & types of document.
      * Copy-pasted / inspired from the ConfluenceListener class.
      *
-     * @param tags a collection of tags to search.
+     * @param types an array of types ("page","blogpost","space","user","attachment","comment") to search.
+     * @param tags a collection of tags to search. Note that contrary to the confluence UI,
+     *  we want to search for documents tagged with ALL the tags given as argument (not "IN(...)").
+     * @param limit the max number of documents to get, defaults to 10.
      *
      * @See ConfluenceListener.search().
      */
-    def confluenceSearch(def tags) {
-        def topicsFilter = "label = " + tags.collect{ "\"${it}\""}.join(" AND label = ")
+    def searchConfluenceDocuments(def types, def topics, def limit = 10) {
+        def typesIn = types.collect{ "\"${it}\""}.join(",")
+        def topicsFilter = "label = " + topics.collect{ "\"${it}\""}.join(" AND label = ")
 
-        def cql = "${topicsFilter}"
+        def cql = "type IN (${typesIn}) AND ${topicsFilter}"
         cql = "cql=" + java.net.URLEncoder.encode(cql, "UTF-8")
+        cql += "&limit=${limit}"
+
         def authorizationHeader = "Basic " + "${this.jiraUser}:${this.jiraPassword}".bytes.encodeBase64()
         def response = http.get(
                 uri: this.confluenceUrl,
                 path:  "/confluence/rest/api/search",
                 queryString: cql,
                 headers: [Authorization: authorizationHeader])
-        return response.data.results
+
+        return response.data
     }
 
     /**

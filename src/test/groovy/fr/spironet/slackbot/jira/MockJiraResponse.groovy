@@ -52,6 +52,10 @@ class MockJiraResponse extends RESTClient {
         } else if ((args.path == "/rest/api/2/search") && (args.queryString.startsWith("jql="))) {
             def ret = new File(this.getClass().getResource("search-issues-response.json").toURI()).text
             return [ data: [ issues: new JsonSlurper().parseText(ret) ]]
+        } else if (args.uri == "http://localhost/confluence" &&
+                args.path == "/confluence/rest/api/search") {
+            def ret = new File(this.getClass().getResource("confluence-search.json").toURI()).text
+            return [ data: new JsonSlurper().parseText(ret) ]
         }
         return [:]
     }

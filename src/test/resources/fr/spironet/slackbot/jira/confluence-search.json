@@ -1,0 +1,131 @@
+{
+  "results": [
+    {
+      "content": {
+        "id": "12312455",
+        "type": "page",
+        "status": "current",
+        "title": "Chambéry Métropole",
+        "restrictions": {},
+        "_links": {
+          "webui": "/pages/viewpage.action?pageId=12312455",
+          "tinyui": "/x/NEOHAg",
+          "self": "https://confluence/confluence/rest/api/content/12312455"
+        },
+        "_expandable": {
+          "container": "",
+          "metadata": "",
+          "extensions": "",
+          "operations": "",
+          "children": "",
+          "history": "/rest/api/content/12312455/history",
+          "ancestors": "",
+          "body": "",
+          "version": "",
+          "descendants": "",
+          "space": "/rest/api/space/ABCD"
+        }
+      },
+      "title": "Chambéry Métropole",
+      "excerpt": "WonderProject est déployé à Chambéry Métropole afin de répondre aux problématiques lié à la gestion de la donnée géographique. Notre intervention est ...",
+      "url": "/pages/viewpage.action?pageId=12312455",
+      "resultGlobalContainer": {
+        "title": "ABCDchestra",
+        "displayUrl": "/display/ABCD"
+      },
+      "entityType": "content",
+      "iconCssClass": "aui-icon content-type-page",
+      "lastModified": "2021-07-19T12:42:48.447+02:00",
+      "friendlyLastModified": "19/07/2021",
+      "timestamp": 1626691368447
+    },
+    {
+      "content": {
+        "id": "21443509",
+        "type": "page",
+        "status": "current",
+        "title": "Plateforme publique",
+        "restrictions": {},
+        "_links": {
+          "webui": "/display/ABCD/Plateforme+publique",
+          "tinyui": "/x/a4lCB",
+          "self": "https://confluence/confluence/rest/api/content/21443509"
+        },
+        "_expandable": {
+          "container": "",
+          "metadata": "",
+          "extensions": "",
+          "operations": "",
+          "children": "",
+          "history": "/rest/api/content/21443509/history",
+          "ancestors": "",
+          "body": "",
+          "version": "",
+          "descendants": "",
+          "space": "/rest/api/space/ABCD"
+        }
+      },
+      "title": "Plateforme publique",
+      "excerpt": "La même plateforme que précédemment grosso-modo, mais à destination plus large / grand public de la métropole.",
+      "url": "/display/ABCD/Plateforme+publique",
+      "resultGlobalContainer": {
+        "title": "WonderProject",
+        "displayUrl": "/display/ABCD"
+      },
+      "entityType": "content",
+      "iconCssClass": "aui-icon content-type-page",
+      "lastModified": "2021-04-21T12:26:01.374+02:00",
+      "friendlyLastModified": "21/04/2021",
+      "timestamp": 1619000761374
+    },
+    {
+      "content": {
+        "id": "50202383",
+        "type": "blogpost",
+        "status": "current",
+        "title": "Point Chambéry Métropole du 15 juillet 2021",
+        "restrictions": {},
+        "_links": {
+          "webui": "/pages/viewpage.action?pageId=50202383",
+          "tinyui": "/x/9MyeB",
+          "self": "https://confluence/confluence/rest/api/content/50202383"
+        },
+        "_expandable": {
+          "container": "",
+          "metadata": "",
+          "extensions": "",
+          "operations": "",
+          "children": "",
+          "history": "/rest/api/content/50202383/history",
+          "ancestors": "",
+          "body": "",
+          "version": "",
+          "descendants": "",
+          "space": "/rest/api/space/ABCD"
+        }
+      },
+      "title": "Point Chambéry Métropole du 15 juillet 2021",
+      "excerpt": "Etaient présents le client et le prestataire, afin de discuter de la suite du projet, ainsi que du contrat en cours...",
+      "url": "/pages/viewpage.action?pageId=50202383",
+      "resultGlobalContainer": {
+        "title": "ABCDestra",
+        "displayUrl": "/display/ABCD"
+      },
+      "entityType": "content",
+      "iconCssClass": "aui-icon content-type-blogpost",
+      "lastModified": "2021-07-16T09:37:35.875+02:00",
+      "friendlyLastModified": "16/07/2021",
+      "timestamp": 1626421055875
+    }
+  ],
+  "start": 0,
+  "limit": 20,
+  "size": 13,
+  "totalSize": 13,
+  "cqlQuery": "type in (\"page\",\"blogpost\") AND label in (\"chambery\")",
+  "searchDuration": 25,
+  "_links": {
+    "base": "https://confluence/confluence",
+    "context": "/confluence"
+  }
+}

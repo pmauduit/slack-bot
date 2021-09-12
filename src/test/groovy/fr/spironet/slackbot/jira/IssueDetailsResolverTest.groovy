@@ -5,6 +5,7 @@ import groovyx.net.http.RESTClient
 import org.junit.Before
 import org.junit.Test
 
+import static org.junit.Assert.assertArrayEquals
 import static org.junit.Assert.assertTrue
 
 class IssueDetailsResolverTest {
@@ -74,6 +75,14 @@ class IssueDetailsResolverTest {
 
         assertTrue(ret.size() == 4 &&
                     ret[0].key == "ABC-4739")
+    }
+
+    @Test
+    void testSearchConfluence() {
+        def ret = toTest.searchConfluenceDocuments(["page", "blogpost"], ["chambery"], 3)
+
+        assertTrue(ret.results.size() == 3 &&
+        ret.results.collect { it.content.type }.unique().sort() == ["blogpost", "page"])
     }
 
 
