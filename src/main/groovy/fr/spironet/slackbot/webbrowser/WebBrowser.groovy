@@ -1,12 +1,19 @@
 package fr.spironet.slackbot.webbrowser
 
+import org.openqa.selenium.By
 import org.openqa.selenium.OutputType
+import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeOptions
+import org.openqa.selenium.support.ui.ExpectedConditions
+import org.openqa.selenium.support.ui.WebDriverWait
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 import javax.imageio.ImageIO
+import java.time.Duration
+
+import static org.openqa.selenium.By.*
 
 class WebBrowser {
 
@@ -33,6 +40,7 @@ class WebBrowser {
         def options = new ChromeOptions()
         options.addArguments("headless")
         options.addArguments("window-size=1920,1080")
+        //options.addArguments("start-maximized")
         return new ChromeDriver(options)
     }
 
@@ -51,6 +59,7 @@ class WebBrowser {
             // makes sure to cleanup cookies before accessing the page
             driver.manage().deleteAllCookies()
             driver.get("https://${kibanaUser}:${kibanaPassword}@${kibanaUrl}/")
+
             System.sleep(1000)
             // ok, now we should have a cookie ?
             def finalUrl = "https://${kibanaUrl}${dashboardPath}"
@@ -95,14 +104,19 @@ class WebBrowser {
             userInput.sendKeys(grafanaUser)
             passwordInput.sendKeys(grafanaPassword)
             loginButton.click()
-            // long enough to have a session
-            System.sleep(500)
-            // then visit the dashboard
+            // Wait until being connected
+            new WebDriverWait(driver as WebDriver, 3).
+                    until(ExpectedConditions.elementToBeClickable(By.cssSelector("img[alt='Grafana']")))
+            // then visit the dashboard / trigger kiosk mode
             driver.get("${grafanaUrl}${grafanaDashboard}")
             def bodyPage = driver.findElementByCssSelector("body")
-            bodyPage.sendKeys("dkdk")
-            // long enough to draw the page
-            System.sleep(5000)
+            bodyPage.sendKeys("dkdkdk")
+            // wait until the page alert list is empty ("press ESC to escape the kiosk mode")
+            // this should leave the time for the page to be loaded completely.
+            new WebDriverWait(driver as WebDriver, 3).
+                    until(ExpectedConditions.invisibilityOfElementLocated(
+                            By.cssSelector("div[class='page-alert-list']")))
+
             byte[] data = driver.getScreenshotAs(OutputType.BYTES)
 
             // returns the screenshot
