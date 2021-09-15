@@ -126,7 +126,7 @@ class GithubListener implements SlackMessagePostedListener  {
           def urlToPrs     = "${it.html_url}/pulls"
           def urlToActions = "${it.html_url}/actions"
           ret += "• *<${it.html_url}|${it.full_name}>* - ${it.description ? it.description : "_No description_"} |" +
-                  " *<${urlToIssues}|issues>* | *<${urlToPrs}|pull-requests>* | *<${urlToActions}|Github-Actions>*\n"
+                  " *<${urlToIssues}|issues> (${it.open_issues})* | *<${urlToPrs}|pull-requests>* | *<${urlToActions}|Github-Actions>*\n"
         }
       }
       return SlackPreparedMessage.builder().message(ret).build()
