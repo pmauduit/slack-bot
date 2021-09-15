@@ -1,0 +1,277 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:atlassian="http://streams.atlassian.com/syndication/general/1.0">
+  <id>https://jira/activity?maxResults=1000&amp;streams=user+IS+jdoe&amp;os_authType=basic</id>
+  <link href="https://jira/activity?maxResults=1000&amp;streams=user+IS+jdoe&amp;os_authType=basic" rel="self"/>
+  <title type="text">Activity Streams</title>
+  <atlassian:timezone-offset>+0200</atlassian:timezone-offset>
+  <updated>2021-09-15T16:43:39.947Z</updated>
+  <entry xmlns:activity="http://activitystrea.ms/spec/1.0/">
+    <id>urn:uuid:c02c9557-0eb5-3e33-b3e4-940659905da5</id>
+    <title type="html">&lt;a href="https://jira/secure/ViewProfile.jspa?name=jdoe" class="activity-item-user activity-item-author"&gt;John Doe&lt;/a&gt; resolved       &lt;a href="https://jira/browse/ABC-1234"&gt;&lt;span class='resolved-link'&gt;ABC-1234&lt;/span&gt; - Cap d'Anjou - mettre &#xE0; jour la prod en iso-version de la pf de test&lt;/a&gt;
+   as 'Done'</title>
+    <author xmlns:usr="http://streams.atlassian.com/syndication/username/1.0">
+      <name>John Doe</name>
+      <email>john@doe.org</email>
+      <uri>https://jira/secure/ViewProfile.jspa?name=jdoe</uri>
+      <link xmlns:media="http://purl.org/syndication/atommedia" rel="photo" href="https://gravatar?d=mm&amp;s=48&amp;s=16" media:height="16" media:width="16"/>
+      <link xmlns:media="http://purl.org/syndication/atommedia" rel="photo" href="https://gravatar?d=mm&amp;s=48&amp;s=48" media:height="48" media:width="48"/>
+      <usr:username>jdoe</usr:username>
+      <activity:object-type>http://activitystrea.ms/schema/1.0/person</activity:object-type>
+    </author>
+    <published>2021-09-15T14:33:19.880Z</published>
+    <updated>2021-09-15T14:33:19.880Z</updated>
+    <category term="resolved"/>
+    <link href="https://jira/browse/ABC-1234" rel="alternate"/>
+    <link href="https://jira/servicedesk/issue-type-icons?icon=service-request" rel="http://streams.atlassian.com/syndication/icon" title="Service Request"/>
+    <link href="https://jira/s/xmd3wb/811002/1bb3c91f4b6582b121bd70be340136fc/1.0/_/download/resources/jira.webresources:global-static/wiki-renderer.css" rel="http://streams.atlassian.com/syndication/css"/>
+    <link href="https://jira/plugins/servlet/streamscomments/issues/ABC-1234" rel="http://streams.atlassian.com/syndication/reply-to"/>
+    <generator uri="https://jira"/>
+    <atlassian:application>com.atlassian.jira</atlassian:application>
+    <activity:verb>http://activitystrea.ms/schema/1.0/update</activity:verb>
+    <activity:verb>http://streams.atlassian.com/syndication/verbs/jira/transition</activity:verb>
+    <activity:verb>http://streams.atlassian.com/syndication/verbs/jira/resolve</activity:verb>
+    <activity:object>
+      <id>urn:uuid:a9b2802d-0f2d-304b-9bf6-77138ad8b47f</id>
+      <title type="text">ABC-1234</title>
+      <summary type="text">Discostreum - mettre &#xE0; jour la prod en iso-version de la pf de test</summary>
+      <link rel="alternate" href="https://jira/browse/ABC-1234"/>
+      <activity:object-type>http://streams.atlassian.com/syndication/types/issue</activity:object-type>
+    </activity:object>
+    <atlassian:timezone-offset>+0200</atlassian:timezone-offset>
+  </entry>
+  <entry xmlns:activity="http://activitystrea.ms/spec/1.0/">
+    <id>urn:uuid:d8745578-bd80-39ef-97af-623fc23ca57e</id>
+    <title type="html">&lt;a href="https://jira/secure/ViewProfile.jspa?name=jdoe" class="activity-item-user activity-item-author"&gt;John Doe&lt;/a&gt; closed       &lt;a href="https://jira/browse/DSCSTRM-116"&gt;&lt;span class='resolved-link'&gt;DSCSTRM-116&lt;/span&gt; - mviewer - tag en prod&lt;/a&gt;
+  </title>
+    <author xmlns:usr="http://streams.atlassian.com/syndication/username/1.0">
+      <name>John Doe</name>
+      <email>john@doe.org</email>
+      <uri>https://jira/secure/ViewProfile.jspa?name=jdoe</uri>
+      <link xmlns:media="http://purl.org/syndication/atommedia" rel="photo" href="https://gravatar?d=mm&amp;s=48&amp;s=16" media:height="16" media:width="16"/>
+      <link xmlns:media="http://purl.org/syndication/atommedia" rel="photo" href="https://gravatar?d=mm&amp;s=48&amp;s=48" media:height="48" media:width="48"/>
+      <usr:username>jdoe</usr:username>
+      <activity:object-type>http://activitystrea.ms/schema/1.0/person</activity:object-type>
+    </author>
+    <published>2021-09-15T12:35:19.900Z</published>
+    <updated>2021-09-15T12:35:19.900Z</updated>
+    <category term="closed"/>
+    <link href="https://jira/browse/DSCSTRM-123" rel="alternate"/>
+    <link href="https://jira/secure/viewavatar?size=xsmall&amp;avatarId=10318&amp;avatarType=issuetype" rel="http://streams.atlassian.com/syndication/icon" title="Task"/>
+    <link href="https://jira/s/xmd3wb/811002/1bb3c91f4b6582b121bd70be340136fc/1.0/_/download/resources/jira.webresources:global-static/wiki-renderer.css" rel="http://streams.atlassian.com/syndication/css"/>
+    <link href="https://jira/plugins/servlet/streamscomments/issues/DSCSTRM-123" rel="http://streams.atlassian.com/syndication/reply-to"/>
+    <generator uri="https://jira"/>
+    <atlassian:application>com.atlassian.jira</atlassian:application>
+    <activity:verb>http://activitystrea.ms/schema/1.0/update</activity:verb>
+    <activity:verb>http://streams.atlassian.com/syndication/verbs/jira/transition</activity:verb>
+    <activity:verb>http://streams.atlassian.com/syndication/verbs/jira/close</activity:verb>
+    <activity:object>
+      <id>urn:uuid:387a3893-842c-3faa-98f2-c8ee71d3102a</id>
+      <title type="text">DSCSTRM-123</title>
+      <summary type="text">mviewer - tag en prod</summary>
+      <link rel="alternate" href="https://jira/browse/DSCSTRM-123"/>
+      <activity:object-type>http://streams.atlassian.com/syndication/types/issue</activity:object-type>
+    </activity:object>
+    <atlassian:timezone-offset>+0200</atlassian:timezone-offset>
+  </entry>
+  <entry xmlns:activity="http://activitystrea.ms/spec/1.0/">
+    <id>urn:uuid:7faa0872-cffa-3a81-b3bf-a337034d2dd0</id>
+    <title type="html">&lt;a href="https://jira/secure/ViewProfile.jspa?name=jdoe" class="activity-item-user activity-item-author"&gt;John Doe&lt;/a&gt; changed the Priority to 'Medium' on       &lt;a href="https://jira/browse/ABC-54212"&gt;ABC-54212 - Synchronisation datadir geoserver en erreur&lt;/a&gt;
+  </title>
+    <author xmlns:usr="http://streams.atlassian.com/syndication/username/1.0">
+      <name>John Doe</name>
+      <email>john@doe.org</email>
+      <uri>https://jira/secure/ViewProfile.jspa?name=jdoe</uri>
+      <link xmlns:media="http://purl.org/syndication/atommedia" rel="photo" href="https://gravatar?d=mm&amp;s=48&amp;s=16" media:height="16" media:width="16"/>
+      <link xmlns:media="http://purl.org/syndication/atommedia" rel="photo" href="https://gravatar?d=mm&amp;s=48&amp;s=48" media:height="48" media:width="48"/>
+      <usr:username>jdoe</usr:username>
+      <activity:object-type>http://activitystrea.ms/schema/1.0/person</activity:object-type>
+    </author>
+    <published>2021-09-15T11:57:26.424Z</published>
+    <updated>2021-09-15T11:57:26.424Z</updated>
+    <link href="https://jira/browse/ABC-54212" rel="alternate"/>
+    <link href="https://jira/servicedesk/issue-type-icons?icon=incident" rel="http://streams.atlassian.com/syndication/icon" title="Incident"/>
+    <link href="https://jira/s/xmd3wb/811002/1bb3c91f4b6582b121bd70be340136fc/1.0/_/download/resources/jira.webresources:global-static/wiki-renderer.css" rel="http://streams.atlassian.com/syndication/css"/>
+    <link href="https://jira/plugins/servlet/streamscomments/issues/ABC-54212" rel="http://streams.atlassian.com/syndication/reply-to"/>
+    <link href="https://jira/rest/jira-activity-stream/1.0/actions/issue-vote/ABC-54212" rel="http://streams.atlassian.com/syndication/issue-vote"/>
+    <generator uri="https://jira"/>
+    <atlassian:application>com.atlassian.jira</atlassian:application>
+    <activity:verb>http://activitystrea.ms/schema/1.0/update</activity:verb>
+    <activity:object>
+      <id>urn:uuid:9c64135c-af6e-38c5-b799-73a86ba56227</id>
+      <title type="text">ABC-54212</title>
+      <summary type="text">Synchronisation datadir geoserver en erreur</summary>
+      <link rel="alternate" href="https://jira/browse/ABC-54212"/>
+      <activity:object-type>http://streams.atlassian.com/syndication/types/issue</activity:object-type>
+    </activity:object>
+    <atlassian:timezone-offset>+0200</atlassian:timezone-offset>
+  </entry>
+  <entry xmlns:activity="http://activitystrea.ms/spec/1.0/" xmlns:thr="http://purl.org/syndication/thread/1.0">
+    <id>urn:uuid:cd7745df-3390-3a33-9f29-c56d927e142b</id>
+    <title type="html">&lt;a href="https://jira/secure/ViewProfile.jspa?name=jdoe" class="activity-item-user activity-item-author"&gt;John Doe&lt;/a&gt; commented on       &lt;a href="https://jira/browse/WONDERPRJ-8"&gt;WONDERPRJ-8 - Migration wonderproject&lt;/a&gt;
+  </title>
+    <summary type="html">&lt;blockquote&gt;    &lt;p&gt;Donn&#xE9;es r&#xE9;cup&#xE9;r&#xE9;es et r&#xE9;int&#xE9;gr&#xE9;es &#xE0; la nouvelle production aujourd'hui.&lt;/p&gt;  &lt;p&gt;Concernant les logs, je pense qu'on peut effectuer un cleanup du /var/log/docker/ r&#xE9;gulier et ne garder qu'une partie (peut-&#xEA;tre les 15 jours suffisent pour investigation en cas&lt;/p&gt;   &lt;a class="comment-more" href="https://jira/browse/WONDERPRJ-8?focusedCommentId=220579&amp;page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-220579"&gt;Read more&lt;/a&gt;&lt;/blockquote&gt; </summary>
+    <content type="html">&lt;blockquote&gt;    &lt;p&gt;Donn&#xE9;es r&#xE9;cup&#xE9;r&#xE9;es et r&#xE9;int&#xE9;gr&#xE9;es &#xE0; la nouvelle production aujourd'hui.&lt;/p&gt;  &lt;p&gt;Concernant les logs, je pense qu'on peut effectuer un cleanup du /var/log/docker/ r&#xE9;gulier et ne garder qu'une partie (peut-&#xEA;tre les 15 jours suffisent pour investigation en cas de probl&#xE8;me ?). Les logs du frontal finissent dans un r&#xE9;pertoire du /home/geo/ qui est backupp&#xE9; avec le reste des donn&#xE9;es via backup-manager. J'ignore si c'est raccord avec les textes de loi en vigueur toutefois, il faudrait voir avec des gens plus comp&#xE9;tent que moi sur ces probl&#xE9;matiques.&lt;/p&gt;  &lt;p&gt;Let'sEncrypt: r&#xE9;gl&#xE9; hier, cf &lt;a class="external-link" href="https://github.com/megacorp/wonderproject-docker/commit/e05e62d2a05143eaab49f80d4c55de5cdfdb25cf" rel="nofollow noopener" target="_blank"&gt;https://github.com/megacorp/wonderproject-docker/commit/e05e62d2a05143eaab49f80d4c55de5cdfdb25cf&lt;/a&gt;&lt;/p&gt;  &lt;p&gt; &lt;/p&gt;   &lt;/blockquote&gt; </content>
+    <author xmlns:usr="http://streams.atlassian.com/syndication/username/1.0">
+      <name>John Doe</name>
+      <email>john@doe.org</email>
+      <uri>https://jira/secure/ViewProfile.jspa?name=jdoe</uri>
+      <link xmlns:media="http://purl.org/syndication/atommedia" rel="photo" href="https://gravatar?d=mm&amp;s=48&amp;s=16" media:height="16" media:width="16"/>
+      <link xmlns:media="http://purl.org/syndication/atommedia" rel="photo" href="https://gravatar?d=mm&amp;s=48&amp;s=48" media:height="48" media:width="48"/>
+      <usr:username>jdoe</usr:username>
+      <activity:object-type>http://activitystrea.ms/schema/1.0/person</activity:object-type>
+    </author>
+    <published>2021-09-15T11:56:39.764Z</published>
+    <updated>2021-09-15T11:56:39.764Z</updated>
+    <category term="comment"/>
+    <link href="https://jira/browse/WONDERPRJ-8?focusedCommentId=220579&amp;page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-220579" rel="alternate"/>
+    <link href="https://jira/secure/viewavatar?size=xsmall&amp;avatarId=10318&amp;avatarType=issuetype" rel="http://streams.atlassian.com/syndication/icon" title="Task"/>
+    <link href="https://jira/s/xmd3wb/811002/1bb3c91f4b6582b121bd70be340136fc/1.0/_/download/resources/jira.webresources:global-static/wiki-renderer.css" rel="http://streams.atlassian.com/syndication/css"/>
+    <link href="https://jira/plugins/servlet/streamscomments/issues/WONDERPRJ-8" rel="http://streams.atlassian.com/syndication/reply-to"/>
+    <thr:in-reply-to ref="urn:uuid:b9ddab6b-0316-38fc-93d1-34ae0d4f5c1e"/>
+    <generator uri="https://jira"/>
+    <atlassian:application>com.atlassian.jira</atlassian:application>
+    <activity:verb>http://activitystrea.ms/schema/1.0/post</activity:verb>
+    <activity:object>
+      <id>urn:uuid:dc888425-e1b9-3cd3-9aa4-8b5508b4d376</id>
+      <link rel="alternate" href="https://jira/browse/WONDERPRJ-8?focusedCommentId=220579&amp;page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-220579"/>
+      <activity:object-type>http://activitystrea.ms/schema/1.0/comment</activity:object-type>
+    </activity:object>
+    <activity:target>
+      <id>urn:uuid:b9ddab6b-0316-38fc-93d1-34ae0d4f5c1e</id>
+      <title type="text">WONDERPRJ-8</title>
+      <summary type="text">Migration wonderproject</summary>
+      <link rel="alternate" href="https://jira/browse/WONDERPRJ-8"/>
+      <activity:object-type>http://streams.atlassian.com/syndication/types/issue</activity:object-type>
+    </activity:target>
+    <atlassian:timezone-offset>+0200</atlassian:timezone-offset>
+  </entry>
+  <entry xmlns:activity="http://activitystrea.ms/spec/1.0/">
+    <id>urn:uuid:518191f0-ac47-385d-bd66-fbac998c9421</id>
+    <title type="html">&lt;a href="https://jira/secure/ViewProfile.jspa?name=jdoe" class="activity-item-user activity-item-author"&gt;John Doe&lt;/a&gt; resolved       &lt;a href="https://jira/browse/ABC-1965"&gt;&lt;span class='resolved-link'&gt;ABC-1965&lt;/span&gt; - Nouveau coll&#xE8;gue : acc&#xE8;s SFTP et Postgre&lt;/a&gt;
+   as 'Done'</title>
+    <author xmlns:usr="http://streams.atlassian.com/syndication/username/1.0">
+      <name>John Doe</name>
+      <email>john@doe.org</email>
+      <uri>https://jira/secure/ViewProfile.jspa?name=jdoe</uri>
+      <link xmlns:media="http://purl.org/syndication/atommedia" rel="photo" href="https://gravatar?d=mm&amp;s=48&amp;s=16" media:height="16" media:width="16"/>
+      <link xmlns:media="http://purl.org/syndication/atommedia" rel="photo" href="https://gravatar?d=mm&amp;s=48&amp;s=48" media:height="48" media:width="48"/>
+      <usr:username>jdoe</usr:username>
+      <activity:object-type>http://activitystrea.ms/schema/1.0/person</activity:object-type>
+    </author>
+    <published>2021-09-15T11:52:57.116Z</published>
+    <updated>2021-09-15T11:52:57.116Z</updated>
+    <category term="resolved"/>
+    <link href="https://jira/browse/ABC-1965" rel="alternate"/>
+    <link href="https://jira/servicedesk/issue-type-icons?icon=service-request" rel="http://streams.atlassian.com/syndication/icon" title="Service Request"/>
+    <link href="https://jira/s/xmd3wb/811002/1bb3c91f4b6582b121bd70be340136fc/1.0/_/download/resources/jira.webresources:global-static/wiki-renderer.css" rel="http://streams.atlassian.com/syndication/css"/>
+    <link href="https://jira/plugins/servlet/streamscomments/issues/ABC-1965" rel="http://streams.atlassian.com/syndication/reply-to"/>
+    <generator uri="https://jira"/>
+    <atlassian:application>com.atlassian.jira</atlassian:application>
+    <activity:verb>http://activitystrea.ms/schema/1.0/update</activity:verb>
+    <activity:verb>http://streams.atlassian.com/syndication/verbs/jira/transition</activity:verb>
+    <activity:verb>http://streams.atlassian.com/syndication/verbs/jira/resolve</activity:verb>
+    <activity:object>
+      <id>urn:uuid:9e214a60-6a24-3a46-bd5c-b0f9e48adb98</id>
+      <title type="text">ABC-1965</title>
+      <summary type="text">Nouveau coll&#xE8;gue : acc&#xE8;s SFTP et Postgre</summary>
+      <link rel="alternate" href="https://jira/browse/ABC-1965"/>
+      <activity:object-type>http://streams.atlassian.com/syndication/types/issue</activity:object-type>
+    </activity:object>
+    <atlassian:timezone-offset>+0200</atlassian:timezone-offset>
+  </entry>
+  <entry xmlns:activity="http://activitystrea.ms/spec/1.0/">
+    <id>urn:uuid:7cfe928a-1aa5-35c3-b087-9492aa8720a2</id>
+    <title type="html">&lt;a href="https://jira/secure/ViewProfile.jspa?name=jdoe" class="activity-item-user activity-item-author"&gt;John Doe&lt;/a&gt; changed the status to Waiting for customer on       &lt;a href="https://jira/browse/ABC-1965"&gt;&lt;span class='resolved-link'&gt;ABC-1965&lt;/span&gt; - Nouveau coll&#xE8;gue : acc&#xE8;s SFTP et Postgre&lt;/a&gt;
+  </title>
+    <author xmlns:usr="http://streams.atlassian.com/syndication/username/1.0">
+      <name>John Doe</name>
+      <email>john@doe.org</email>
+      <uri>https://jira/secure/ViewProfile.jspa?name=jdoe</uri>
+      <link xmlns:media="http://purl.org/syndication/atommedia" rel="photo" href="https://gravatar?d=mm&amp;s=48&amp;s=16" media:height="16" media:width="16"/>
+      <link xmlns:media="http://purl.org/syndication/atommedia" rel="photo" href="https://gravatar?d=mm&amp;s=48&amp;s=48" media:height="48" media:width="48"/>
+      <usr:username>jdoe</usr:username>
+      <activity:object-type>http://activitystrea.ms/schema/1.0/person</activity:object-type>
+    </author>
+    <published>2021-09-15T11:52:46.055Z</published>
+    <updated>2021-09-15T11:52:46.055Z</updated>
+    <category term="Waiting for customer"/>
+    <link href="https://jira/browse/ABC-1965" rel="alternate"/>
+    <link href="https://jira/servicedesk/issue-type-icons?icon=service-request" rel="http://streams.atlassian.com/syndication/icon" title="Service Request"/>
+    <link href="https://jira/s/xmd3wb/811002/1bb3c91f4b6582b121bd70be340136fc/1.0/_/download/resources/jira.webresources:global-static/wiki-renderer.css" rel="http://streams.atlassian.com/syndication/css"/>
+    <link href="https://jira/plugins/servlet/streamscomments/issues/ABC-1965" rel="http://streams.atlassian.com/syndication/reply-to"/>
+    <generator uri="https://jira"/>
+    <atlassian:application>com.atlassian.jira</atlassian:application>
+    <activity:verb>http://activitystrea.ms/schema/1.0/update</activity:verb>
+    <activity:verb>http://streams.atlassian.com/syndication/verbs/jira/transition</activity:verb>
+    <activity:object>
+      <id>urn:uuid:9e214a60-6a24-3a46-bd5c-b0f9e48adb98</id>
+      <title type="text">ABC-1965</title>
+      <summary type="text">Nouveau coll&#xE8;gue : acc&#xE8;s SFTP et Postgre</summary>
+      <link rel="alternate" href="https://jira/browse/ABC-1965"/>
+      <activity:object-type>http://streams.atlassian.com/syndication/types/issue</activity:object-type>
+    </activity:object>
+    <atlassian:timezone-offset>+0200</atlassian:timezone-offset>
+  </entry>
+  <entry xmlns:activity="http://activitystrea.ms/spec/1.0/" xmlns:thr="http://purl.org/syndication/thread/1.0">
+    <id>urn:uuid:6cb4d060-708c-38d2-b12c-ea614237f155</id>
+    <title type="html">&lt;a href="https://jira/secure/ViewProfile.jspa?name=jdoe" class="activity-item-user activity-item-author"&gt;John Doe&lt;/a&gt; commented on       &lt;a href="https://jira/browse/ABC-1965"&gt;&lt;span class='resolved-link'&gt;ABC-1965&lt;/span&gt; - Nouveau coll&#xE8;gue : acc&#xE8;s SFTP et Postgre&lt;/a&gt;
+  </title>
+    <content type="html">&lt;blockquote&gt;    &lt;p&gt;c'est fait.&lt;/p&gt;  &lt;p&gt; &lt;/p&gt;   &lt;/blockquote&gt; </content>
+    <author xmlns:usr="http://streams.atlassian.com/syndication/username/1.0">
+      <name>John Doe</name>
+      <email>john@doe.org</email>
+      <uri>https://jira/secure/ViewProfile.jspa?name=jdoe</uri>
+      <link xmlns:media="http://purl.org/syndication/atommedia" rel="photo" href="https://gravatar?d=mm&amp;s=48&amp;s=16" media:height="16" media:width="16"/>
+      <link xmlns:media="http://purl.org/syndication/atommedia" rel="photo" href="https://gravatar?d=mm&amp;s=48&amp;s=48" media:height="48" media:width="48"/>
+      <usr:username>jdoe</usr:username>
+      <activity:object-type>http://activitystrea.ms/schema/1.0/person</activity:object-type>
+    </author>
+    <published>2021-09-15T11:52:45.849Z</published>
+    <updated>2021-09-15T11:52:45.849Z</updated>
+    <category term="comment"/>
+    <link href="https://jira/browse/ABC-1965?focusedCommentId=220575&amp;page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-220575" rel="alternate"/>
+    <link href="https://jira/servicedesk/issue-type-icons?icon=service-request" rel="http://streams.atlassian.com/syndication/icon" title="Service Request"/>
+    <link href="https://jira/s/xmd3wb/811002/1bb3c91f4b6582b121bd70be340136fc/1.0/_/download/resources/jira.webresources:global-static/wiki-renderer.css" rel="http://streams.atlassian.com/syndication/css"/>
+    <link href="https://jira/plugins/servlet/streamscomments/issues/ABC-1965" rel="http://streams.atlassian.com/syndication/reply-to"/>
+    <thr:in-reply-to ref="urn:uuid:9e214a60-6a24-3a46-bd5c-b0f9e48adb98"/>
+    <generator uri="https://jira"/>
+    <atlassian:application>com.atlassian.jira</atlassian:application>
+    <activity:verb>http://activitystrea.ms/schema/1.0/post</activity:verb>
+    <activity:object>
+      <id>urn:uuid:65a39993-2411-3355-ac37-594b3b60daf5</id>
+      <link rel="alternate" href="https://jira/browse/ABC-1965?focusedCommentId=220575&amp;page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-220575"/>
+      <activity:object-type>http://activitystrea.ms/schema/1.0/comment</activity:object-type>
+    </activity:object>
+    <activity:target>
+      <id>urn:uuid:9e214a60-6a24-3a46-bd5c-b0f9e48adb98</id>
+      <title type="text">ABC-1965</title>
+      <summary type="text">Nouveau coll&#xE8;gue : acc&#xE8;s SFTP et Postgre</summary>
+      <link rel="alternate" href="https://jira/browse/ABC-1965"/>
+      <activity:object-type>http://streams.atlassian.com/syndication/types/issue</activity:object-type>
+    </activity:target>
+    <atlassian:timezone-offset>+0200</atlassian:timezone-offset>
+  </entry>
+  <entry xmlns:activity="http://activitystrea.ms/spec/1.0/">
+    <id/>
+    <title type="html">    &lt;a href='https://github.com/jdoe' target='_blank'&gt;John Doe&lt;/a&gt;
+committed changeset &lt;a href="https://github.com/megacorp/terraform-wonderproject/commit/041c5092bdac0be744f0b2dd310b1820a8a6227b"&gt;041c5092bdac0be744f0b2dd310b1820a8a6227b&lt;/a&gt; saying:</title>
+    <content type="html">Merge pull request #507 from megacorp/removing-jane-adding-drobert-ABC-1965  all - updating drobert's key on g2f, removing jane ones [ABC-1965] &lt;br&gt; &lt;br&gt; Changes:&lt;br&gt; &lt;ul&gt;              &lt;li&gt;&lt;span style="color: blue;font-size: 8.0pt;"&gt;MODIFIED&lt;/span&gt;             &lt;a href="https://github.com/megacorp/terraform-wonderproject/commit/041c5092bdac0be744f0b2dd310b1820a8a6227b#diff-0" target="_blank"&gt;rancher-environments/geo2france-dev/secrets/admin-authorized-keys&lt;/a&gt;                       &lt;li&gt;&lt;span style="color: blue;font-size: 8.0pt;"&gt;MODIFIED&lt;/span&gt;             &lt;a href="https://github.com/megacorp/terraform-wonderproject/commit/041c5092bdac0be744f0b2dd310b1820a8a6227b#diff-1" target="_blank"&gt;rancher-environments/geo2france-dev/secrets/client-authorized-keys&lt;/a&gt;                       &lt;li&gt;&lt;span style="color: blue;font-size: 8.0pt;"&gt;MODIFIED&lt;/span&gt;             &lt;a href="https://github.com/megacorp/terraform-wonderproject/commit/041c5092bdac0be744f0b2dd310b1820a8a6227b#diff-2" target="_blank"&gt;rancher-environments/geo2france-dev/secrets/cms-authorized-keys&lt;/a&gt;                       &lt;li&gt;&lt;span style="color: blue;font-size: 8.0pt;"&gt;MODIFIED&lt;/span&gt;             &lt;a href="https://github.com/megacorp/terraform-wonderproject/commit/041c5092bdac0be744f0b2dd310b1820a8a6227b#diff-3" target="_blank"&gt;rancher-environments/geo2france-prod/secrets/admin-authorized-keys&lt;/a&gt;                       &lt;li&gt;&lt;span style="color: blue;font-size: 8.0pt;"&gt;MODIFIED&lt;/span&gt;             &lt;a href="https://github.com/megacorp/terraform-wonderproject/commit/041c5092bdac0be744f0b2dd310b1820a8a6227b#diff-4" target="_blank"&gt;rancher-environments/geo2france-prod/secrets/client-authorized-keys&lt;/a&gt;                       &lt;li&gt;&lt;span style="color: blue;font-size: 8.0pt;"&gt;MODIFIED&lt;/span&gt;             &lt;a href="https://github.com/megacorp/terraform-wonderproject/commit/041c5092bdac0be744f0b2dd310b1820a8a6227b#diff-5" target="_blank"&gt;rancher-environments/geo2france-prod/secrets/cms-authorized-keys&lt;/a&gt;                       &lt;li&gt;&lt;span style="color: blue;font-size: 8.0pt;"&gt;MODIFIED&lt;/span&gt;             &lt;a href="https://github.com/megacorp/terraform-wonderproject/commit/041c5092bdac0be744f0b2dd310b1820a8a6227b#diff-6" target="_blank"&gt;rancher-environments/geo2france-prod/secrets/db-authorized-keys&lt;/a&gt;                       &lt;li&gt;&lt;span style="color: blue;font-size: 8.0pt;"&gt;MODIFIED&lt;/span&gt;             &lt;a href="https://github.com/megacorp/terraform-wonderproject/commit/041c5092bdac0be744f0b2dd310b1820a8a6227b#diff-7" target="_blank"&gt;rancher-environments/geo2france-prod/secrets/monit-authorized-keys&lt;/a&gt;                       &lt;li&gt;&lt;span style="color: blue;font-size: 8.0pt;"&gt;MODIFIED&lt;/span&gt;             &lt;a href="https://github.com/megacorp/terraform-wonderproject/commit/041c5092bdac0be744f0b2dd310b1820a8a6227b#diff-8" target="_blank"&gt;rancher-environments/georhena-18.06/secrets/admin-authorized-keys&lt;/a&gt;                       &lt;li&gt;&lt;span style="color: blue;font-size: 8.0pt;"&gt;MODIFIED&lt;/span&gt;             &lt;a href="https://github.com/megacorp/terraform-wonderproject/commit/041c5092bdac0be744f0b2dd310b1820a8a6227b#diff-9" target="_blank"&gt;rancher-environments/georhena-18.06/secrets/client-authorized-keys&lt;/a&gt;                       &lt;li&gt;&lt;span style="color: blue;font-size: 8.0pt;"&gt;MODIFIED&lt;/span&gt;             &lt;a href="https://github.com/megacorp/terraform-wonderproject/commit/041c5092bdac0be744f0b2dd310b1820a8a6227b#diff-10" target="_blank"&gt;rancher-environments/georhena-dev/secrets/admin-authorized-keys&lt;/a&gt;                       &lt;li&gt;&lt;span style="color: blue;font-size: 8.0pt;"&gt;MODIFIED&lt;/span&gt;             &lt;a href="https://github.com/megacorp/terraform-wonderproject/commit/041c5092bdac0be744f0b2dd310b1820a8a6227b#diff-11" target="_blank"&gt;rancher-environments/georhena-dev/secrets/client-authorized-keys&lt;/a&gt;                       &lt;li&gt;&lt;span style="color: blue;font-size: 8.0pt;"&gt;MODIFIED&lt;/span&gt;             &lt;a href="https://github.com/megacorp/terraform-wonderproject/commit/041c5092bdac0be744f0b2dd310b1820a8a6227b#diff-12" target="_blank"&gt;rancher-environments/grandest-dev/secrets/admin-authorized-keys&lt;/a&gt;                       &lt;li&gt;&lt;span style="color: blue;font-size: 8.0pt;"&gt;MODIFIED&lt;/span&gt;             &lt;a href="https://github.com/megacorp/terraform-wonderproject/commit/041c5092bdac0be744f0b2dd310b1820a8a6227b#diff-13" target="_blank"&gt;rancher-environments/grandest-dev/secrets/client-authorized-keys&lt;/a&gt;                       &lt;li&gt;&lt;span style="color: blue;font-size: 8.0pt;"&gt;MODIFIED&lt;/span&gt;             &lt;a href="https://github.com/megacorp/terraform-wonderproject/commit/041c5092bdac0be744f0b2dd310b1820a8a6227b#diff-14" target="_blank"&gt;rancher-environments/grandest-dev/secrets/cms-authorized-keys&lt;/a&gt;                       &lt;li&gt;&lt;span style="color: blue;font-size: 8.0pt;"&gt;MODIFIED&lt;/span&gt;             &lt;a href="https://github.com/megacorp/terraform-wonderproject/commit/041c5092bdac0be744f0b2dd310b1820a8a6227b#diff-15" target="_blank"&gt;rancher-environments/grandest-prod/secrets/admin-authorized-keys&lt;/a&gt;                       &lt;li&gt;&lt;span style="color: blue;font-size: 8.0pt;"&gt;MODIFIED&lt;/span&gt;             &lt;a href="https://github.com/megacorp/terraform-wonderproject/commit/041c5092bdac0be744f0b2dd310b1820a8a6227b#diff-16" target="_blank"&gt;rancher-environments/grandest-prod/secrets/client-authorized-keys&lt;/a&gt;                       &lt;li&gt;&lt;span style="color: blue;font-size: 8.0pt;"&gt;MODIFIED&lt;/span&gt;             &lt;a href="https://github.com/megacorp/terraform-wonderproject/commit/041c5092bdac0be744f0b2dd310b1820a8a6227b#diff-17" target="_blank"&gt;rancher-environments/grandest-prod/secrets/cms-authorized-keys&lt;/a&gt;              &lt;/ul&gt;  &lt;a class="CommitRowsMore" href="https://github.com/megacorp/terraform-wonderproject/commit/041c5092bdac0be744f0b2dd310b1820a8a6227b" target="_blank"&gt;     &lt;div class="CommitRows"&gt;... see more changes&lt;/div&gt; &lt;/a&gt; </content>
+    <author xmlns:usr="http://streams.atlassian.com/syndication/username/1.0">
+      <name/>
+      <link xmlns:media="http://purl.org/syndication/atommedia" rel="photo" href="https://avatars.githubusercontent.com/u/594335?v=4&amp;s=16" media:height="16" media:width="16"/>
+      <link xmlns:media="http://purl.org/syndication/atommedia" rel="photo" href="https://avatars.githubusercontent.com/u/594335?v=4&amp;s=48" media:height="48" media:width="48"/>
+      <usr:username/>
+      <activity:object-type>http://activitystrea.ms/schema/1.0/person</activity:object-type>
+    </author>
+    <published>2021-09-15T11:48:34.000Z</published>
+    <updated>2021-09-15T11:48:34.000Z</updated>
+    <generator uri="https://jira"/>
+    <atlassian:application>JIRA</atlassian:application>
+    <activity:verb>http://activitystrea.ms/schema/1.0/update</activity:verb>
+    <activity:object>
+      <id>041c5092bdac0be744f0b2dd310b1820a8a6227b</id>
+      <activity:object-type>http://activitystrea.ms/schema/1.0/status</activity:object-type>
+    </activity:object>
+    <atlassian:timezone-offset>+0200</atlassian:timezone-offset>
+  </entry>
+</feed>

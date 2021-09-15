@@ -7,36 +7,45 @@ import com.ullink.slack.simpleslackapi.SlackUser
 import com.ullink.slack.simpleslackapi.events.SlackMessagePosted
 import com.ullink.slack.simpleslackapi.listeners.SlackMessagePostedListener
 import fr.spironet.slackbot.jira.IssueDetailsResolver
+import fr.spironet.slackbot.jira.JiraRss
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+
+import java.text.SimpleDateFormat
 
 class JiraListener implements SlackMessagePostedListener  {
 
   private final static Logger logger = LoggerFactory.getLogger(JiraListener.class)
 
     def issueResolver
+    JiraRss jiraRss
 
     def jiraUser
     def jiraPassword
     def jiraUrl
 
+    def dateFormat = new SimpleDateFormat("yyyy-MM-dd")
+
     def usage = """
-    Usage: !jira (<jira-id>|mine|user <username>|monitoring|support|worklog <jira-id>)
+    Usage: !jira (<jira-id>|mine|user <username>|monitoring|support|worklog <jira-id>|activity)
       mine returns your opened issues ordered by priority
       support returns the opened issues for the support since the begining of the current week
       monitoring returns the issues currently reported on the monitoring screen
       worklog <jira-id> returns the worklog summarized by users of the provided JIRA issue
       <jira-id> returns the title and the description of the given JIRA issue
+      activity returns the activity from the last week, relying on our personal RSS feed
 
     Example: !jira GEO-2246
     """
 
     public JiraListener() {
       this.issueResolver = new IssueDetailsResolver()
+      this.jiraRss = new JiraRss()
     }
 
     public JiraListener(def jiraPropsFile, def confluenceServerUrl, def ghToken) {
       this.issueResolver = new IssueDetailsResolver(jiraPropsFile, confluenceServerUrl, ghToken)
+      this.jiraRss = new JiraRss(jiraPropsFile)
     }
 
     /**
@@ -158,6 +167,23 @@ class JiraListener implements SlackMessagePostedListener  {
         return SlackPreparedMessage.builder().message(ret).build()
     }
 
+    SlackPreparedMessage activity() {
+      def items = jiraRss.rssGetMyActivity()
+      if (items.size() == 0)
+        return SlackPreparedMessage.builder().message(":computer: No activity recorded from the JIRA RSS endpoint.").build()
+      def ret = ":computer: Activity from the JIRA RSS endpoint (back to last sunday):"
+
+      def currentDate
+      items.each {
+        def itemDate = dateFormat.format(it.date.toDate())
+        if (itemDate != currentDate) {
+          ret += "\n*• ${itemDate}:*\n"
+          currentDate = itemDate
+        }
+        ret += "${it.desc}\n"
+      }
+      return SlackPreparedMessage.builder().message(ret).build()
+    }
     /**
      * Untyped version of the `onEvent()` call to allow testing.
      *
@@ -209,6 +235,12 @@ class JiraListener implements SlackMessagePostedListener  {
             issueKey2 = issueKey2[0][1]
             session.sendMessage(channelOnWhichMessageWasPosted,
                     issueWorklog(issueKey2)
+            )
+            return
+          }
+          if (issueKey == "activity") {
+            session.sendMessage(channelOnWhichMessageWasPosted,
+                    activity()
             )
             return
           }

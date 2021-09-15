@@ -1,6 +1,7 @@
 package fr.spironet.slackbot.jira
 
 import com.google.common.cache.CacheBuilder
+import groovy.xml.XmlSlurper
 import groovyx.net.http.HTTPBuilder
 import org.jsoup.Jsoup
 import org.jsoup.safety.Whitelist
@@ -32,6 +33,25 @@ class JiraRss {
         this.jiraRssUrl   = props.getProperty("jira.server.url")
         this.jiraUser     = props.getProperty("jira.user.id")
         this.jiraPassword = props.getProperty("jira.user.pwd")
+        this.http         = new HTTPBuilder(this.jiraRssUrl)
+    }
+
+    def JiraRss(def propsFile) {
+        def props = new Properties()
+        File propertiesFile = new File(propsFile)
+        propertiesFile.withInputStream {
+            props.load(it)
+        }
+        this.jiraRssUrl   = props.getProperty("jira.server.url")
+        this.jiraUser     = props.getProperty("jira.user.id")
+        this.jiraPassword = props.getProperty("jira.user.pwd")
+        this.http         = new HTTPBuilder(this.jiraRssUrl)
+    }
+
+    def JiraRss(def jiraRssUrl, def jiraUser, def jiraPassword) {
+        this.jiraRssUrl   = jiraRssUrl
+        this.jiraUser     = jiraUser
+        this.jiraPassword = jiraPassword
         this.http         = new HTTPBuilder(this.jiraRssUrl)
     }
 
@@ -104,5 +124,48 @@ class JiraRss {
             }
         }
         return ret
+    }
+
+    /**
+     * Calculates the date of the last sunday.
+     *
+     * (if current day is monday, we want to get further than just "yesterday", though).
+     *
+     * @return the date of the "last" sunday.
+     */
+    def lastSunday() {
+        def cal = Calendar.instance
+        if (cal.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY) {
+            cal.add(Calendar.DAY_OF_WEEK, -7)
+        }
+        while (cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
+            cal.add(Calendar.DAY_OF_WEEK, -1)
+        }
+        cal.time.toLocalDateTime()
+    }
+
+    def rssGetMyActivity(def maxResults = 250) {
+        def authorizationHeader = "Basic " + "${jiraUser}:${jiraPassword}".bytes.encodeBase64()
+
+        def rssFeed = http.get(path: "/activity",
+                queryString: "maxResults=${maxResults}&streams=user+IS+${this.jiraUser}" as String,
+                headers: ["Authorization": authorizationHeader])
+
+        def lastSunday = lastSunday()
+
+        def entries = rssFeed.entry.findResults {
+            def date = parseRssIsoInstantMsec(it.published.text())
+            if (date < lastSunday)
+                return null
+            def summary = it.content.text().isEmpty() ? it.title.text() : it.title.text() + it.content.text()
+            def doc = Jsoup.parse(summary).text()
+            if (doc.contains(" logged ") || doc.contains(" updated 2 fields "))
+                return null
+            if (doc.length() > 152)
+                doc = doc[0..150] + "…"
+
+            [desc: doc , date: date]
+        }
+        return entries
     }
 }
