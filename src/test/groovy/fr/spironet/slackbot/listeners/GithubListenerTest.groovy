@@ -8,7 +8,7 @@ import static org.junit.Assert.assertTrue
 class GithubListenerTest {
 
     @Test
-    void testGithubListener() {
+    void testGithubListenerFindRepos() {
             def ghLstnr = new GithubListener() {
                 @Override
                 def doGithubSearch(def query) {
@@ -17,7 +17,10 @@ class GithubListenerTest {
                 }
             }
             def msg = ghLstnr.findRepositories(["trifouillis"])
-            assertTrue(msg.message.contains("myorg/georchestra-trifouillis-public-customizations"))
+            assertTrue(msg.message.contains("myorg/georchestra-trifouillis-public-customizations") &&
+                    msg.message.contains("*<https://github.com/myorg/terraform-trifouillismetropole/issues|issues>* |") &&
+                    msg.message.contains("*<https://github.com/myorg/terraform-trifouillismetropole/pulls|pull-requests>* |") &&
+                    msg.message.contains("*<https://github.com/myorg/terraform-trifouillismetropole/actions|Github-Actions>*")
+        )
     }
-
 }

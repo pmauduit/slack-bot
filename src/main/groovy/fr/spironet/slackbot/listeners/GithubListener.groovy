@@ -122,7 +122,11 @@ class GithubListener implements SlackMessagePostedListener  {
       else {
         ret = ":ledger: Here are the github repositories in the Camptocamp organization with topic ${topics} *(${response.data.total_count})*\n"
         response.data.items.each {
-          ret += "• *<${it.html_url}|${it.full_name}>* - ${it.description ? it.description : "_No description_"}\n"
+          def urlToIssues  = "${it.html_url}/issues"
+          def urlToPrs     = "${it.html_url}/pulls"
+          def urlToActions = "${it.html_url}/actions"
+          ret += "• *<${it.html_url}|${it.full_name}>* - ${it.description ? it.description : "_No description_"} |" +
+                  " *<${urlToIssues}|issues>* | *<${urlToPrs}|pull-requests>* | *<${urlToActions}|Github-Actions>*\n"
         }
       }
       return SlackPreparedMessage.builder().message(ret).build()
