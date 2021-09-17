@@ -3,10 +3,14 @@ package fr.spironet.slackbot.listeners
 
 import com.ullink.slack.simpleslackapi.impl.SlackPersonaImpl
 import com.ullink.slack.simpleslackapi.impl.SlackProfileImpl
+import fr.spironet.slackbot.jira.JiraRss
 import fr.spironet.slackbot.jira.MockJiraResponse
 import fr.spironet.slackbot.jira.MockJiraRssResponse
 import org.junit.Before
 import org.junit.Test
+
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 import static org.junit.Assert.assertTrue
 
@@ -45,6 +49,13 @@ class JiraListenerTest {
             }
         }
 
+        this.toTest.jiraRss = new JiraRss("http://jira", "jdoe", "secret") {
+            @Override
+            def lastSunday() {
+                def formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+                return LocalDateTime.parse("2021-09-12 20:35", formatter)
+            }
+        }
         this.toTest.jiraRss.http = new MockJiraRssResponse()
     }
 
@@ -156,7 +167,7 @@ class JiraListenerTest {
                         ":computer: Activity from the JIRA RSS endpoint (back to last sunday):"
                 ) &&
                 this.session.sentMessages[0].message.contains("*• 2021-09-15:* _[") &&
-                this.session.sentMessages[0].message.contains("ABC-1965")
+                this.session.sentMessages[0].message.contains("<http://jira/browse/ABC-1234|ABC-1234>")
         )
     }
 
