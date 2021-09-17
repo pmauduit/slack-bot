@@ -59,7 +59,7 @@ class TerraformScheduledService extends AbstractScheduledService {
                 def lastState = tfStateAnalyzer.getState(it, versions[0].id)
                 def diff = tfStateAnalyzer.compareStates(previousState, lastState)
                 if (diff.size() > 0) {
-                    def message = ":terraform: *Changes detected* on state ${it}:\n"
+                    def message = ":terraform: *Changes detected* on state *${it}*:\n"
                     message += tfStateAnalyzer.prettyPrintDiff(diff)
                     def slackMessage = SlackPreparedMessage.builder().message(message).build()
                     slackSession.sendMessageToUser(botOwner, slackMessage)
