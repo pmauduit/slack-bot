@@ -11,20 +11,27 @@ class PmauduitEventFilter implements EventFilter {
 
     private final static Logger logger = LoggerFactory.getLogger(PmauduitEventFilter.class)
 
-    private def filteredGithubAccount = [
+    private def filteredGithubAccounts = [
             "sbrunner",
             "nbessi",
             "Camille0907",
             "faselm"
     ]
 
+    private def filteredGithubRepos = [
+            "geonetwork/core-geonetwork",
+            "camptocamp/helm-apache",
+            "camptocamp/helm-geoportal",
+            "camptocamp/helm-geomapfish"
+    ]
+
     @Override
     boolean doFilter(def event) {
         try {
-            if (event.actor.login in this.filteredGithubAccount) {
+            if (event.actor.login in this.filteredGithubAccounts) {
                 return true
             }
-            if (event.repo.name == "geonetwork/core-geonetwork") {
+            if (event.repo.name in this.filteredGithubRepos ) {
                 return true
             }
             if (event.repo.name.contains("odoo")) {
