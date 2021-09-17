@@ -6,6 +6,7 @@ import groovyx.net.http.HTTPBuilder
 import org.jsoup.Jsoup
 import org.jsoup.safety.Whitelist
 
+import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -23,6 +24,9 @@ class JiraRss {
             .maximumSize(1000)
             .expireAfterWrite(4, TimeUnit.HOURS)
             .build()
+
+    def simpleDate = new SimpleDateFormat("yyyy-MM-dd")
+    def jiraIssueKeyRegex = /((?<!([A-Z]{1,10})-?)[A-Z]+-\d+)/
 
     def JiraRss() {
         def props = new Properties()
@@ -128,7 +132,6 @@ class JiraRss {
 
     /**
      * Calculates the date of the last sunday.
-     *
      * (if current day is monday, we want to get further than just "yesterday", though).
      *
      * @return the date of the "last" sunday.
@@ -144,6 +147,15 @@ class JiraRss {
         cal.time.toLocalDateTime()
     }
 
+    /**
+     * Gets the rss feed of "my" (relative to the jira user login) activity.
+     * @param maxResults the max results to return. Generally 250 (the default)
+     * is sufficient to cover a whole week.
+     *
+     * @return an array of map having the following fields:
+     *   * desc: description of the event,
+     *   * date: the LocalDateTimeObject.
+     */
     def rssGetMyActivity(def maxResults = 250) {
         def authorizationHeader = "Basic " + "${jiraUser}:${jiraPassword}".bytes.encodeBase64()
 
@@ -167,5 +179,30 @@ class JiraRss {
             [desc: doc , date: date]
         }
         return entries
+    }
+
+    /**
+     * given an array of map returned by rssGetMyActivity(), returns a map indexed
+     * by date (format "yyyy-MM-dd"), and a set of issues.
+     *
+     * @param entries the array of event entries
+     * @return a map with the following specification:
+     *   * key: the date "yyy-MM-dd" format
+     *   * value: a set of detected JIRA issue keys.
+     */
+    def getIssuesWorkedOnByDate(def entries) {
+        def ret = [:]
+        entries.each {
+            def date = simpleDate.format(it.date.toDate())
+            if (! (date in ret)) {
+                ret[date] = []
+            }
+            def detectedIssuesKeys = it.desc.findAll(jiraIssueKeyRegex) as Set
+            if (detectedIssuesKeys.size() > 0) {
+                ret[date] = (ret[date] + detectedIssuesKeys) as Set
+            }
+
+        }
+        return ret
     }
 }

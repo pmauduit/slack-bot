@@ -3,8 +3,8 @@ package fr.spironet.slackbot.listeners
 
 import com.ullink.slack.simpleslackapi.impl.SlackPersonaImpl
 import com.ullink.slack.simpleslackapi.impl.SlackProfileImpl
-import fr.spironet.slackbot.jira.IssueDetailsResolver
 import fr.spironet.slackbot.jira.MockJiraResponse
+import fr.spironet.slackbot.jira.MockJiraRssResponse
 import org.junit.Before
 import org.junit.Test
 
@@ -45,10 +45,11 @@ class JiraListenerTest {
             }
         }
 
+        this.toTest.jiraRss.http = new MockJiraRssResponse()
     }
 
     @Test
-    void testJiraListenerDoOnEventEmptyMessageOrUnrelated() {
+    void testDoOnEventEmptyMessageOrUnrelated() {
         this.session.sentMessages = []
         this.toTest.doOnEvent(event, session)
 
@@ -63,7 +64,7 @@ class JiraListenerTest {
     }
 
     @Test
-    void testJiraListenerDoOnEventBadIssueKey() {
+    void testDoOnEventBadIssueKey() {
         this.session.sentMessages = []
         event.messageContent = "!jira help"
         this.toTest.doOnEvent(event, session)
@@ -75,7 +76,7 @@ class JiraListenerTest {
     }
 
     @Test
-    void testJiraListenerDoOnEventGetIssue() {
+    void testDoOnEventGetIssue() {
         this.session.sentMessages = []
         event.messageContent = "!jira ABC-316"
         this.toTest.doOnEvent(event, session)
@@ -86,7 +87,7 @@ class JiraListenerTest {
     }
 
     @Test
-    void testJiraListenerDoOnEventGetWorklog() {
+    void testDoOnEventGetWorklog() {
         this.session.sentMessages = []
         event.messageContent = "!jira worklog ABC-316"
         this.toTest.doOnEvent(event, session)
@@ -98,7 +99,7 @@ class JiraListenerTest {
     }
 
     @Test
-    void testJiraListenerDoOnEventGetMyIssue() {
+    void testDoOnEventGetMyIssue() {
         this.session.sentMessages = []
         event.messageContent = "!jira mine"
         this.toTest.doOnEvent(event, session)
@@ -108,7 +109,7 @@ class JiraListenerTest {
     }
 
     @Test
-    void testJiraListenerDoOnEventGetPSebastienIssues() {
+    void testDoOnEventGetPSebastienIssues() {
         this.session.sentMessages = []
         event.messageContent = "!jira user psebastien"
         this.toTest.doOnEvent(event, session)
@@ -120,7 +121,7 @@ class JiraListenerTest {
     }
 
     @Test
-    void testJiraListenerDoOnEventGetIssuesOnMonitoring() {
+    void testDoOnEventGetIssuesOnMonitoring() {
         this.session.sentMessages = []
         event.messageContent = "!jira monitoring"
         this.toTest.doOnEvent(event, session)
@@ -132,7 +133,7 @@ class JiraListenerTest {
     }
 
     @Test
-    void testJiraListenerDoOnEventGetIssuesOnSupport() {
+    void testDoOnEventGetIssuesOnSupport() {
         this.session.sentMessages = []
         event.messageContent = "!jira support"
         this.toTest.doOnEvent(event, session)
@@ -141,6 +142,22 @@ class JiraListenerTest {
         // result as the previous tests.
         assertTrue(session.sentMessages.size() == 1 &&
                 session.sentMessages[0].message.startsWith(":warning: Unresolved issues in the GEO support project since the begining of the week *(4)*:"))
+    }
+
+    @Test
+    void testDoOnEventActivity() {
+        this.session.sentMessages = []
+        event.messageContent = "!jira activity"
+
+        this.toTest.doOnEvent(event, session)
+
+        assertTrue(this.session.sentMessages.size() == 1 &&
+                this.session.sentMessages[0].message.contains(
+                        ":computer: Activity from the JIRA RSS endpoint (back to last sunday):"
+                ) &&
+                this.session.sentMessages[0].message.contains("*• 2021-09-15:* _[") &&
+                this.session.sentMessages[0].message.contains("ABC-1965")
+        )
     }
 
 }
