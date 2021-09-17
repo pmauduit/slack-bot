@@ -10,20 +10,32 @@ import fr.spironet.slackbot.tempo.TempoApi
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
+import java.text.SimpleDateFormat
+
 class TempoListener implements SlackMessagePostedListener  {
 
     private final static Logger logger = LoggerFactory.getLogger(TempoListener.class)
 
     def usage = """
-    Usage: !tempo <date> <JIRA issue key> <time spent> "message"
-    * date should have the 'YYYY-mm-dd' format
+    Usage: !tempo create <date> <JIRA issue key> <time spent> "<message>"
+    Creates a worklog
+    * date should have the 'yyyy-MM-dd' format
     * JIRA issue key, e.g. "GSREN-22"
     * time spent could be in the following form: "1h30m", or "1h", or "30m", or "2h00"
+    
+    Usage: !tempo report <dateBegin> <dateEnd>
+    Creates a report from datebegin to dateend, sent to the user as an image over Slack.
+    * dateBegin and dateEnd should have the 'yyyy-MM-dd' format
     """
+
+    def messageWlPat  = /^\!tempo (.*) (.*) (.*) (.*) "(.*)"$/
+    def messageRepPat = /^\!tempo (.*) (.*) (.*)$/
+
+    def tempoDateFormat = new SimpleDateFormat("yyyy-MM-dd")
 
     def tempoApi
 
-    public TempoListener() {
+    TempoListener() {
       // This class expects a JIRA_CLIENT_PROPERTY_FILE env variable to be set
       // see env.dist at the root of the repository.
       String propsFile = System.getenv("JIRA_CLIENT_PROPERTY_FILE")
@@ -34,6 +46,19 @@ class TempoListener implements SlackMessagePostedListener  {
       }
         this.tempoApi = new TempoApi(properties."jira.user.id", properties."jira.user.pwd",
                 properties."jira.server.url")
+    }
+
+    TempoListener(def jiraUser, def jiraPassword, def jiraUrl) {
+        this.tempoApi = new TempoApi(jiraUser, jiraPassword, jiraUrl)
+    }
+
+    def isUnparseableDate(def date) {
+        try {
+            tempoDateFormat.parse(date)
+        } catch (Exception _) {
+            return true
+        }
+        return false
     }
 
     private SlackPreparedMessage createWorklog(def message, def issueKey, def date, def timeSpent)  {
@@ -48,10 +73,29 @@ class TempoListener implements SlackMessagePostedListener  {
     }
 
     def parseCommand(def str) throws Exception {
-        def messagePat = /^\!tempo (.*) (.*) (.*) "(.*)"$/
-        def match = str =~ messagePat
+
+        def match = str =~ messageWlPat
         if (match.size() > 0) {
-            return [ 'date': match[0][1], 'issueKey': match[0][2], 'timeMinutes': match[0][3], 'message': match[0][4]]
+            if ((match[0][1] != "create") || isUnparseableDate(match[0][2])) {
+                throw new Exception("unable to parse tempo command")
+            }
+            return [ 'command': match[0][1],
+                     'date': match[0][2],
+                     'issueKey': match[0][3],
+                     'timeMinutes': match[0][4],
+                     'message': match[0][5]
+            ]
+        }
+        match = str =~ messageRepPat
+        if (match.size() > 0) {
+            if ((match[0][1] != "report") || isUnparseableDate(match[0][2])
+            || isUnparseableDate(match[0][3])) {
+                throw new Exception("unable to parse tempo command")
+            }
+            return [ 'command': match[0][1],
+                     'dateBegin': match[0][2],
+                     'dateEnd': match[0][3]
+            ]
         }
         throw new Exception ("unable to parse tempo command")
     }
@@ -68,9 +112,15 @@ class TempoListener implements SlackMessagePostedListener  {
 
       if (messageContent.contains("!tempo")) {
         try {
-          def params = parseCommand(messageContent)
-          def mesg   = createWorklog(params.message, params.issueKey, params.date, params.timeMinutes)
-          session.sendMessage(channelOnWhichMessageWasPosted, mesg)
+            def params = parseCommand(messageContent)
+            if (params.command == "create") {
+                def mesg = createWorklog(params.message, params.issueKey, params.date, params.timeMinutes)
+                session.sendMessage(channelOnWhichMessageWasPosted, mesg)
+            } else if (params.command == "report") {
+                def report = tempoApi.generateReport(params.dateBegin, params.dateEnd)
+                session.sendFile(channelOnWhichMessageWasPosted, report, "Timesheet report " +
+                        "from ${params.dateBegin} to ${params.dateEnd}")
+            }
         } catch (Exception e) {
           logger.error("Error occured", e)
           session.sendMessage(channelOnWhichMessageWasPosted,

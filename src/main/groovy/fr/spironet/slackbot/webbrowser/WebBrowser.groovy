@@ -43,6 +43,26 @@ class WebBrowser {
         //options.addArguments("start-maximized")
         return new ChromeDriver(options)
     }
+    def visit(def url) {
+        def driver
+        try {
+            driver = getDriver()
+        } catch (IllegalStateException e) {
+            logger.error("Driver not available.")
+            return null
+        }
+        try {
+            driver.get(url)
+            byte[] data = driver.getScreenshotAs(OutputType.BYTES)
+            if (data == null) {
+                return null
+            }
+            return new ByteArrayInputStream(data)
+        } finally {
+            driver.close()
+            driver.quit()
+        }
+    }
 
     def visitKibanaDashboard() {
         def driver
