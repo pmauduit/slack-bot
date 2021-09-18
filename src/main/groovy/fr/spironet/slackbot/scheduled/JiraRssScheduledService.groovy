@@ -25,12 +25,6 @@ class JiraRssScheduledService extends AbstractScheduledService {
         this.slackSession = slackSession
     }
 
-    @Override
-    protected void startUp() {}
-
-    @Override
-    protected void shutDown() {}
-
     private SlackPreparedMessage prepareNotification(def issue, def issueChanges) {
         def message =":spiral_note_pad: Issue *<${jiraRss.jiraRssUrl}/browse/${issue}|${issue}>*:\n"
 

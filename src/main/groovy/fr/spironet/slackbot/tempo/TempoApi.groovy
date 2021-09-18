@@ -20,6 +20,7 @@ class TempoApi {
 
     static def createWorklogUrl = "/rest/tempo-timesheets/4/worklogs/"
     static def searchWorklogUrl = "/rest/tempo-timesheets/4/worklogs/search"
+    static def timeSheetApprovalStatus = "/rest/tempo-timesheets/4/timesheet-approval/approval-statuses"
 
     def TempoApi(def username, def password, def jiraUrl) {
         this.username = username
@@ -232,6 +233,43 @@ class TempoApi {
 
     }
 
+    /**
+     * Given a date, returns if the timesheet the date belongs to
+     * has been approved or not.
+     *
+     * @param date the date the period belongs to.
+     * @return true if timesheet for this period has been approved,
+     * false otherwize.
+     *
+     */
+    def isTimesheetApproved(def date) {
+        def response = http.get(
+                uri: this.jiraUrl,
+                path: TempoApi.timeSheetApprovalStatus,
+                queryString:"userKey=${this.username}&periodStartDate=${date}",
+                headers: [
+                        Authorization: "Basic " + "${this.username}:${this.password}".bytes.encodeBase64()
+                ],
+        )
+        return response.data[0].status == "approved"
+    }
+
+    /**
+     * Given two dates, returns a report as a PNG with 3 graphs:
+     *
+     * * a graph giving the work time per day on the interval,
+     * * a graph giving the work time per project, descending,
+     * * a graph giving the work time per issues, descending.
+     *
+     * Note: a temporary website in d3js is created, and a WebBrowser
+     * is invoked on it to generate the image sent as output. The
+     * website files are removed at the end of the method.
+     *
+     * @param dateBegin the start date
+     * @param dateEnd the end date
+     *
+     * @return a PNG as a ByteArrayOutputStream object.
+     */
     def generateReport(def dateBegin, def dateEnd) {
         File reportDir = File.createTempDir()
         try {
