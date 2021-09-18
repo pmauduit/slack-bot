@@ -51,6 +51,13 @@ class TempoListener implements SlackMessagePostedListener {
                 properties."jira.server.url")
     }
 
+    /**
+     * Constructor used for the unit tests, not meant to be used.
+     * @param jiraUser the JIRA login/username
+     * @param jiraPassword the JIRA password
+     * @param jiraUrl the JIRA URL.
+     *
+     */
     TempoListener(def jiraUser, def jiraPassword, def jiraUrl) {
         this.tempoApi = new TempoApi(jiraUser, jiraPassword, jiraUrl)
     }
