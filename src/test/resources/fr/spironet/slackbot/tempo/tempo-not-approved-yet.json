@@ -1,0 +1,25 @@
+[
+  {
+    "user": {
+      "self": "https://jira/rest/api/2/user?username=jdoe",
+      "name": "jdoe",
+      "key": "jdoe",
+      "displayName": "John Doe",
+      "avatar": "https://jira/secure/useravatar?size=small&ownerId=jdoe&avatarId=123"
+    },
+    "status": "open",
+    "workedSeconds": 0,
+    "submittedSeconds": 0,
+    "requiredSeconds": 21334,
+    "requiredSecondsRelativeToday": 12345,
+    "period": {
+      "periodView": "WEEK",
+      "dateFrom": "2021-09-13",
+      "dateTo": "2021-09-19"
+    },
+    "smartDateString": "Current period",
+    "worklogs": {
+      "href": "https://jira/rest/tempo-timesheets/3/worklogs?username=jdoe&dateFrom=2021-09-13&dateTo=2021-09-19"
+    }
+  }
+]

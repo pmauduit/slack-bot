@@ -18,4 +18,18 @@ class MockTempoResponse {
             return [data: new JsonSlurper().parseText(txt)]
         }
     }
+    def get(def args) {
+        if (args.queryString.contains("2021-09-13")) {
+            def txt = new File(
+                    this.getClass().getResource("tempo-not-approved-yet.json").toURI()
+            ).text
+            return [data: new JsonSlurper().parseText(txt)]
+        } else if (args.queryString.contains("2021-09-06")) {
+            def txt = new File(
+                    this.getClass().getResource("tempo-approved.json").toURI()
+            ).text
+            return [data: new JsonSlurper().parseText(txt)]
+        }
+        return null
+    }
 }

@@ -1,0 +1,44 @@
+[
+  {
+    "user": {
+      "self": "https://jira/rest/api/2/user?username=jdoe",
+      "name": "jdoe",
+      "key": "jdoe",
+      "displayName": "John Doe",
+      "avatar": "https://jira/secure/useravatar?size=small&ownerId=jdoe&avatarId=123"
+    },
+    "status": "approved",
+    "workedSeconds": 123456,
+    "submittedSeconds": 123456,
+    "requiredSeconds": 1234566,
+    "requiredSecondsRelativeToday": 1234566,
+    "period": {
+      "periodView": "WEEK",
+      "dateFrom": "2021-09-06",
+      "dateTo": "2021-09-12"
+    },
+    "smartDateString": "Last period",
+    "action": {
+      "name": "approve",
+      "comment": "Ok, great job, TS approved, thanks !",
+      "reviewer": {
+        "self": "https://jira/rest/api/2/user?username=mmusterman",
+        "name": "mmusterman",
+        "key": "mmusterman",
+        "displayName": "Max Musterman",
+        "avatar": "https://jira/secure/useravatar?size=small&ownerId=mmusterman&avatarId=1234"
+      },
+      "actor": {
+        "self": "https://jira/rest/api/2/user?username=mmusterman",
+        "name": "mmusterman",
+        "key": "mmusterman",
+        "displayName": "Max Musterman",
+        "avatar": "https://jira/secure/useravatar?size=small&ownerId=mmusterman&avatarId=1234"
+      },
+      "created": "2021-09-13T11:33:09.000"
+    },
+    "worklogs": {
+      "href": "https://jira/rest/tempo-timesheets/3/worklogs?username=jdoe&dateFrom=2021-09-06&dateTo=2021-09-12"
+    }
+  }
+]

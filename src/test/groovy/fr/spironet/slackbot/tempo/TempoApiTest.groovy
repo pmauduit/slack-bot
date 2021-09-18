@@ -9,6 +9,8 @@ import java.awt.image.BufferedImage
 import java.nio.file.Paths
 
 import static org.junit.Assert.assertTrue
+import static org.junit.Assert.assertFalse
+
 
 class TempoApiTest {
     def toTest = new TempoApi(null, null, null)
@@ -106,6 +108,19 @@ class TempoApiTest {
         BufferedImage imgRead = ImageIO.read(new ByteArrayInputStream(img.getBytes()))
         assertTrue(imgRead.getHeight() == 1055 &&
                 imgRead.getWidth() == 1220)
+    }
+
+    @Test
+    void testIsTimesheetApprovedNotApprovedYet() {
+        def ret = this.toTest.isTimesheetApproved("2021-09-13")
+
+        assertFalse(ret)
+    }
+    @Test
+    void testIsTimesheetApprovedTsApproved() {
+        def ret = this.toTest.isTimesheetApproved("2021-09-06")
+
+        assertTrue(ret)
     }
 
 }
