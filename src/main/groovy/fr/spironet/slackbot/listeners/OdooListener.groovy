@@ -57,7 +57,7 @@ class OdooListener implements SlackMessagePostedListener  {
      *
      * @return a SlackPreparedMessage instance.
      */
-    private def vacations() {
+    def vacations() {
         def plannedVacations = []
         try {
             plannedVacations = odooClient.getComingLeavesForUser(this.username)
@@ -88,7 +88,7 @@ class OdooListener implements SlackMessagePostedListener  {
      *
      * @return a SlackPreparedMessage object.
      */
-    private def getUserAttendanceState(def user) {
+    def getUserAttendanceState(def user) {
         def attendance
         def message = ""
         try {

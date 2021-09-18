@@ -9,7 +9,7 @@ import static org.junit.Assert.assertTrue
 
 class OdooListenerTest {
 
-    private def toTest
+    private OdooListener toTest
 
     @Before
     void setUp() {
@@ -41,5 +41,19 @@ class OdooListenerTest {
         def ret = toTest.timeSheet()
 
         assertTrue(ret.contains("2021-08-25: 08:00"))
+    }
+
+    @Test
+    void testVacations() {
+        def ret = toTest.vacations()
+
+        assertTrue(ret.message.startsWith(":desert_island: Here are your currently accepted leaves *(4)*:"))
+    }
+
+    @Test
+    void testGetUserAttendanceState() {
+        def ret = toTest.getUserAttendanceState("jdoe")
+
+        assertTrue(ret.message.startsWith(":zzz: relying on Odoo, *jdoe* is currently *signed out*."))
     }
 }
