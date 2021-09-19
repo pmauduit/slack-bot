@@ -22,6 +22,8 @@ class TempoApi {
     static def searchWorklogUrl = "/rest/tempo-timesheets/4/worklogs/search"
     static def timeSheetApprovalStatus = "/rest/tempo-timesheets/4/timesheet-approval/approval-statuses"
 
+    def dateFormat = new SimpleDateFormat("yyyy-MM-dd")
+
     def TempoApi(def username, def password, def jiraUrl) {
         this.username = username
         this.password = password
@@ -135,11 +137,10 @@ class TempoApi {
      */
     def worklogsWeekPerDay(def data) {
         def perDay = [:]
-        def sdf = new SimpleDateFormat("yyyy-MM-dd")
         def dowf = new SimpleDateFormat("EEE")
 
         data.each {
-            def date = sdf.parse(it.started)
+            def date = this.dateFormat.parse(it.started)
             def dow = dowf.format(date)
             if (perDay[dow] == null) {
                 perDay[dow] = it.timeSpentSeconds
@@ -204,12 +205,15 @@ class TempoApi {
      * Calculates the date of the last sunday.
      * (if current day is monday, we want to get further than just "yesterday", though).
      * TODO: copy/pasted from JiraRss.
+     * @param a string which represents the date to base the calculus on, defaults to null.
+     * if null, the current date will be used.
      * @return the date of the "last" sunday.
      */
-    def lastSunday() {
+    def lastSunday(def strDate = null) {
         def cal = Calendar.instance
-        if (cal.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY) {
-            cal.add(Calendar.DAY_OF_WEEK, -7)
+        if (strDate != null) {
+            def parsed = this.dateFormat.parse(strDate)
+            cal.setTime(parsed)
         }
         while (cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
             cal.add(Calendar.DAY_OF_WEEK, -1)
@@ -220,12 +224,13 @@ class TempoApi {
     /**
      * Given a date as argument, calculates the next friday, relative
      * to this date.
-     * @param relativeSunday
+     * @param relativeSunday a string representing the relative date to calculate the next friday on.
      * @return the date of the next friday.
      */
     def nextFriday(def relativeSunday) {
+        def rs = this.dateFormat.parse(relativeSunday)
         def cal = Calendar.instance
-        cal.setTime(relativeSunday.toDate())
+        cal.setTime(rs)
         while(cal.get(Calendar.DAY_OF_WEEK) != Calendar.FRIDAY) {
             cal.add(Calendar.DAY_OF_WEEK, 1)
         }
@@ -246,7 +251,7 @@ class TempoApi {
         def response = http.get(
                 uri: this.jiraUrl,
                 path: TempoApi.timeSheetApprovalStatus,
-                queryString:"userKey=${this.username}&periodStartDate=${date}",
+                queryString:"userKey=${this.username}&periodStartDate=${date}" as String,
                 headers: [
                         Authorization: "Basic " + "${this.username}:${this.password}".bytes.encodeBase64()
                 ],

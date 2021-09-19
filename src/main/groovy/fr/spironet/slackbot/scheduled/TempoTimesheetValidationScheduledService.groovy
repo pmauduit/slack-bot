@@ -2,12 +2,10 @@ package fr.spironet.slackbot.scheduled
 
 import com.google.common.util.concurrent.AbstractScheduledService
 import com.ullink.slack.simpleslackapi.SlackPreparedMessage
-import com.ullink.slack.simpleslackapi.SlackSession
 import fr.spironet.slackbot.tempo.TempoApi
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-import java.text.SimpleDateFormat
 import java.util.concurrent.TimeUnit
 
 class TempoTimesheetValidationScheduledService  extends AbstractScheduledService {
@@ -16,7 +14,7 @@ class TempoTimesheetValidationScheduledService  extends AbstractScheduledService
     def botOwnerEmail = System.getenv("BOT_OWNER_EMAIL")
     def lastWeekReported
 
-    private final static Logger logger = LoggerFactory.getLogger(TerraformScheduledService.class)
+    private final static Logger logger = LoggerFactory.getLogger(TempoTimesheetValidationScheduledService.class)
 
     def TempoTimesheetValidationScheduledService(def session) {
         this.slackSession = session
@@ -63,8 +61,7 @@ class TempoTimesheetValidationScheduledService  extends AbstractScheduledService
     def lastWeek() {
         def cal = Calendar.instance
         cal.add(Calendar.DAY_OF_WEEK, -7)
-        def sdf = new SimpleDateFormat("yyyy-MM-dd")
-        sdf.format(cal.getTime())
+        this.tempoApi.dateFormat.format(cal.getTime())
     }
 
     /**
@@ -73,29 +70,34 @@ class TempoTimesheetValidationScheduledService  extends AbstractScheduledService
      *
      */
     def doRunOneIteration() {
-        def lastWeekNumber = lastWeekNumber()
-        if (lastWeekNumber == this.lastWeekReported) {
+        def lwn = lastWeekNumber()
+        if (lwn == this.lastWeekReported) {
             logger.info("Report for the previous week has already been reported, no need to check the status.")
             return
         }
-        if (tempoApi.isTimesheetApproved(lastWeek())) {
+        def lw = lastWeek()
+
+        if (tempoApi.isTimesheetApproved(lw)) {
             logger.info("Timesheet approval detected, generating a report")
 
             def botOwner = slackSession.findUserByEmail(this.botOwnerEmail)
-            def dateBegin = tempoApi.lastSunday()
-            def dateEnd = tempoApi.nextFriday(dateBegin)
+
+            def dateBegin = tempoApi.dateFormat.format(tempoApi.lastSunday(lw).toDate())
+            def dateEnd = tempoApi.dateFormat.format(tempoApi.nextFriday(dateBegin).toDate())
 
             def report = tempoApi.generateReport(dateBegin, dateEnd)
 
             slackSession.sendMessageToUser(botOwner, SlackPreparedMessage.builder().message(
                     "It looks like your timesheet from the previous week has " +
-                            "been approved, I am going to generate a report from it, please wait ...").build())
+                            "been approved, I am going to generate a report from it.").build())
 
             slackSession.sendFileToUser(botOwner, report, "Timesheet report " +
                     "from ${dateBegin} to ${dateEnd}")
 
             /* updates the variable, and wait for next week */
-            this.lastWeekReported = lastWeekNumber
+            this.lastWeekReported = lwn
+        } else {
+            logger.info("Report for last week not generated yet, but last week's timesheet has not approved either.")
         }
     }
 
