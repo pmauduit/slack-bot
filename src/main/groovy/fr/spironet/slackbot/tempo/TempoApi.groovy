@@ -239,15 +239,13 @@ class TempoApi {
     }
 
     /**
-     * Given a date, returns if the timesheet the date belongs to
-     * has been approved or not.
+     * Given a date, returns the timesheet status (dateFrom, dateTo, status (approved or not)
      *
      * @param date the date the period belongs to.
-     * @return true if timesheet for this period has been approved,
-     * false otherwize.
+     * @return a map describing the current state of the timesheet period.
      *
      */
-    def isTimesheetApproved(def date) {
+    def timesheetApprovalStatus(def date) {
         def response = http.get(
                 uri: this.jiraUrl,
                 path: TempoApi.timeSheetApprovalStatus,
@@ -256,7 +254,9 @@ class TempoApi {
                         Authorization: "Basic " + "${this.username}:${this.password}".bytes.encodeBase64()
                 ],
         )
-        return response.data[0].status == "approved"
+        return [ approved: response.data[0].status == "approved",
+                 dateFrom: response.data[0].period.dateFrom,
+                 dateTo: response.data[0].period.dateTo ]
     }
 
     /**

@@ -55,8 +55,8 @@ class TempoTimesheetValidationScheduledServiceTest {
 
         // first iteration: timesheet not approved yet
         this.toTest.tempoApi = new TempoApi(null, null, null) {
-            def isTimesheetApproved(def date) {
-                return false
+            def timesheetApprovalStatus(def date) {
+                return [approved: false ]
             }
         }
         this.toTest.doRunOneIteration()
@@ -71,8 +71,8 @@ class TempoTimesheetValidationScheduledServiceTest {
         this.toTest.tempoApi = new TempoApi(null, null, null) {
             def reportGenerated = false
             // timesheet has now been approved
-            def isTimesheetApproved(def date) {
-                return true
+            def timesheetApprovalStatus(def date) {
+                return [ approved: true ]
             }
             def generateReport(def begDate, def endDate) {
                 reportGenerated = true

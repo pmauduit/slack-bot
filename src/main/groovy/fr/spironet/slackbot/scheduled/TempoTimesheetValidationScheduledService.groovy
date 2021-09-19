@@ -76,23 +76,20 @@ class TempoTimesheetValidationScheduledService  extends AbstractScheduledService
             return
         }
         def lw = lastWeek()
-
-        if (tempoApi.isTimesheetApproved(lw)) {
+        def tsStatus = tempoApi.timesheetApprovalStatus(lw)
+        if (tsStatus.approved) {
             logger.info("Timesheet approval detected, generating a report")
 
             def botOwner = slackSession.findUserByEmail(this.botOwnerEmail)
 
-            def dateBegin = tempoApi.dateFormat.format(tempoApi.lastSunday(lw).toDate())
-            def dateEnd = tempoApi.dateFormat.format(tempoApi.nextFriday(dateBegin).toDate())
-
-            def report = tempoApi.generateReport(dateBegin, dateEnd)
+            def report = tempoApi.generateReport(tsStatus.dateFrom, tsStatus.dateTo)
 
             slackSession.sendMessageToUser(botOwner, SlackPreparedMessage.builder().message(
                     "It looks like your timesheet from the previous week has " +
                             "been approved, I am going to generate a report from it.").build())
 
             slackSession.sendFileToUser(botOwner, report, "Timesheet report " +
-                    "from ${dateBegin} to ${dateEnd}")
+                    "from ${tsStatus.dateFrom} to ${tsStatus.dateTo}")
 
             /* updates the variable, and wait for next week */
             this.lastWeekReported = lwn

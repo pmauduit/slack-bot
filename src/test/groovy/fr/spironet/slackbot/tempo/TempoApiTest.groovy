@@ -112,15 +112,15 @@ class TempoApiTest {
 
     @Test
     void testIsTimesheetApprovedNotApprovedYet() {
-        def ret = this.toTest.isTimesheetApproved("2021-09-13")
+        def ret = this.toTest.timesheetApprovalStatus("2021-09-13")
 
-        assertFalse(ret)
+        assertFalse(ret.approved)
     }
     @Test
     void testIsTimesheetApprovedTsApproved() {
-        def ret = this.toTest.isTimesheetApproved("2021-09-06")
+        def ret = this.toTest.timesheetApprovalStatus("2021-09-06")
 
-        assertTrue(ret)
+        assertTrue(ret.approved)
     }
 
 }
