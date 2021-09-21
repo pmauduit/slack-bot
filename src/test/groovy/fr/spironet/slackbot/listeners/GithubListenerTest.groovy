@@ -18,6 +18,7 @@ class GithubListenerTest {
             }
             def msg = ghLstnr.findRepositories(["trifouillis"])
             assertTrue(msg.message.contains("myorg/georchestra-trifouillis-public-customizations") &&
+                    msg.message.contains("*<https://github.com/myorg/terraform-trifouillismetropole/commits|history>* |") &&
                     msg.message.contains("*<https://github.com/myorg/terraform-trifouillismetropole/issues|issues> (2)* |") &&
                     msg.message.contains("*<https://github.com/myorg/terraform-trifouillismetropole/pulls|pull-requests>* |") &&
                     msg.message.contains("*<https://github.com/myorg/terraform-trifouillismetropole/actions|Github-Actions>*")
