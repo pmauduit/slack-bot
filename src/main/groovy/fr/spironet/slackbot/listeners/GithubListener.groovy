@@ -45,7 +45,6 @@ class GithubListener implements SlackMessagePostedListener  {
         "georchestra-drealcorse-ansible",
         "georchestra-drealcorse-configuration",
         "georchestra-drealcorse-docker",
-        "terraform-georchestra",
         "terraform-rennesmetropole"
     ]
 

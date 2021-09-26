@@ -3,10 +3,38 @@ package fr.spironet.slackbot.github
 import groovyx.net.http.ContentType
 import groovyx.net.http.RESTClient
 
+import java.time.Instant
+import java.time.LocalDateTime
+
 class GithubApiClient {
 
     private def githubToken
     def http = new RESTClient("https://api.github.com")
+
+    /**
+     * Default constructor. Expects the GITHUB_TOKEN environment variable
+     * to be defined, and will throw a RuntimeException if it is not the case.
+     *
+     */
+    def GithubApiClient() {
+        if (System.env["GITHUB_TOKEN"] == null) {
+            throw new RuntimeException("Expected GITHUB_TOKEN to be defined.")
+        }
+        initialize(System.env["GITHUB_TOKEN"])
+    }
+    /**
+     * Constructor with a github token manually (e.g. not coming from the environment variables)
+     * set.
+     *
+     * @param token the token to use for authentication on the Github API.
+     */
+    def GithubApiClient(def token) {
+        initialize(token)
+    }
+
+    private def initialize(def token) {
+        this.githubToken = token
+    }
 
     private def graphQlTopicsPerRepoPerOrg = '''
         query($cursor: String, $query: String!)
@@ -72,8 +100,20 @@ class GithubApiClient {
         ret
     }
 
-    def GithubApiClient(def token) {
-        this.githubToken = token
+    /**
+     * Gets the received event for the user given as argument.
+     *
+     * @param user the user to query github for.
+     *
+     * @return a list of events
+     */
+    def getReceivedEventForUser(def user) {
+        def actualPath = String.format("/users/%s/received_events", user)
+        def http = new RESTClient("https://api.github.com")
+        def response = http.get(path: actualPath,
+                headers: ["Authorization": "Bearer ${this.githubToken}",
+                          "User-Agent": "groovyx.net.http.RESTClient"])
+        response.data
     }
 
     /**
