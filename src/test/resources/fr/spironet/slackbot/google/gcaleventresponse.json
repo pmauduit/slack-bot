@@ -1,0 +1,127 @@
+[
+  {
+    "end": {
+      "dateTime": "2021-01-25T11:00:00.000+01:00",
+      "timeZone": "Europe/Zurich"
+    },
+    "organizer": {
+      "email": "user1@company.com"
+    },
+    "start": {
+      "dateTime": "2021-01-25T10:00:00.000+01:00",
+      "timeZone": "Europe/Zurich"
+    },
+    "summary": "[Team geO] Point hebdo"
+  },
+  {
+    "end": {
+      "dateTime": "2021-06-14T14:00:00.000+02:00",
+      "timeZone": "Europe/Amsterdam"
+    },
+    "organizer": {
+      "email": "user2@company2.com"
+    },
+    "start": {
+      "dateTime": "2021-06-14T13:15:00.000+02:00",
+      "timeZone": "Europe/Amsterdam"
+    },
+    "summary": "Open Consultation Hour"
+  },
+  {
+    "end": {
+      "dateTime": "2021-09-01T11:15:00.000+02:00",
+      "timeZone": "Europe/Amsterdam"
+    },
+    "organizer": {
+      "email": "user3@company2.com"
+    },
+    "start": {
+      "dateTime": "2021-09-01T11:00:00.000+02:00",
+      "timeZone": "Europe/Amsterdam"
+    },
+    "summary": "Daily Team #1"
+  },
+  {
+    "end": {
+      "dateTime": "2021-09-13T11:00:00.000+02:00",
+      "timeZone": "Europe/Zurich"
+    },
+    "organizer": {
+      "email": "user1@company.com"
+    },
+    "start": {
+      "dateTime": "2021-09-13T10:00:00.000+02:00",
+      "timeZone": "Europe/Zurich"
+    },
+    "summary": "[Team geO] Point hebdo"
+  },
+  {
+    "end": {
+      "dateTime": "2020-03-23T10:30:00.000+01:00",
+      "timeZone": "Europe/Zurich"
+    },
+    "organizer": {
+      "email": "john@doe.com"
+    },
+    "start": {
+      "dateTime": "2020-03-23T10:15:00.000+01:00",
+      "timeZone": "Europe/Zurich"
+    },
+    "summary": "[WonderTeam] Daily Meeting"
+  },
+  {
+    "end": {
+      "dateTime": "2021-09-21T10:30:00.000+02:00",
+      "timeZone": "Europe/Zurich"
+    },
+    "organizer": {
+      "email": "john@doe.com"
+    },
+    "start": {
+      "dateTime": "2021-09-21T10:15:00.000+02:00",
+      "timeZone": "Europe/Zurich"
+    },
+    "summary": "[WonderTeam] Daily Meeting"
+  },
+  {
+    "end": {
+      "dateTime": "2021-09-27T15:30:00.000+02:00",
+      "timeZone": "Europe/Paris"
+    },
+    "organizer": {
+      "email": "user1@company.com"
+    },
+    "start": {
+      "dateTime": "2021-09-27T14:00:00.000+02:00",
+      "timeZone": "Europe/Paris"
+    },
+    "summary": "point gitlab tuptup"
+  },
+  {
+    "end": {
+      "dateTime": "2021-09-27T14:30:00.000+02:00",
+      "timeZone": "Europe/Zurich"
+    },
+    "organizer": {
+      "displayName": "PointyHaired Boss",
+      "email": "aaa@company4.com"
+    },
+    "start": {
+      "dateTime": "2021-09-27T14:00:00.000+02:00",
+      "timeZone": "Europe/Zurich"
+    },
+    "summary": "[rnd21] Sprint #2 review"
+  },
+  {
+    "end": {
+      "dateTime": "2021-09-27T10:30:00.000+02:00"
+    },
+    "organizer": {
+      "email": "john@doe.com"
+    },
+    "start": {
+      "dateTime": "2021-09-27T10:15:00.000+02:00"
+    },
+    "summary": "[WonderTeam] Daily Meeting"
+  }
+]

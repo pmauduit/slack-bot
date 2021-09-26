@@ -7,6 +7,8 @@ import java.nio.file.Paths
 
 import static org.junit.Assert.assertNotNull
 import static org.junit.Assert.assertTrue
+import static org.junit.Assume.assumeTrue
+
 class WebBrowserTest {
     def toTest
 
@@ -26,6 +28,7 @@ class WebBrowserTest {
 
     @Test
     void testKibanaDashboardNoEnvVars() {
+        assumeTrue(System.env["KIBANA_USER"] == null)
         def ret = toTest.visitKibanaDashboard()
 
         assertTrue(ret == null)
@@ -33,6 +36,7 @@ class WebBrowserTest {
 
     @Test
     void testVisitGrafanaMonitoringDashboardNoEnvVars() {
+        assumeTrue(System.env["GRAFANA_USER"] == null)
         def ret = toTest.visitGrafanaMonitoringDashboard()
 
         assertTrue(ret == null)

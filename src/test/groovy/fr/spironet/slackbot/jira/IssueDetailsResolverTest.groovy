@@ -1,12 +1,10 @@
 package fr.spironet.slackbot.jira
 
-import groovy.json.JsonSlurper
-import groovyx.net.http.RESTClient
 import org.junit.Before
 import org.junit.Test
 
-import static org.junit.Assert.assertArrayEquals
 import static org.junit.Assert.assertTrue
+import static org.junit.Assume.assumeTrue
 
 class IssueDetailsResolverTest {
     def toTest
@@ -52,7 +50,8 @@ class IssueDetailsResolverTest {
 
     @Test(expected = RuntimeException)
     void testCtorNoEnvVariables() {
-        def toTest = new IssueDetailsResolver()
+        assumeTrue(System.env["JIRA_CLIENT_PROPERTY_FILE"] == null)
+        new IssueDetailsResolver()
     }
 
     @Test(expected = RuntimeException)
