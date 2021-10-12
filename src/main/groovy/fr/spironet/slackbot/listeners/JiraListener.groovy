@@ -20,10 +20,6 @@ class JiraListener implements SlackMessagePostedListener  {
     def issueResolver
     JiraRss jiraRss
 
-    def jiraUser
-    def jiraPassword
-    def jiraUrl
-
     def dateFormat = new SimpleDateFormat("yyyy-MM-dd")
 
     def usage = """
@@ -245,7 +241,7 @@ class JiraListener implements SlackMessagePostedListener  {
           }
           // Describe a specific issue
           def issue = issueResolver.loadIssue(issueKey)
-          String jiraIssueMessage = "*Issue <${this.jiraUrl}/browse/${issueKey}|${issueKey}>*: ${issue.fields.summary}\n\n"+
+          String jiraIssueMessage = "*Issue <${this.issueResolver.jiraUrl}/browse/${issueKey}|${issueKey}>*: ${issue.fields.summary}\n\n"+
                   "${issue.fields.description}\n\n"+
                   "Reported by: ${issue.fields.reporter.name}"
           session.sendMessage(channelOnWhichMessageWasPosted,
