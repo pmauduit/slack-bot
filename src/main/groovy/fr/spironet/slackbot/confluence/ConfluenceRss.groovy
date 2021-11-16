@@ -58,7 +58,7 @@ class ConfluenceRss {
                 "pageSubTypes"    : ["comment", "attachment"],
                 "blogpostSubTypes": ["comment", "attachment"],
                 "spaces"          : "conf_favorites",
-                "sort"            : "modified",
+                "sort"            : "created",
                 "maxResults"      : "10",
                 "timeSpan"        : "5",
                 "showContent"     : "false"
