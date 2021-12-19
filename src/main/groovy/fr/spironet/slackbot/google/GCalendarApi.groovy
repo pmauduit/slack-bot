@@ -73,7 +73,7 @@ class GCalendarApi {
                 .build()
         def creds = new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user")
         this.client = new com.google.api.services.calendar.Calendar.Builder(
-                httpTransport, JSON_FACTORY, creds).setApplicationName("spironet/gdrive-slackbot-1.0").build()
+                httpTransport, JSON_FACTORY, creds).setApplicationName("spironet/gcal-slackbot-1.0").build()
     }
 
 

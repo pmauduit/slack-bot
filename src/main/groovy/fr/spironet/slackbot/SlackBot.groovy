@@ -7,6 +7,7 @@ import com.ullink.slack.simpleslackapi.impl.SlackSessionFactory
 import fr.spironet.slackbot.listeners.*
 import fr.spironet.slackbot.scheduled.ConfluenceRssScheduledService
 import fr.spironet.slackbot.scheduled.GithubScheduledService
+import fr.spironet.slackbot.scheduled.GoogleCalendarJob
 import fr.spironet.slackbot.scheduled.JiraRssScheduledService
 import fr.spironet.slackbot.scheduled.JiraScheduledService
 import fr.spironet.slackbot.scheduled.KibanaJob
@@ -53,13 +54,25 @@ tempoService.startAsync()
 
 // Prepare "cron-like" services
 // kibana
-def trigger = newTrigger()
+def kibanaTrigger = newTrigger()
         // every mondays at 10:15:00 AM
         .withSchedule(cronSchedule("0 15 10 ? * MON")
-            .inTimeZone(TimeZone.getTimeZone("Europe/Paris")))
+                .inTimeZone(TimeZone.getTimeZone("Europe/Paris")))
         .build()
-def job = newJob(KibanaJob.class).build()
-def scheduler = new StdSchedulerFactory().getScheduler()
-scheduler.getContext().put(KibanaJob.SLACK_SESSION_ID, session)
-scheduler.scheduleJob(job, trigger)
-scheduler.start()
+def kibanaJob = newJob(KibanaJob.class).build()
+def kibanaScheduler = new StdSchedulerFactory().getScheduler()
+kibanaScheduler.getContext().put(KibanaJob.SLACK_SESSION_ID, session)
+kibanaScheduler.scheduleJob(kibanaJob, kibanaTrigger)
+kibanaScheduler.start()
+
+// google calendar summary
+def gcalTrigger = newTrigger()
+        // every morning (working days), 9AM
+        .withSchedule(cronSchedule("0 0 9 ? * MON,TUE,WED,THU,FRI *")
+                .inTimeZone(TimeZone.getTimeZone("Europe/Paris")))
+        .build()
+def gcalJob = newJob(GoogleCalendarJob.class).build()
+def gcalScheduler = new StdSchedulerFactory().getScheduler()
+gcalScheduler.getContext().put(GoogleCalendarJob.SLACK_SESSION_ID, session)
+gcalScheduler.scheduleJob(gcalJob, gcalTrigger)
+gcalScheduler.start()
