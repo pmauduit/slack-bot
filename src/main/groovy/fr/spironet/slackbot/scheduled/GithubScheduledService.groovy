@@ -111,7 +111,9 @@ class GithubScheduledService extends AbstractScheduledService {
     def notifyEvent(def event, def botOwner) {
         def phrase = ""
         if (event.type == "PushEvent") {
-            phrase = ":arrow_up: ${event.actor.login} pushed ${event.payload.size} commits onto <https://github.com/${event.repo.name}|${event.repo.name}> in ${event.payload.ref}\n"
+            def reference = event.payload.ref - "refs/heads/"
+            def historyUrl = "https://github.com/${event.repo.name}/commits/${reference}"
+            phrase = ":arrow_up: ${event.actor.login} pushed ${event.payload.size} commits onto <${historyUrl}|${event.repo.name}> in ${event.payload.ref}\n"
         } else if (event.type == "PullRequestEvent") {
             // url of the PR will be in event.payload.pull_request.url
             phrase = ":git-pull-request: ${event.actor.login} ${event.payload.action} <https://github.com/${event.repo.name}/pull/${event.payload.number}|PR #${event.payload.number}> onto <https://github.com/${event.repo.name}|${event.repo.name}>"
