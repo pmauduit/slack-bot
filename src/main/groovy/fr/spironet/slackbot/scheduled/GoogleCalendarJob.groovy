@@ -38,7 +38,7 @@ class GoogleCalendarJob implements Job
             def timeStart = it.start.dateTime?.getValue()
             def timeEnd = it.end.dateTime?.getValue()
             if (timeStart != null && timeEnd != null) {
-                msg += "• From *${dudu.hourMinutes.format(timeStart)}* to *${dudu.hourMinutes.format(timeEnd)}*: _${it.summary}_\n"
+                msg += "• From *${this.hourMinutes.format(timeStart)}* to *${this.hourMinutes.format(timeEnd)}*: _${it.summary}_\n"
             } else {
                 msg += "• *The whole day*: _${it.summary}_\n"
             }
