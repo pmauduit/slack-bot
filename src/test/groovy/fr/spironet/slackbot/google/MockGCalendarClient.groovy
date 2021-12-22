@@ -21,6 +21,8 @@ class MockEvents {
     def setTimeMax(def timeMax) { return this }
     def setFields(def fields)   { return this }
     def setPageToken(def token) { return this }
+    def setSingleEvents(def b)  { return this }
+    def setOrderBy(def ob)      { return this }
 
     def execute() {
       return new Object() {

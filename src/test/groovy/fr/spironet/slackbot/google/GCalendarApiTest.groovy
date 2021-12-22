@@ -12,7 +12,7 @@ class GCalendarApiTest {
     void testGetTodaysEvents() {
         def ret = toTest.getTodaysEvents()
 
-        assertTrue(ret.size() == 9 &&
+        assertTrue(ret.size() == 7 &&
         ret[0].organizer.email == "user1@company.com")
     }
 

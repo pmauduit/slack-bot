@@ -88,9 +88,11 @@ class GCalendarApi {
             def events = client.events().list('primary')
                     .setTimeMin(new DateTime(todayMidnight))
                     .setTimeMax(new DateTime(today23h59m59s))
-                    .setFields("items(summary,organizer,start,end)")
+                    //.setFields("items(summary,organizer,start,end,status)")
+                    .setSingleEvents(true)
+                    .setOrderBy("startTime")
                     .setPageToken(pageToken).execute()
-            items.addAll(events.getItems())
+            items.addAll(events.getItems().findAll { it.status == "confirmed"})
             pageToken = events.getNextPageToken()
         } while (pageToken != null)
 
