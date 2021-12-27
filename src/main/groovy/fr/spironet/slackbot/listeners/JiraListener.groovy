@@ -21,6 +21,8 @@ class JiraListener implements SlackMessagePostedListener  {
     JiraRss jiraRss
 
     def dateFormat = new SimpleDateFormat("yyyy-MM-dd")
+    def jiraDtFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+    def humanReadableDateTime = new SimpleDateFormat("EEE, d MMM yyyy', at 'HH:mm:ss")
 
     def usage = """
     Usage: !jira (<jira-id>|mine|user <username>|monitoring|support|worklog <jira-id>|activity)
@@ -241,7 +243,15 @@ class JiraListener implements SlackMessagePostedListener  {
           }
           // Describe a specific issue
           def issue = issueResolver.loadIssue(issueKey)
-          String jiraIssueMessage = "*Issue <${this.issueResolver.jiraUrl}/browse/${issueKey}|${issueKey}>*: ${issue.fields.summary}\n\n"+
+          def reportedOn = issue.fields.created
+          try {
+            reportedOn = this.jiraDtFormat.parse(reportedOn)
+            reportedOn = this.humanReadableDateTime.format(reportedOn)
+          } catch (Exception e) {
+            logger.error("Unable to parse date {}, using raw date from the JSON", issue.fields.created, e)
+          }
+          String jiraIssueMessage = "*Issue <${this.issueResolver.jiraUrl}/browse/${issueKey}|${issueKey}>* reported on _${reportedOn}_:" +
+                  " ${issue.fields.summary}\n\n"+
                   "${issue.fields.description}\n\n"+
                   "Reported by: ${issue.fields.reporter.name}"
           session.sendMessage(channelOnWhichMessageWasPosted,
