@@ -250,10 +250,11 @@ class JiraListener implements SlackMessagePostedListener  {
           } catch (Exception e) {
             logger.error("Unable to parse date {}, using raw date from the JSON", issue.fields.created, e)
           }
+          def reporterUrl = "<${this.issueResolver.jiraUrl}/secure/ViewProfile.jspa?name=${issue.fields.reporter.name}|${issue.fields.reporter.name}>"
           String jiraIssueMessage = "*Issue <${this.issueResolver.jiraUrl}/browse/${issueKey}|${issueKey}>* reported on _${reportedOn}_:" +
-                  " ${issue.fields.summary}\n\n"+
+                  " *${issue.fields.summary}*\n\n"+
                   "${issue.fields.description}\n\n"+
-                  "Reported by: ${issue.fields.reporter.name}"
+                  "Reported by: _${reporterUrl}_"
           session.sendMessage(channelOnWhichMessageWasPosted,
                   SlackPreparedMessage.builder().message(jiraIssueMessage).build()
           )
