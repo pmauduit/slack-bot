@@ -28,7 +28,12 @@ class JiraScheduledService extends AbstractScheduledService
         this.issueResolver = new IssueDetailsResolver()
     }
 
-    private SlackPreparedMessage getIssuesToNotify() {
+    public JiraScheduledService(def session, def issueResolver) {
+        this.slackSession = session
+        this.issueResolver = issueResolver
+    }
+
+    SlackPreparedMessage getIssuesToNotify() {
         def jql = "project = GEO and created <= now() and created  >= startOfWeek() and component = georchestra"
         def issues = issueResolver.searchJiraIssues(jql)
         def issuesToNotify = []
@@ -43,7 +48,12 @@ class JiraScheduledService extends AbstractScheduledService
         }
         def message = ":warning: New issues coming from JIRA *(${issuesToNotify.size()})*:\n"
         issuesToNotify.each {
-            message += "• *<${this.issueResolver.jiraUrl}/browse/${it.key}|${it.key}>* - ${it.fields.summary}\n"
+            def currentOrg = this.issueResolver.computeOrganization(it)
+            message += "• *<${this.issueResolver.jiraUrl}/browse/${it.key}|${it.key}>*"
+            if (currentOrg != null) {
+                message += " - :office: *${currentOrg}*"
+            }
+            message += " - ${it.fields.summary}\n"
         }
         return SlackPreparedMessage.builder().message(message).build()
     }
