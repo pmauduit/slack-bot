@@ -59,12 +59,20 @@ class OdooListener implements SlackMessagePostedListener  {
      */
     def vacations() {
         def plannedVacations = []
+        def message = ""
         try {
             plannedVacations = odooClient.getComingLeavesForUser(this.username)
         } catch (DisconnectedFromOdooException e) {
-            odooClient.login()
+            // then retry
+            try {
+                odooClient.login()
+                plannedVacations = odooClient.getComingLeavesForUser(this.username)
+            } catch (RuntimeException e2) {
+                logger.error("Tried logging in again on Odoo, no luck, giving up", e2)
+                message = ":desert_island: Unable to get the vacations for now (check the bot logs)"
+                return SlackPreparedMessage.builder().message(message).build()
+            }
         }
-        def message = ""
         def inFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         def outFormat = new SimpleDateFormat("yyyy-MM-dd")
         if (plannedVacations.size() > 0) {
@@ -174,8 +182,21 @@ class OdooListener implements SlackMessagePostedListener  {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd")
         def from = format.format(today) + "T00:00:00.0Z"
         def to   = format.format(tomorrow) + "T00:00:00.0Z"
-
-        def ret = odooClient.getAttendances(this.username, from, to)
+        def ret
+        def message
+        try {
+            ret = odooClient.getAttendances(this.username, from, to)
+        } catch (DisconnectedFromOdooException _) {
+            // second chance ?
+            odooClient.login()
+            try {
+                ret = odooClient.getAttendances(this.username, from, to)
+            } catch (RuntimeException e2) {
+                logger.error("Tried logging in again on Odoo, no luck, giving up", e2)
+                message = ":interrobang: Unable to get the attendances for the moment (check the bot logs)"
+                return SlackPreparedMessage.builder().message(message).build()
+            }
+        }
 
         SimpleDateFormat outputOdooFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         outputOdooFormat.setTimeZone(TimeZone.getTimeZone("GMT"))
@@ -213,8 +234,22 @@ class OdooListener implements SlackMessagePostedListener  {
         def from = format.format(lastWeek) + "T00:00:00.0Z"
         def to   = format.format(now)   + "T00:00:00.0Z"
 
-        def ret = odooClient.getAttendances(this.username, from, to)
+        def ret
+        def message
 
+        try {
+            ret = odooClient.getAttendances(this.username, from, to)
+        } catch (DisconnectedFromOdooException _) {
+            // second chance ?
+            odooClient.login()
+            try {
+                ret = odooClient.getAttendances(this.username, from, to)
+            } catch (RuntimeException e2) {
+                logger.error("Tried logging in again on Odoo, no luck, giving up", e2)
+                message = ":interrobang: Error while trying to interact with Odoo (check the bot logs)"
+                return SlackPreparedMessage.builder().message(message).build()
+            }
+        }
         SimpleDateFormat outputOdooFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         outputOdooFormat.setTimeZone(TimeZone.getTimeZone("GMT"))
 
