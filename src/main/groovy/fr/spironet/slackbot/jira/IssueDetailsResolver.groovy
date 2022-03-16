@@ -116,12 +116,14 @@ class IssueDetailsResolver {
      * Searches for JIRA issues, using the search API endpoint.
      *
      * @param jql the query, following Jira Query Language (JQL) syntax.
+     * @param maxResults the maximum number of jira issues to be returned, capped to 500. By default
+     * our JIRA endpoint limits to 50 results.
      *
      * @return a Groovy list, corresponding to the JSON deserialization of the API call's response.
      */
-    def searchJiraIssues(def jql) {
+    def searchJiraIssues(def jql, def maxResults=500) {
         def jqlEncoded = java.net.URLEncoder.encode(jql, "UTF-8")
-        return loadJira("/rest/api/2/search", "jql=${jqlEncoded}").issues
+        return loadJira("/rest/api/2/search", "jql=${jqlEncoded}&maxResults=${maxResults}").issues
     }
     /**
      * Loads the general infos for an issue.
