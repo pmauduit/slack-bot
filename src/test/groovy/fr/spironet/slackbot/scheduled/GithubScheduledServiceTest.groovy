@@ -10,8 +10,10 @@ import static org.junit.Assert.assertTrue
 
 class GithubScheduledServiceTest extends GithubScheduledService {
 
+
     GithubScheduledServiceTest() {
         super(new MockSlackSession(), new MockGithubApiClient())
+        this.botOwnerEmail = "pierre.mauduit@example.com"
     }
 
     @BeforeEach
@@ -71,5 +73,31 @@ class MockSlackSession {
 
     def sendMessageToUser(def user, def message) {
         messages << message
+    }
+
+    def sendMessage(def channel, def message) {
+        messages << message
+    }
+
+    def getChannels() {
+        [
+               new MockChannel()
+        ]
+    }
+
+    public class MockChannel {
+        def direct = true
+        def MockChannel() {}
+
+        def getMembers() {
+            [ new MockMember("pierre.mauduit@example.com" )]
+        }
+    }
+
+    public static class MockMember {
+        def userMail
+        def MockMember(def userMail) {
+            this.userMail = userMail
+        }
     }
 }

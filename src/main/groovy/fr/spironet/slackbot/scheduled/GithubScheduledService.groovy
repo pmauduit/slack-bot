@@ -3,6 +3,7 @@ package fr.spironet.slackbot.scheduled
 import com.google.common.cache.CacheBuilder
 import com.google.common.util.concurrent.AbstractScheduledService
 import com.ullink.slack.simpleslackapi.SlackPreparedMessage
+import com.ullink.slack.simpleslackapi.SlackSession
 import fr.spironet.slackbot.github.DefaultEventFilter
 import fr.spironet.slackbot.github.GithubApiClient
 import groovyx.net.http.RESTClient
@@ -17,7 +18,7 @@ import java.util.concurrent.TimeUnit
 class GithubScheduledService extends AbstractScheduledService {
 
     private def githubWatchedUser = System.getenv("GITHUB_WATCHED_USER")
-    private def botOwnerEmail = System.getenv("BOT_OWNER_EMAIL")
+    protected def botOwnerEmail = System.getenv("BOT_OWNER_EMAIL")
 
     def slackSession
     def zid = ZoneId.systemDefault()
@@ -69,11 +70,6 @@ class GithubScheduledService extends AbstractScheduledService {
 
     @Override
     protected void runOneIteration() throws Exception {
-        def botOwner = slackSession.findUserByEmail(this.botOwnerEmail)
-        if (botOwner == null) {
-            logger.warn("botOwner not found, skipping iteration")
-            return
-        }
         try {
 
             def evts = this.githubApiClient.getReceivedEventForUser(this.githubWatchedUser)
@@ -95,7 +91,7 @@ class GithubScheduledService extends AbstractScheduledService {
                 }
                 it
             }.each  {
-                this.notifyEvent(it, botOwner)
+                this.notifyEvent(it)
                 this.notificationMap.put(it.id, it.id)
             }
         } catch (Exception e) {
@@ -108,7 +104,7 @@ class GithubScheduledService extends AbstractScheduledService {
         return Scheduler.newFixedRateSchedule(0, 2, TimeUnit.MINUTES)
     }
 
-    def notifyEvent(def event, def botOwner) {
+    def notifyEvent(def event) {
         def phrase = ""
         if (event.type == "PushEvent") {
             def reference = event.payload.ref - "refs/heads/"
@@ -155,7 +151,15 @@ class GithubScheduledService extends AbstractScheduledService {
         }
         def msg = SlackPreparedMessage.builder().message(phrase).build()
 
-        this.slackSession.sendMessageToUser(botOwner, msg)
+        def expectedChan = this.slackSession.getChannels().find {
+            it.direct == true &&
+                    it.getMembers().find { sl -> sl.userMail == this.botOwnerEmail } != null
+        }
+        if (expectedChan == null) {
+            logger.error("Unable to find the channel in which to send the notification, giving up")
+            return
+        }
+        this.slackSession.sendMessage(expectedChan, msg)
     }
 
 }
