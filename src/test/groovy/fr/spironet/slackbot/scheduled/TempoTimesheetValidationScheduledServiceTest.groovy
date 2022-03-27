@@ -1,5 +1,6 @@
 package fr.spironet.slackbot.scheduled
 
+import fr.spironet.slackbot.slack.MockSlackSession
 import fr.spironet.slackbot.tempo.TempoApi
 import org.junit.Before
 import org.junit.Test
@@ -67,8 +68,10 @@ class TempoTimesheetValidationScheduledServiceTest {
     void testDoRunOneIterationNotTheSameWeekTimesheetApproved() {
         def previousReported = this.toTest.lastWeekReported
         this.toTest.lastWeekReported -= 1
+        this.toTest.botOwnerEmail = "pierre.mauduit@example.com"
 
         this.toTest.tempoApi = new TempoApi(null, null, null) {
+
             def reportGenerated = false
             // timesheet has now been approved
             def timesheetApprovalStatus(def date) {
@@ -78,24 +81,12 @@ class TempoTimesheetValidationScheduledServiceTest {
                 reportGenerated = true
             }
         }
-        this.toTest.slackSession = new Object() {
-            def messageToUserSent = false
-            def fileToUserSent = false
-            def findUserByEmail(def botOwnerEmail) {
-                return "aaaaa"
-            }
-            def sendMessageToUser(def user, def message) {
-                this.messageToUserSent = true
-            }
-            def sendFileToUser(def user, def file, def desc) {
-                this.fileToUserSent = true
-            }
-        }
+        this.toTest.slackSession = new MockSlackSession()
 
         this.toTest.doRunOneIteration()
 
-        assertTrue(this.toTest.slackSession.messageToUserSent == true &&
-                this.toTest.slackSession.messageToUserSent == true    &&
+        assertTrue(this.toTest.slackSession.messageToUserSent() == true &&
+                this.toTest.slackSession.fileSent() == true    &&
                 this.toTest.tempoApi.reportGenerated == true          &&
                 this.toTest.lastWeekReported == previousReported
         )

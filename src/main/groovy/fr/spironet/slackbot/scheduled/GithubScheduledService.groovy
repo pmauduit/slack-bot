@@ -3,10 +3,8 @@ package fr.spironet.slackbot.scheduled
 import com.google.common.cache.CacheBuilder
 import com.google.common.util.concurrent.AbstractScheduledService
 import com.ullink.slack.simpleslackapi.SlackPreparedMessage
-import com.ullink.slack.simpleslackapi.SlackSession
-import fr.spironet.slackbot.github.DefaultEventFilter
 import fr.spironet.slackbot.github.GithubApiClient
-import groovyx.net.http.RESTClient
+import fr.spironet.slackbot.slack.SlackWorkaround
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
@@ -151,10 +149,7 @@ class GithubScheduledService extends AbstractScheduledService {
         }
         def msg = SlackPreparedMessage.builder().message(phrase).build()
 
-        def expectedChan = this.slackSession.getChannels().find {
-            it.direct == true &&
-                    it.getMembers().find { sl -> sl.userMail == this.botOwnerEmail } != null
-        }
+        def expectedChan = SlackWorkaround.findPrivateMessageChannel(this.slackSession, this.botOwnerEmail)
         if (expectedChan == null) {
             logger.error("Unable to find the channel in which to send the notification, giving up")
             return

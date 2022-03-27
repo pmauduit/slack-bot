@@ -5,6 +5,7 @@ import com.google.common.util.concurrent.AbstractScheduledService
 import com.ullink.slack.simpleslackapi.SlackPreparedMessage
 import com.ullink.slack.simpleslackapi.SlackSession
 import fr.spironet.slackbot.jira.IssueDetailsResolver
+import fr.spironet.slackbot.slack.SlackWorkaround
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
@@ -61,14 +62,14 @@ class JiraScheduledService extends AbstractScheduledService
     @Override
     protected void runOneIteration() throws Exception {
         try {
-            def botOwner = slackSession.findUserByEmail(botOwnerEmail)
-            if (botOwner == null) {
-                logger.error("bot owner not found: ${botOwnerEmail}")
-                return
-            }
             def msg = getIssuesToNotify()
             if (msg != null) {
-                slackSession.sendMessageToUser(botOwner, msg)
+                def botOwner = SlackWorkaround.findPrivateMessageChannel(slackSession, this.botOwnerEmail)
+                if (botOwner == null) {
+                    logger.error("Unable to find the channel in which to send the notification, giving up")
+                    return
+                }
+                slackSession.sendMessage(botOwner, msg)
             }
         } catch (Exception e) {
             logger.error("Error occured while running", e)
