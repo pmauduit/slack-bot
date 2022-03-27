@@ -166,5 +166,4 @@ class TempoListener implements SlackMessagePostedListener {
             }
         }
     }
-
 }

@@ -38,6 +38,7 @@ session.addMessagePostedListener(new TempoListener())
 session.addMessagePostedListener(new GrafanaListener())
 session.addMessagePostedListener(new KibanaListener())
 session.addMessagePostedListener(new GCalListener())
+session.addMessagePostedListener(new GDriveListener())
 
 JiraScheduledService jiraService = new JiraScheduledService(session)
 jiraService.startAsync()
