@@ -1,6 +1,7 @@
 package fr.spironet.slackbot.scheduled
 
 import fr.spironet.slackbot.github.MockGithubApiClient
+import fr.spironet.slackbot.slack.MockSlackSession
 import org.junit.Test
 import org.junit.jupiter.api.BeforeEach
 
@@ -61,43 +62,3 @@ class GithubScheduledServiceTest extends GithubScheduledService {
 }
 
 
-class MockSlackSession {
-
-    def messages = []
-
-    def reset() { this.messages = [] }
-
-    def findUserByEmail(def botOwnerEmail) {
-        return new Object()
-    }
-
-    def sendMessageToUser(def user, def message) {
-        messages << message
-    }
-
-    def sendMessage(def channel, def message) {
-        messages << message
-    }
-
-    def getChannels() {
-        [
-               new MockChannel()
-        ]
-    }
-
-    public class MockChannel {
-        def direct = true
-        def MockChannel() {}
-
-        def getMembers() {
-            [ new MockMember("pierre.mauduit@example.com" )]
-        }
-    }
-
-    public static class MockMember {
-        def userMail
-        def MockMember(def userMail) {
-            this.userMail = userMail
-        }
-    }
-}
