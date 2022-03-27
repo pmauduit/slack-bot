@@ -147,7 +147,20 @@ class OdooListener implements SlackMessagePostedListener  {
         def from = format.format(lastMonday) + "T00:00:00.0Z"
         def to   = format.format(tomorrow)  + "T00:00:00.0Z"
 
-        def ret = odooClient.getAttendances(this.username, from, to)
+        def ret, message
+        try {
+            ret = odooClient.getAttendances(this.username, from, to)
+        } catch (DisconnectedFromOdooException _) {
+            // second chance ?
+            odooClient.login()
+            try {
+                ret = odooClient.getAttendances(this.username, from, to)
+            } catch (RuntimeException e2) {
+                logger.error("Tried logging in again on Odoo, no luck, giving up", e2)
+                message = ":interrobang: Unable to get the attendances for the moment (check the bot logs)"
+                return SlackPreparedMessage.builder().message(message).build()
+            }
+        }
 
         SimpleDateFormat outputOdooFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         outputOdooFormat.setTimeZone(TimeZone.getTimeZone("GMT"))
