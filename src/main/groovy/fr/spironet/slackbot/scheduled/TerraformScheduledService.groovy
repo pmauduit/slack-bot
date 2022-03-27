@@ -6,6 +6,7 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder
 import com.google.common.util.concurrent.AbstractScheduledService
 import com.ullink.slack.simpleslackapi.SlackPreparedMessage
 import com.ullink.slack.simpleslackapi.SlackSession
+import fr.spironet.slackbot.slack.SlackWorkaround
 import fr.spironet.slackbot.terraform.TerraformState
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -41,11 +42,6 @@ class TerraformScheduledService extends AbstractScheduledService {
     }
 
     protected void runOneIteration() throws Exception {
-        def botOwner = slackSession.findUserByEmail(botOwnerEmail)
-        if (botOwner == null) {
-            logger.error("bot owner not found: ${botOwnerEmail}")
-            return
-        }
         this.keysToSpy.each {
             // first version is the ost recent one
             def knownVersion = this.lastKnownVersion[it]
@@ -62,7 +58,12 @@ class TerraformScheduledService extends AbstractScheduledService {
                     def message = ":terraform: *Changes detected* on state *${it}*:\n"
                     message += tfStateAnalyzer.prettyPrintDiff(diff)
                     def slackMessage = SlackPreparedMessage.builder().message(message).build()
-                    slackSession.sendMessageToUser(botOwner, slackMessage)
+                    def botOwner = SlackWorkaround.findPrivateMessageChannel(this.slackSession, this.botOwnerEmail)
+                    if (botOwner == null) {
+                        logger.error("Unable to find the channel in which to send the notification, giving up")
+                        return
+                    }
+                    slackSession.sendMessage(botOwner, slackMessage)
                 }
                 this.lastKnownVersion[it] = versions[0].id
             }

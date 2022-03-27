@@ -4,6 +4,7 @@ import com.google.common.cache.CacheBuilder
 import com.google.common.util.concurrent.AbstractScheduledService
 import com.ullink.slack.simpleslackapi.SlackPreparedMessage
 import fr.spironet.slackbot.confluence.ConfluenceRss
+import fr.spironet.slackbot.slack.SlackWorkaround
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
@@ -44,11 +45,6 @@ class ConfluenceRssScheduledService  extends AbstractScheduledService {
     @Override
     protected void runOneIteration() throws Exception {
         try {
-            def botOwner = slackSession.findUserByEmail(botOwnerEmail)
-            if (botOwner == null) {
-                logger.error("bot owner not found: ${botOwnerEmail}")
-                return
-            }
             def confluenceEvents = confluenceRss.rssLatestModifiedItems().findAll {
                  (
                    (! it.id?.isEmpty() &&                                   // event id not empty
@@ -67,7 +63,12 @@ class ConfluenceRssScheduledService  extends AbstractScheduledService {
                 this.notificationMap.put(it.id, it.id)
             }
             def slackMessage = SlackPreparedMessage.builder().message(message).build()
-            slackSession.sendMessageToUser(botOwner, slackMessage)
+            def botOwner = SlackWorkaround.findPrivateMessageChannel(this.slackSession, this.botOwnerEmail)
+            if (botOwner == null) {
+                logger.error("Unable to find the channel in which to send the notification, giving up")
+                return
+            }
+            slackSession.sendMessage(botOwner, slackMessage)
         } catch (Exception e) {
             logger.error("Error occured while running", e)
         } finally {

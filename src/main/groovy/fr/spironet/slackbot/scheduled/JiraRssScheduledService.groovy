@@ -4,6 +4,7 @@ package fr.spironet.slackbot.scheduled
 import com.google.common.util.concurrent.AbstractScheduledService
 import com.ullink.slack.simpleslackapi.SlackPreparedMessage
 import fr.spironet.slackbot.jira.JiraRss
+import fr.spironet.slackbot.slack.SlackWorkaround
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
@@ -41,12 +42,12 @@ class JiraRssScheduledService extends AbstractScheduledService {
 
     @Override
     protected void runOneIteration() throws Exception {
+        def botOwner = SlackWorkaround.findPrivateMessageChannel(this.slackSession, this.botOwnerEmail)
+        if (botOwner == null) {
+            logger.error("Unable to find the channel in which to send the notification, giving up")
+            return
+        }
         try {
-            def botOwner = slackSession.findUserByEmail(botOwnerEmail)
-            if (botOwner == null) {
-                logger.error("bot owner not found: ${botOwnerEmail}")
-                return
-            }
             def lmIssues = jiraRss.rssLatestModifiedIssues()
             // we do have the update date as value in the returned map
             // but the expired events will be filtered afterwards anyway.
@@ -57,7 +58,7 @@ class JiraRssScheduledService extends AbstractScheduledService {
                 }
                 if (! changes.isEmpty()) {
                     def msg = this.prepareNotification(issueId, changes)
-                    slackSession.sendMessageToUser(botOwner, msg)
+                    slackSession.sendMessage(botOwner, msg)
                 }
             }
         } catch (Exception e) {

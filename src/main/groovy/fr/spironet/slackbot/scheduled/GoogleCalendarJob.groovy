@@ -3,6 +3,7 @@ package fr.spironet.slackbot.scheduled
 import com.ullink.slack.simpleslackapi.SlackPreparedMessage
 import com.ullink.slack.simpleslackapi.SlackSession
 import fr.spironet.slackbot.google.GCalendarApi
+import fr.spironet.slackbot.slack.SlackWorkaround
 import org.quartz.Job
 import org.quartz.JobExecutionContext
 import org.quartz.JobExecutionException
@@ -28,11 +29,7 @@ class GoogleCalendarJob implements Job
             logger.error("Unable to get a hand on the slack session, stopping execution")
             return
         }
-        def botOwner = slackSession.findUserByEmail(this.botOwnerEmail)
-        if (botOwner == null) {
-            logger.warn("botOwner not found, skipping iteration")
-            return
-        }
+
         def msg = ":spiral_calendar_pad: Good morning ${botOwner.profile.realName}, here is a summary of your day, relying on your Google Calendar:\n"
         this.gcalApi.getTodaysEvents().each {
             def timeStart = it.start.dateTime?.getValue()
@@ -43,7 +40,12 @@ class GoogleCalendarJob implements Job
                 msg += "• *The whole day*: _${it.summary}_\n"
             }
         }
-        slackSession.sendMessageToUser(botOwner, SlackPreparedMessage.builder().message(msg).build())
+        def botOwner = SlackWorkaround.findPrivateMessageChannel(slackSession, this.botOwnerEmail)
+        if (botOwner == null) {
+            logger.error("Unable to find the channel in which to send the notification, giving up")
+            return
+        }
+        slackSession.sendMessage(botOwner, SlackPreparedMessage.builder().message(msg).build())
 
     }
 

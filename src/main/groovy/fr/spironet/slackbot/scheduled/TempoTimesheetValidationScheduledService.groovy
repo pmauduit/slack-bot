@@ -2,6 +2,7 @@ package fr.spironet.slackbot.scheduled
 
 import com.google.common.util.concurrent.AbstractScheduledService
 import com.ullink.slack.simpleslackapi.SlackPreparedMessage
+import fr.spironet.slackbot.slack.SlackWorkaround
 import fr.spironet.slackbot.tempo.TempoApi
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -79,16 +80,18 @@ class TempoTimesheetValidationScheduledService  extends AbstractScheduledService
         def tsStatus = tempoApi.timesheetApprovalStatus(lw)
         if (tsStatus.approved) {
             logger.info("Timesheet approval detected, generating a report")
-
-            def botOwner = slackSession.findUserByEmail(this.botOwnerEmail)
-
+            def botOwner = SlackWorkaround.findPrivateMessageChannel(this.slackSession, this.botOwnerEmail)
+            if (botOwner == null) {
+                logger.error("Unable to find the channel in which to send the notification, giving up")
+                return
+            }
             def report = tempoApi.generateReport(tsStatus.dateFrom, tsStatus.dateTo)
 
-            slackSession.sendMessageToUser(botOwner, SlackPreparedMessage.builder().message(
+            slackSession.sendMessage(botOwner, SlackPreparedMessage.builder().message(
                     "It looks like your timesheet from the previous week has " +
                             "been approved, I am going to generate a report from it.").build())
 
-            slackSession.sendFileToUser(botOwner, report, "Timesheet report " +
+            slackSession.sendFile(botOwner, report, "Timesheet report " +
                     "from ${tsStatus.dateFrom} to ${tsStatus.dateTo}")
 
             /* updates the variable, and wait for next week */
