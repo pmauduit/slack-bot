@@ -29,8 +29,8 @@ class GoogleCalendarJob implements Job
             logger.error("Unable to get a hand on the slack session, stopping execution")
             return
         }
-
-        def msg = ":spiral_calendar_pad: Good morning ${botOwner.profile.realName}, here is a summary of your day, relying on your Google Calendar:\n"
+        def slackUser = slackSession.findUserByEmail(this.botOwnerEmail)
+        def msg = ":spiral_calendar_pad: Good morning ${slackUser.profile.realName}, here is a summary of your day, relying on your Google Calendar:\n"
         this.gcalApi.getTodaysEvents().each {
             def timeStart = it.start.dateTime?.getValue()
             def timeEnd = it.end.dateTime?.getValue()
