@@ -51,7 +51,7 @@ class C2CGeospatialPlanning {
      * @return an integer for the current week of the year.
      */
     def currentWeekOfYear() {
-        return Calendar.getInstance().get(Calendar.WEEK_OF_YEAR) - 1
+        Calendar.getInstance(new Locale("en", "US")).get(Calendar.WEEK_OF_YEAR) - 1
     }
 
     /**
