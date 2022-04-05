@@ -25,13 +25,14 @@ class JiraListener implements SlackMessagePostedListener  {
     def humanReadableDateTime = new SimpleDateFormat("EEE, d MMM yyyy', at 'HH:mm:ss")
 
     def usage = """
-    Usage: !jira (<jira-id>|mine|user <username>|monitoring|support|worklog <jira-id>|activity)
-      mine returns your opened issues ordered by priority
-      support returns the opened issues for the support since the begining of the current week
-      monitoring returns the issues currently reported on the monitoring screen
-      worklog <jira-id> returns the worklog summarized by users of the provided JIRA issue
-      <jira-id> returns the title and the description of the given JIRA issue
-      activity returns the activity from the last week, relying on our personal RSS feed
+    Usage: !jira (<jira-id|project-key>|mine|user <username>|monitoring|support|worklog <jira-id>|activity)
+      • `mine` returns your opened issues ordered by priority
+      • `support` returns the opened issues for the support since the begining of the current week
+      • `monitoring` returns the issues currently reported on the monitoring screen
+      • `worklog <jira-id>` returns the worklog summarized by users of the provided JIRA issue
+      • `<jira-id>` returns the title and the description of the given JIRA issue
+      • `<project-key>` returns the 10 first opened issues of the given project, ordered by priority & update date
+      • `activity` returns the activity from the last week, relying on our personal RSS feed
 
     Example: !jira GEO-2246
     """
