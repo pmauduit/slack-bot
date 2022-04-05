@@ -75,6 +75,18 @@ class JiraListenerTest {
     }
 
     @Test
+    void testDoOnEventProjectKey() {
+        this.session.sentMessages = []
+        event.messageContent = "!jira GEO"
+        this.toTest.doOnEvent(event, session)
+
+        // a message should have been added with the help / usage
+        // as the "help" issue is probably not found.
+        assertTrue(session.sentMessages.size() == 1 &&
+                session.sentMessages[0].message.contains("Opened issues found for project *GEO*:"))
+    }
+
+    @Test
     void testDoOnEventBadIssueKey() {
         this.session.sentMessages = []
         event.messageContent = "!jira help"

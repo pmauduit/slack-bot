@@ -203,6 +203,12 @@ class JiraListener implements SlackMessagePostedListener  {
           def match = messageContent =~ /\!jira (\S+)/
           def issueKey = match[0][1]
           // Listing my issues
+          if ((issueKey == "help") || (issueKey == "usage")) {
+            session.sendMessage(channelOnWhichMessageWasPosted,
+                    SlackPreparedMessage.builder().message(usage).build()
+            )
+            return
+          }
           if (issueKey == "mine") {
             session.sendMessage(channelOnWhichMessageWasPosted,
                     issuesForUser(messageSender.getUserMail())
@@ -238,6 +244,34 @@ class JiraListener implements SlackMessagePostedListener  {
           if (issueKey == "activity") {
             session.sendMessage(channelOnWhichMessageWasPosted,
                     activity()
+            )
+            return
+          }
+          /* if issue key does not contain a dash, assumes we are asking for
+          * the issues listing of a project.
+           */
+          if (! issueKey.contains("-")) {
+            def issuesProject = this.issueResolver.searchJiraIssues("project = ${issueKey} AND " +
+                    "resolution = Unresolved ORDER BY priority DESC, updated DESC", 10)
+            def message = ""
+            if (issuesProject.size > 0) {
+              message = "Opened issues found for project *${issueKey}*:\n"
+              issuesProject.each {
+                message += ""
+                def currentOrg = this.issueResolver.computeOrganization(it)
+                def issueMsg = "• *<${this.issueResolver.jiraUrl}/browse/${it.key}|${it.key}>*"
+                if (currentOrg != null) {
+                  issueMsg += " - :office: *${currentOrg}*"
+                }
+                issueMsg += " - ${it.fields.summary}\n"
+                message += issueMsg
+              } // issuesProject.each
+            } else {
+              message = "No opened issues found for project *${issueKey}*"
+            }
+            session.sendMessage(
+                    channelOnWhichMessageWasPosted,
+                    SlackPreparedMessage.builder().message(message).build()
             )
             return
           }
