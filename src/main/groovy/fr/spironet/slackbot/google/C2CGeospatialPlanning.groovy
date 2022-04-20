@@ -163,20 +163,13 @@ class C2CGeospatialPlanning {
      */
     def getCurrentPlanningForUser(def trigramm) {
         def planningSheet =  spreadSheetsApi.service.spreadsheets().get(this.spreadSheetId).execute()
-
-        def lastSheetTitle = planningSheet.sheets[-1].properties.title
-        def beforeLastSheetTitle = planningSheet.sheets[-2].properties.title
-
         def guessedSheetName = this.guessCurrentSheetName()
 
-        def sheetIdx
-        if (lastSheetTitle.contains(guessedSheetName)) {
-            sheetIdx = lastSheetTitle
-        } else if (beforeLastSheetTitle.contains(guessedSheetName)) {
-            sheetIdx = beforeLastSheetTitle
-        } else {
-            return
-        }
+        // .reverse() because last sheets are the most recent ones
+        // and more likely to be of interest
+        def sheetIdx = planningSheet.sheets.reverse().find {
+            it.properties.title.contains(guessedSheetName)
+        }.properties.title
 
         def projectsLabels = this.getProjectLabels(sheetIdx)
         def daysAllocated = this.getDaysAllocated(sheetIdx, trigramm)
