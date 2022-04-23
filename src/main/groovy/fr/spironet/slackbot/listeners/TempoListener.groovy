@@ -110,14 +110,22 @@ class TempoListener implements SlackMessagePostedListener {
      * @throws Exception if the code is unable to parse, an Exception is thrown.
      */
     def parseCommand(def str) throws Exception {
-
         def match = str =~ messageWlPat
         if (match.size() > 0) {
-            if ((match[0][1] != "create") || isUnparseableDate(match[0][2])) {
+            def date = match[0][2]
+            if (date == "today") {
+                date = this.tempoApi.dateFormat.format(new Date())
+            } else if (date == "yesterday") {
+                def cal = Calendar.instance
+                cal.add(Calendar.DATE, -1)
+                date = this.tempoApi.dateFormat.format(cal.time)
+            }
+            if ((match[0][1] != "create") || isUnparseableDate(date)) {
                 throw new Exception("unable to parse tempo command")
             }
+
             return ['command'    : match[0][1],
-                    'date'       : match[0][2],
+                    'date'       : date,
                     'issueKey'   : match[0][3],
                     'timeMinutes': match[0][4],
                     'message'    : match[0][5]

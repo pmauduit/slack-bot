@@ -4,6 +4,8 @@ import fr.spironet.slackbot.tempo.MockTempoResponse
 import org.junit.Before
 import org.junit.Test
 
+import java.text.SimpleDateFormat
+
 import static org.junit.Assert.assertTrue
 import static org.junit.Assume.assumeTrue
 
@@ -27,6 +29,28 @@ class TempoListenerTest {
         ret = toTest.parseCommand("!tempo create 2021-09-12 AGFR-1 1h \"ts w/33\"")
         assertTrue(ret.size() == 5 &&
                 ret["command"] == "create")
+    }
+
+    @Test
+    void testParseCommandCreateTodayYesterday() {
+
+        def ret = toTest.parseCommand("!tempo create today AGFR-1 1h \"ts w/33\"")
+
+        assertTrue(ret.size() == 5 &&
+                ret["command"] == "create" &&
+                ret["date"] == new SimpleDateFormat("yyyy-MM-dd").format(new Date())
+        )
+
+        def yesterday = Calendar.instance
+        yesterday.add(Calendar.DATE, -1)
+
+        ret = toTest.parseCommand("!tempo create yesterday AGFR-1 1h \"ts w/33\"")
+
+        assertTrue(ret.size() == 5 &&
+                ret["command"] == "create" &&
+                ret["date"] == new SimpleDateFormat("yyyy-MM-dd").format(yesterday.time)
+        )
+
     }
 
     @Test(expected = Exception)
