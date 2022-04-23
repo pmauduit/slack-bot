@@ -117,7 +117,7 @@ class TempoListenerTest {
 
     @Test
     void testWorklogHistory() {
-        def ret = toTest.worklogHistoryMesage("2021-02-15")
+        def ret = toTest.worklogHistoryMessage("2021-02-15")
 
         assertTrue(ret.message.startsWith(":calendar: Here are the worklog entries in Jira/Tempo for *2021-02-15*:\n") &&
         ret.message.contains("ADM-1") && ret.message.contains("meeting weekly PROJ4"))
@@ -125,7 +125,7 @@ class TempoListenerTest {
 
     @Test
     void testWorklogHistoryNoEntry() {
-        def ret = toTest.worklogHistoryMesage("1994-02-15")
+        def ret = toTest.worklogHistoryMessage("1994-02-15")
 
         assertTrue(ret.message == ":calendar: No worklog entries found for *1994-02-15*.")
     }

@@ -112,7 +112,7 @@ class TempoListener implements SlackMessagePostedListener {
      * @param date the date as a string.
      * @return a SlackPreparedMessage object describing the worklog entries for the expected date.
      */
-    private SlackPreparedMessage worklogHistoryMesage(def date) {
+    private SlackPreparedMessage worklogHistoryMessage(def date) {
         def ret = ""
         def wl = tempoApi.searchWorklog(date, date)
         if (wl.size() > 0) {
