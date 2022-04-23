@@ -5,6 +5,9 @@ import groovy.json.JsonSlurper
 class MockTempoResponse {
     def post(def args) {
         if (args.path == TempoApi.searchWorklogUrl) {
+            // no results expected, see TempoListenerTest#testWorklogHistoryNoEntry()
+            if (args.body.from == "1994-02-15")
+                return []
             def txt = new File(
                     this.getClass().getResource("tempoSearch.json").toURI()
             ).text

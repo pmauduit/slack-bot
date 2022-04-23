@@ -53,6 +53,18 @@ class TempoListenerTest {
 
     }
 
+    @Test
+    void testParseCommandHisto() {
+        def ret = toTest.parseCommand("!tempo history 2020-10-02")
+
+        assertTrue(ret["command"] == 'history' && ret["date"] == "2020-10-02")
+    }
+
+    @Test(expected = Exception)
+    void testParseCommandHistoWrongDate() {
+        toTest.parseCommand("!tempo history blah")
+    }
+
     @Test(expected = Exception)
     void testParseCommandWrongReportBadDatest1Commands() {
         toTest.parseCommand("!tempo report dudu popo")
@@ -103,4 +115,18 @@ class TempoListenerTest {
         assertTrue(ret.message == "*An error occured while creating the worklog*")
     }
 
+    @Test
+    void testWorklogHistory() {
+        def ret = toTest.worklogHistoryMesage("2021-02-15")
+
+        assertTrue(ret.message.startsWith(":calendar: Here are the worklog entries in Jira/Tempo for *2021-02-15*:\n") &&
+        ret.message.contains("ADM-1") && ret.message.contains("meeting weekly PROJ4"))
+    }
+
+    @Test
+    void testWorklogHistoryNoEntry() {
+        def ret = toTest.worklogHistoryMesage("1994-02-15")
+
+        assertTrue(ret.message == ":calendar: No worklog entries found for *1994-02-15*.")
+    }
 }

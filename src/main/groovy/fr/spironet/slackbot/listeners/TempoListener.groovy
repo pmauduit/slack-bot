@@ -19,17 +19,22 @@ class TempoListener implements SlackMessagePostedListener {
     def usage = """
     Usage: !tempo create <date> <JIRA issue key> <time spent> "<message>"
     Creates a worklog
-    * date should have the 'yyyy-MM-dd' format
-    * JIRA issue key, e.g. "GSREN-22"
-    * time spent could be in the following form: "1h30m", or "1h", or "30m", or "2h00"
-    
+    • date should have the 'yyyy-MM-dd' format
+    • JIRA issue key, e.g. "GSREN-22"
+    • time spent could be in the following form: "1h30m", or "1h", or "30m", or "2h00"
+
     Usage: !tempo report <dateBegin> <dateEnd>
-    Creates a report from datebegin to dateend, sent to the user as an image over Slack.
-    * dateBegin and dateEnd should have the 'yyyy-MM-dd' format
+    Creates a graphical report from datebegin to dateend, sent to the user as an image over Slack.
+    • dateBegin and dateEnd should have the 'yyyy-MM-dd' format
+
+    Usage: !tempo history <date>
+    Returns the worklog for the date given as argument.
+    • date should have the 'yyyy-MM-dd' format
     """
 
-    def messageWlPat = /^\!tempo (.*) (.*) (.*) (.*) "(.*)"$/
-    def messageRepPat = /^\!tempo (.*) (.*) (.*)$/
+    def messageWlPat    = /^\!tempo (.*) (.*) (.*) (.*) "(.*)"$/
+    def messageRepPat   = /^\!tempo (.*) (.*) (.*)$/
+    def messageHistoPat = /^\!tempo history (.*)$/
 
     def tempoDateFormat = new SimpleDateFormat("yyyy-MM-dd")
 
@@ -102,6 +107,31 @@ class TempoListener implements SlackMessagePostedListener {
     }
 
     /**
+     * Searches for the worklog entries of the given date in argument.
+     *
+     * @param date the date as a string.
+     * @return a SlackPreparedMessage object describing the worklog entries for the expected date.
+     */
+    private SlackPreparedMessage worklogHistoryMesage(def date) {
+        def ret = ""
+        def wl = tempoApi.searchWorklog(date, date)
+        if (wl.size() > 0) {
+            ret += ":calendar: Here are the worklog entries in Jira/Tempo for *${date}*:\n"
+            wl.each {
+                def comment = it.comment
+                comment = comment.replace("\n", " ")
+                if (comment.size() > 60) {
+                    comment = comment.substring(0,60) << "..."
+                }
+                ret += "• *${it.issue.projectKey}* - *${it.timeSpent}* on ${it.issue.key} (_\"${comment}\"_)\n"
+            }
+        } else {
+            ret += ":calendar: No worklog entries found for *${date}*."
+        }
+        return SlackPreparedMessage.builder().message(ret).build()
+    }
+
+    /**
      * Given the string message caught by the listener, tries to parse the "!tempo" command arguments.
      *
      * @param str the string message received by the listener.
@@ -121,9 +151,8 @@ class TempoListener implements SlackMessagePostedListener {
                 date = this.tempoApi.dateFormat.format(cal.time)
             }
             if ((match[0][1] != "create") || isUnparseableDate(date)) {
-                throw new Exception("unable to parse tempo command")
+                throw new Exception("unable to parse tempo create command")
             }
-
             return ['command'    : match[0][1],
                     'date'       : date,
                     'issueKey'   : match[0][3],
@@ -135,11 +164,20 @@ class TempoListener implements SlackMessagePostedListener {
         if (match.size() > 0) {
             if ((match[0][1] != "report") || isUnparseableDate(match[0][2])
                     || isUnparseableDate(match[0][3])) {
-                throw new Exception("unable to parse tempo command")
+                throw new Exception("unable to parse tempo report command")
             }
             return ['command'  : match[0][1],
                     'dateBegin': match[0][2],
                     'dateEnd'  : match[0][3]
+            ]
+        }
+        match  = str =~ messageHistoPat
+        if (match.size() > 0) {
+            if (isUnparseableDate(match[0][1])) {
+                throw new Exception("unable to parse tempo history command")
+            }
+            return ['command': 'history',
+                    'date'   : match[0][1]
             ]
         }
         throw new Exception("unable to parse tempo command")
@@ -165,6 +203,9 @@ class TempoListener implements SlackMessagePostedListener {
                     def report = tempoApi.generateReport(params.dateBegin, params.dateEnd)
                     session.sendFile(channelOnWhichMessageWasPosted, report, "Timesheet report " +
                             "from ${params.dateBegin} to ${params.dateEnd}")
+                } else if (params.command == "history") {
+                    def mesg = worklogHistoryMessage(params.date)
+                    session.sendMessage(channelOnWhichMessageWasPosted, mesg)
                 }
             } catch (Exception e) {
                 logger.error("Error occured", e)
