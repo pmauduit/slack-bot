@@ -28,6 +28,9 @@ class OdooClient {
         this.http = new RESTClient()
     }
 
+    private def sdf          = new java.text.SimpleDateFormat("YYYY-MM-dd")
+    private def firstJanuary = new java.text.SimpleDateFormat("YYYY-01-01")
+
     public def isLoggedIn() {
         return this.isLoggedIn
     }
@@ -208,4 +211,31 @@ class OdooClient {
         return response.data.result.records
     }
 
+    public def getC2CHoursReport(def userLogin) {
+        def odooSearchReadUrl = "${odooScheme}://${odooHost}:${odooPort}/web/dataset/search_read"
+        def response = http.post(
+                uri: odooSearchReadUrl,
+                body: [
+                        jsonrpc: "2.0",
+                        method: "call",
+                        params: [
+                                model: "x_bi_sql_view.c2c_hours_report",
+                                domain: ["&",
+                                        ["x_user_id.login", "=", userLogin],
+                                        "&",
+                                         ["x_date", ">=", this.firstJanuary.format(new Date())],
+                                         ["x_date", "<=", this.sdf.format(new Date())]
+                                ],
+                                fields: ["x_nb_hours", "x_type_hour", "x_date"]
+                        ]
+                ],
+                requestContentType: ContentType.JSON,
+                headers: [Accept: "application/json"]
+        )
+        if (response.data.error?.message == "Odoo Session Expired") {
+            this.isLoggedIn = false
+            throw new DisconnectedFromOdooException()
+        }
+        return response.data.result.records.sum { it.x_nb_hours }
+    }
 }
