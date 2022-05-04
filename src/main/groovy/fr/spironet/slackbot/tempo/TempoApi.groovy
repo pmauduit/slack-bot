@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat
 class TempoApi {
     private def username
     private def password
-    private def jiraUrl
+    def jiraUrl
 
     def http = new RESTClient()
 

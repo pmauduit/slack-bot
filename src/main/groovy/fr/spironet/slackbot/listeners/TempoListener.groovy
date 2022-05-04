@@ -123,7 +123,8 @@ class TempoListener implements SlackMessagePostedListener {
                 if (comment.size() > 60) {
                     comment = comment.substring(0,60) << "..."
                 }
-                ret += "• *${it.issue.projectKey}* - *${it.timeSpent}* on ${it.issue.key} (_\"${comment}\"_)\n"
+                def issueUrl = this.tempoApi.jiraUrl + "/browse/${it.issue.key}"
+                ret += "• *${it.issue.projectKey}* - *${it.timeSpent}* on <${issueUrl}|${it.issue.key}> (_\"${comment}\"_)\n"
             }
         } else {
             ret += ":calendar: No worklog entries found for *${date}*."
