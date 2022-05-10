@@ -1,5 +1,6 @@
 package fr.spironet.slackbot.listeners
 
+import fr.spironet.slackbot.github.MockGithubApiClient
 import groovy.json.JsonSlurper
 import org.junit.Test
 
@@ -9,7 +10,8 @@ class GithubListenerTest {
 
     @Test
     void testGithubListenerFindRepos() {
-            def ghLstnr = new GithubListener() {
+            def githubApi = new MockGithubApiClient()
+            def ghLstnr = new GithubListener(githubApi) {
                 @Override
                 def doGithubSearch(def query) {
                     def ret = new File(this.getClass().getResource("github-api-query.json").toURI()).text

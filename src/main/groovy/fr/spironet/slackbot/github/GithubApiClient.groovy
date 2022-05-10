@@ -3,14 +3,15 @@ package fr.spironet.slackbot.github
 import groovyx.net.http.ContentType
 import groovyx.net.http.RESTClient
 
-import java.time.Instant
-import java.time.LocalDateTime
+import java.text.SimpleDateFormat
 
 class GithubApiClient {
 
     private def githubToken
     def http = new RESTClient("https://api.github.com")
 
+    def ghDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
+    def humanReadableDateFormat = new SimpleDateFormat("EEE, d MMM yyyy', at 'HH:mm:ss")
     /**
      * Default constructor. Expects the GITHUB_TOKEN environment variable
      * to be defined, and will throw a RuntimeException if it is not the case.
@@ -109,11 +110,28 @@ class GithubApiClient {
      */
     def getReceivedEventForUser(def user) {
         def actualPath = String.format("/users/%s/received_events", user)
-        def http = new RESTClient("https://api.github.com")
-        def response = http.get(path: actualPath,
+        def response = this.http.get(path: actualPath,
                 headers: ["Authorization": "Bearer ${this.githubToken}",
                           "User-Agent": "groovyx.net.http.RESTClient"])
         response.data
+    }
+
+    /**
+     * Given a repository in the form "org/repo", returns the status of the
+     * five last Github actions which ran for this repository.
+     *
+     * @param organisationRepository the repository to look for
+     * @param per_page number of results to return, defaults to 5
+     *
+     *  @return an array describing the status of the Github Actions having run.
+     */
+    def actions(def organisationRepository, def per_page = 5) {
+        def actualPath = "/repos/${organisationRepository}/actions/runs"
+        def response = this.http.get(path: actualPath,
+                query: ["per_page": per_page],
+                headers: ["Authorization": "Bearer ${this.githubToken}",
+                          "User-Agent": "groovyx.net.http.RESTClient"])
+        response.data.workflow_runs
     }
 
     /**

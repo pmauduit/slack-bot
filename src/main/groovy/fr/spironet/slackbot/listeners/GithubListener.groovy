@@ -1,19 +1,19 @@
 package fr.spironet.slackbot.listeners
 
 import com.ullink.slack.simpleslackapi.SlackChannel
+import com.ullink.slack.simpleslackapi.SlackPreparedMessage
 import com.ullink.slack.simpleslackapi.SlackSession
-import com.ullink.slack.simpleslackapi.impl.SlackSessionFactory
 import com.ullink.slack.simpleslackapi.SlackUser
 import com.ullink.slack.simpleslackapi.events.SlackMessagePosted
-import com.ullink.slack.simpleslackapi.SlackPreparedMessage
 import com.ullink.slack.simpleslackapi.listeners.SlackMessagePostedListener
-import fr.spironet.slackbot.listeners.JiraListener
+import fr.spironet.slackbot.github.GithubApiClient
 import groovyx.net.http.RESTClient
-import org.kohsuke.github.GitHub
 import org.kohsuke.github.GHIssueState
-
-import org.slf4j.LoggerFactory
+import org.kohsuke.github.GitHub
 import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
+import java.time.Duration
 
 class GithubListener implements SlackMessagePostedListener  {
 
@@ -22,9 +22,12 @@ class GithubListener implements SlackMessagePostedListener  {
     def gh_token
     def http
 
+    def githubApi
+
     def usage = """
     Usage: !github <command> <args...>
     Where command can be:
+    * action <org/repo>: lists the status of the last 5 github actions being run on the repository
     * prs <repository>: lists the opened PRs on the given repository
     * find topic [topics...]: lists the repositories which relate to the given topics
     examples:
@@ -50,7 +53,13 @@ class GithubListener implements SlackMessagePostedListener  {
 
     public GithubListener() {
        http = new RESTClient("https://api.github.com")
+
        gh_token = System.getenv("GITHUB_TOKEN")
+       this.githubApi = new GithubApiClient()
+    }
+
+    public GithubListener(def githubApi) {
+      this.githubApi = githubApi
     }
 
     private def getOpenedPrsFromGithub(def gh, def repo) {
@@ -132,6 +141,30 @@ class GithubListener implements SlackMessagePostedListener  {
       return SlackPreparedMessage.builder().message(ret).build()
     }
 
+    SlackPreparedMessage actions(def orgRepo) {
+      def acts = this.githubApi.actions(orgRepo)
+      def msg = ""
+      if (acts.size() == 0) {
+        return SlackPreparedMessage.builder().message("No github actions to display for *${orgRepo}*").build()
+      }
+      msg = ":zap: Here are the last *${acts.size()} actions* for *<https://github.com/${orgRepo}|${orgRepo}>*:\n"
+      acts.each {
+        def createdAt = githubApi.ghDateFormat.parse(it.created_at)
+        def hrCreatedAt = githubApi.humanReadableDateFormat.format(createdAt)
+        try {
+          def updatedAt = githubApi.ghDateFormat.parse(it.updated_at)
+          def dateDiff = Duration.between(createdAt.toInstant(), updatedAt.toInstant())
+          def timeNeeded = String.format("%d:%02d", dateDiff.toMinutes(), dateDiff.toSecondsPart())
+          msg += "• *<${it.html_url}|${it.name}>*: ${it.status} with *${it.conclusion}*, started on _${hrCreatedAt}_ *(${timeNeeded})*\n"
+        } catch (Exception e) {
+          logger.error("Unable to parse date/time created_at or updated_at", e)
+          msg += "• *<${it.html_url}|${it.name}>*: ${it.status} with *${it.conclusion}*, started on _${hrCreatedAt}_\n"
+        }
+      }
+
+      return SlackPreparedMessage.builder().message(msg).build()
+    }
+
     @Override
     public void onEvent(SlackMessagePosted event, SlackSession session) {
       SlackChannel channelOnWhichMessageWasPosted = event.getChannel()
@@ -156,6 +189,9 @@ class GithubListener implements SlackMessagePostedListener  {
           } else if (args[0] == "find") {
             def topics = args[1..-1]
             session.sendMessage(channelOnWhichMessageWasPosted, findRepositories(topics))
+          } else if (args[0] == "action") {
+            def repo = args[1]
+            session.sendMessage(channelOnWhichMessageWasPosted, actions(repo))
           }
         } catch (Exception e) {
           logger.error("Error occured", e)
