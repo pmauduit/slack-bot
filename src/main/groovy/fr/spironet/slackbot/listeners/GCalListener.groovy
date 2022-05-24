@@ -7,7 +7,6 @@ import com.ullink.slack.simpleslackapi.SlackUser
 import com.ullink.slack.simpleslackapi.events.SlackMessagePosted
 import com.ullink.slack.simpleslackapi.listeners.SlackMessagePostedListener
 import fr.spironet.slackbot.google.GCalendarApi
-import fr.spironet.slackbot.jira.IssueDetailsResolver
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
