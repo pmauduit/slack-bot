@@ -124,7 +124,7 @@
                             <platform>linux</platform>
                             <bit>64</bit>
                             <!-- see https://github.com/webdriverextensions/webdriverextensions-maven-plugin-repository/blob/master/repository-3.0.json -->
-                            <version>99.0.4844.51</version>
+                            <version>102.0.5005.61</version>
                         </driver>
                     </drivers>
                 </configuration>
