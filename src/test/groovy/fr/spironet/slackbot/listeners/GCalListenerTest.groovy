@@ -1,6 +1,7 @@
 package fr.spironet.slackbot.listeners
 
 import fr.spironet.slackbot.google.GCalendarApi
+import fr.spironet.slackbot.google.MockEvents
 import org.junit.Test
 
 import static org.junit.Assert.assertTrue
@@ -28,35 +29,10 @@ class GCalListenerTest {
 
 }
 
-class MockedCalendar {
-    def events() {
-        return this
-    }
+class MockedCalendar extends MockEvents {
+    def events() { return this }
 
-    def list(def _) {
-        return this
-    }
-
-    def setTimeMin(def _) {
-        return this
-    }
-
-    def setTimeMax(def _) {
-        return this
-    }
-
-    def setSingleEvents(def _) {
-        return this
-    }
-
-    def setOrderBy(def _) {
-        return this
-    }
-
-    def setPageToken(def _) {
-        return this
-    }
-
+    @Override
     def execute() {
         return new Object() {
             def getItems() {
@@ -87,7 +63,6 @@ class MockedCalendar {
                         ]
                 ]
             }
-
             def getNextPageToken() {
                 return null
             }
