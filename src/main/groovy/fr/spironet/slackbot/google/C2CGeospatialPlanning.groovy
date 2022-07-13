@@ -10,11 +10,11 @@ package fr.spironet.slackbot.google
  *
  * It involves:
  *
- * * determining which sheet describes the current spring (given the current week of the year + the sheet name),
- * * Check in this sheet what is the allocated time per project for a collaborator (finding the correct trigram,
+ * * determining which sheet describes the current sprint (given the current week of the year + the sheet name),
+ * * Checking in this sheet what is the allocated time per project for a collaborator (finding the correct trigram,
  *   and correlate with the first column containing the project descriptions).
  *
- * It could be interesting afterwards to be able to analyze the datas from JIRA/Tempo, and see if the
+ * It could be interesting to be able to analyze the datas from JIRA/Tempo afterwards, and see if the
  * employee diverged from the expected planning.
  *
  * But for now, being able to consult the planning via Slack is already an acceptable goal.
@@ -23,7 +23,7 @@ package fr.spironet.slackbot.google
 class C2CGeospatialPlanning {
     /**
      * the spreadsheet id. It can be easily found by opening the spreadsheet
-     * in google-drive, as it is part of the URL once in.
+     * in google-drive, as it is part of the URL once the sheet has been opened.
      */
     private def spreadSheetId
 
@@ -188,15 +188,4 @@ class C2CGeospatialPlanning {
         }
         return [ 'allocations' : allocations, 'sheet': sheetIdx ]
     }
-
-
-    public static void main(String[] args) {
-        def spreadsheetsApi = new SpreadsheetsApi()
-        def planningSheetId = System.env['C2C_GEOSPATIAL_PLANNING_SPREADSHEET_ID']
-        def planning = new C2CGeospatialPlanning(spreadsheetsApi, planningSheetId)
-        def searchedTrigramm = "PMT"
-        def allocations = planning.getCurrentPlanningForUser(searchedTrigramm)
-        println allocations
-    }
-
 }
