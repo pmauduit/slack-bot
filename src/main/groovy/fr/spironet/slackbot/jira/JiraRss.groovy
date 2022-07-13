@@ -157,6 +157,8 @@ class JiraRss {
      * @return an array of map having the following fields:
      *   * desc: description of the event,
      *   * date: the LocalDateTimeObject.
+     *   * issueId: The JIRA issue identifier, if any
+     *   * issueSummary: the JIRA issue title, if any
      */
     def rssGetMyActivity(def maxResults = 250) {
         def authorizationHeader = "Basic " + "${jiraUser}:${jiraPassword}".bytes.encodeBase64()
@@ -172,13 +174,22 @@ class JiraRss {
             if (date < lastSunday)
                 return null
             def summary = it.content.text().isEmpty() ? it.title.text() : it.title.text() + it.content.text()
+            def issueId = it.target.title.text() ?: it.object.title.text()
+            def issueSummary = it.target.summary.text() ?: it.object.summary.text()
+
+            // unable to detect an issue identifier, leaving it blank
+            if (!(issueId =~ jiraIssueKeyRegex)) {
+                issueId = ""
+                issueSummary = ""
+            }
+
             def doc = Jsoup.parse(summary).text()
             if (doc.contains(" logged ") || doc.contains(" updated 2 fields "))
                 return null
             if (doc.length() > 152)
                 doc = doc[0..150] + "…"
 
-            [desc: doc , date: date]
+            [desc: doc , date: date, issueId: issueId, issueSummary: issueSummary]
         }
         return entries
     }
@@ -199,12 +210,10 @@ class JiraRss {
             if (! (date in ret)) {
                 ret[date] = []
             }
-            def detectedIssuesKeys = it.desc.findAll(jiraIssueKeyRegex) as Set
-            if (detectedIssuesKeys.size() > 0) {
-                ret[date] = (ret[date] + detectedIssuesKeys) as Set
-            }
-
+            if (it.issueId)
+                ret[date] = (ret[date] + it.issueId) as Set
         }
+
         return ret
     }
 }

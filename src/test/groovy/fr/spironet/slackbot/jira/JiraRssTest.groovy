@@ -60,7 +60,7 @@ class JiraRssTest {
         def tested = toTest.getIssuesWorkedOnByDate(obj)
 
         assertTrue(tested.keySet().size() == 1 &&
-            tested["2021-09-15"].size() == 6
+            tested["2021-09-15"].size() == 5
         )
 
     }
