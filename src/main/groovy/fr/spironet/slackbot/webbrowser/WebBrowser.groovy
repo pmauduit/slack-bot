@@ -95,10 +95,11 @@ class WebBrowser {
             // crop the image a bit before sending it
             def im = ImageIO.read(new ByteArrayInputStream(data))
             // open gimp if you need to figure out relevant params here
-            def cropped = im.getSubimage(184, 120, 1720, 760)
+            def cropped = im.getSubimage(0, 168, 1900, 792)
             def baos = new ByteArrayOutputStream(2048)
             ImageIO.write(cropped, "png", baos)
             return new ByteArrayInputStream(baos.toByteArray())
+
         } finally {
             driver.close()
             driver.quit()
@@ -146,6 +147,14 @@ class WebBrowser {
         } finally {
             driver.close()
             driver.quit()
+        }
+    }
+
+    static void main(String[] args) {
+        def wb = new WebBrowser()
+        def blob = wb.visitKibanaDashboard()
+        new File("/tmp/dudu.png").withOutputStream {
+          it.write(blob.getBytes())
         }
     }
 }
