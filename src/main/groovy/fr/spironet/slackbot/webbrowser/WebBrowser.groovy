@@ -122,23 +122,23 @@ class WebBrowser {
             driver.get(grafanaUrl)
             def userInput = driver.findElementByCssSelector("input[name='user']")
             def passwordInput = driver.findElementByCssSelector("input[name='password']")
-            def loginButton = driver.findElementByCssSelector("button")
+            def loginButton = driver.findElementByCssSelector("button[aria-label='Login button']")
 
             userInput.sendKeys(grafanaUser)
             passwordInput.sendKeys(grafanaPassword)
+
             loginButton.click()
             // Wait until being connected
             new WebDriverWait(driver as WebDriver, 3).
                     until(ExpectedConditions.elementToBeClickable(By.cssSelector("img[alt='Grafana']")))
             // then visit the dashboard / trigger kiosk mode
             driver.get("${grafanaUrl}${grafanaDashboard}")
-            def bodyPage = driver.findElementByCssSelector("body")
-            bodyPage.sendKeys("dkdkdk")
-            // wait until the page alert list is empty ("press ESC to escape the kiosk mode")
-            // this should leave the time for the page to be loaded completely.
-            new WebDriverWait(driver as WebDriver, 3).
-                    until(ExpectedConditions.invisibilityOfElementLocated(
-                            By.cssSelector("div[class='page-alert-list']")))
+
+            // we are using the kiosk URL directly, so we don't have the message
+            // with "Press ESC to exit the kiosk mode" anymore.
+            // and the dashboard takes ages to load. Assuming that we should
+            // be ok with 15s, but the loading time varies a lot.
+            Thread.sleep(15000)
 
             byte[] data = driver.getScreenshotAs(OutputType.BYTES)
 
@@ -150,11 +150,4 @@ class WebBrowser {
         }
     }
 
-    static void main(String[] args) {
-        def wb = new WebBrowser()
-        def blob = wb.visitKibanaDashboard()
-        new File("/tmp/dudu.png").withOutputStream {
-          it.write(blob.getBytes())
-        }
-    }
 }
