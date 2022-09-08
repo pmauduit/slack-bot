@@ -168,16 +168,18 @@ class JiraListener implements SlackMessagePostedListener  {
       def items = jiraRss.rssGetMyActivity()
       def issuesByDate = jiraRss.getIssuesWorkedOnByDate(items)
       def issuesDesc = [:]
-      items.findAll { it.issueId }.each { issuesDesc[it.issueId] = it.issueSummary } as Set
+      items.findAll { it.issueId }.each {
+        def issue = this.issueResolver.loadIssue(it.issueId)
+        issuesDesc[it.issueId] = issue
+      } as Set
 
       if (issuesByDate.keySet().size() == 0)
         return SlackPreparedMessage.builder().message(":computer: No activity recorded from the JIRA RSS endpoint.").build()
       def ret = ":computer: Activity from the JIRA RSS endpoint (back to last sunday):\n"
       issuesByDate.each { k,v ->
-          ret += "*• ${k}:*\n"
-          v.each {
-            ret += "    ◦ <${this.jiraRss.jiraRssUrl}/browse/${it}|${it}> - ${issuesDesc[it]}\n"
-          }
+          ret += "*${k}:*\n"
+          def issues = v.findResults { it in issuesDesc ? issuesDesc[it] : null }
+          ret += formatIssues(issues)
       }
       return SlackPreparedMessage.builder().message(ret).build()
     }

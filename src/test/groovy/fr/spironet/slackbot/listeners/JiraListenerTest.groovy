@@ -178,9 +178,8 @@ class JiraListenerTest {
                 this.session.sentMessages[0].message.contains(
                         ":computer: Activity from the JIRA RSS endpoint (back to last sunday):"
                 ) &&
-                this.session.sentMessages[0].message.contains("*• 2021-09-15:*\n") &&
-                this.session.sentMessages[0].message.contains("<http://jira/browse/ABC-1234|ABC-1234>") &&
-                this.session.sentMessages[0].message.contains("\n    ◦ <http://jira/browse/DSCSTRM-123|DSCSTRM-123> - mviewer - tag en prod")
+                this.session.sentMessages[0].message.contains("*2021-09-15:*\n") &&
+                this.session.sentMessages[0].message.contains("• *<https://jira/browse/ABC-316|ABC-316>* - :office: *super_project* - _(In Progress)_ - Migration à CAS 6 dans wonderProject")
         )
     }
 
