@@ -68,6 +68,25 @@ class JiraListener implements SlackMessagePostedListener  {
     }
 
   /**
+   * Given an array of issues, prepares a string for output sent back by the bot via Slack.
+   *
+   * @param issues an array of issues
+   * @return a slack-formatted string describing the issues
+   */
+  private String formatIssues(def issues) {
+    def ret = ""
+    issues.each {
+      def currentOrg = this.issueResolver.computeOrganization(it)
+      def status = it.fields['status'].name
+      ret += "• *<${this.issueResolver.jiraUrl}/browse/${it.key}|${it.key}>*"
+      if (currentOrg != null) {
+        ret += " - :office: *${currentOrg}*"
+      }
+      ret += " - _(${status})_ - ${it.fields.summary}\n"
+    }
+    return ret
+  }
+  /**
    * Returns the issues for the user's mail passed as argument.
    *
    * @param slackUserMail the user's email who one want the issues for.
@@ -80,14 +99,7 @@ class JiraListener implements SlackMessagePostedListener  {
           return SlackPreparedMessage.builder().message("No issues for this user").build()
       }
       def ret = ":warning: Unresolved issues *(${issues.size()})*:\n"
-      issues.each {
-        def currentOrg = this.issueResolver.computeOrganization(it)
-        ret += "• *<${this.issueResolver.jiraUrl}/browse/${it.key}|${it.key}>*"
-        if (currentOrg != null) {
-          ret += " - :office: *${currentOrg}*"
-        }
-        ret += " - ${it.fields.summary}\n"
-      }
+      ret += formatIssues(issues)
       return SlackPreparedMessage.builder().message(ret).build()
     }
 
@@ -105,14 +117,7 @@ class JiraListener implements SlackMessagePostedListener  {
         return SlackPreparedMessage.builder().
                 message(":warning: _There are no issue on the monitoring screen currently._").build()
       def ret = ":warning: Issues currently reported on the monitoring screen *(${issues.size()})*:\n"
-      issues.each {
-        def currentOrg = issueResolver.computeOrganization(it)
-        ret += "• *<${this.issueResolver.jiraUrl}/browse/${it.key}|${it.key}>*"
-        if (currentOrg != null) {
-          ret += " - :office: ${currentOrg}"
-        }
-        ret += " - ${it.fields.summary}\n"
-      }
+      ret += formatIssues(issues)
       return SlackPreparedMessage.builder().message(ret).build()
     }
 
@@ -126,14 +131,7 @@ class JiraListener implements SlackMessagePostedListener  {
       def jql = "project = GEO AND NOT status = Resolved AND created >= startOfWeek()"
       def issues = this.issueResolver.searchJiraIssues(jql)
       def ret = ":warning: Unresolved issues in the GEO support project since the begining of the week *(${issues.size()})*:\n"
-      issues.each {
-        def currentOrg = this.issueResolver.computeOrganization(it)
-        ret += "• *<${this.issueResolver.jiraUrl}/browse/${it.key}|${it.key}>*"
-        if (currentOrg != null) {
-          ret += " - :office: ${currentOrg}"
-        }
-        ret += " - ${it.fields.summary}\n"
-      }
+      ret += formatIssues(issues)
       if (issues.issues.size() <= 0) {
         ret += "*none.*\n"
       }
@@ -258,16 +256,7 @@ class JiraListener implements SlackMessagePostedListener  {
             def message = ""
             if (issuesProject.size > 0) {
               message = "Opened issues found for project *${issueKey}*:\n"
-              issuesProject.each {
-                message += ""
-                def currentOrg = this.issueResolver.computeOrganization(it)
-                def issueMsg = "• *<${this.issueResolver.jiraUrl}/browse/${it.key}|${it.key}>*"
-                if (currentOrg != null) {
-                  issueMsg += " - :office: *${currentOrg}*"
-                }
-                issueMsg += " - ${it.fields.summary}\n"
-                message += issueMsg
-              } // issuesProject.each
+              message += formatIssues(issuesProject)
             } else {
               message = "No opened issues found for project *${issueKey}*"
             }
