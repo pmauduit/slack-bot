@@ -60,7 +60,7 @@ class GDriveListener implements SlackMessagePostedListener {
                 return usage()
             } else if (command == "planning") {
                 def trigramm = message =~ /\!gdrive planning (\S+)/
-                trigramm = trigramm[0][1]
+                trigramm = trigramm[0][1].toUpperCase()
                 def alloc = this.planningApi.getCurrentPlanningForUser(trigramm)
 
                 def msg = ":spiral_calendar_pad: Here is _${trigramm}_'s current GS planning (*${alloc.sheet}*):\n"
